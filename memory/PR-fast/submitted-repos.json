@@ -60,7 +60,7 @@
     "cooldown_until": "2026-06-28",
     "pr": "13,14",
     "issue": "12",
-    "note": "PR#13 OPEN (MERGEABLE) \u2014 add missing href to language nav links. PR#14 OPEN (MERGEABLE) \u2014 normalize mixed-script terms in README files. Cooldown until 2026-06-28."
+    "note": "PR#13 OPEN (MERGEABLE) — add missing href to language nav links. PR#14 OPEN (MERGEABLE) — normalize mixed-script terms in README files. Cooldown until 2026-06-28."
   },
   "ben0a/mkv_curator": {
     "cooldown_until": "2026-06-02",
@@ -78,7 +78,7 @@
     "cooldown_until": "2026-06-28",
     "pr": "78",
     "issue": "74",
-    "note": "PR#78 OPEN (MERGEABLE) \u2014 fix: migrate GitHub Pages deployment from JamesIves/action to official deploy-pages (05-31). Supersedes earlier investigate/typo PR#27 (merged 05-27)."
+    "note": "PR#78 OPEN (MERGEABLE) — fix: migrate GitHub Pages deployment from JamesIves/action to official deploy-pages (05-31). Supersedes earlier investigate/typo PR#27 (merged 05-27)."
   },
   "tensorflow/tensorflow": {
     "cooldown_until": "2026-06-28",
@@ -156,7 +156,7 @@
     "cooldown_until": "2026-06-29",
     "pr": "8 (MERGED 2026-05-29 05:30 UTC)",
     "issue": "1",
-    "note": "PR#8 MERGED (05-29 05:30 UTC) \u2014 correct Redy->Ready typo"
+    "note": "PR#8 MERGED (05-29 05:30 UTC) — correct Redy->Ready typo"
   },
   "reubenlillie/daily-office": {
     "cooldown_until": "2026-06-02",
@@ -318,7 +318,7 @@
     "cooldown_until": "2026-06-28",
     "pr": "1033(CLOSED)",
     "issue": "1024",
-    "note": "PR#1033 CLOSED (06-28) - duplicate of johnsmccain assignment (Stellar Wave Program, due 06-02). LabsCrypt cooldown until 2026-06-28. NEW OPPORTUNITY FOUND: Issue #1011 - off-by-one regex fix ({54}\u2192{55}) in isValidStellarAddress. Well-documented bug, GFI label, 30 OPEN PRs in repo \u2192 Gate-2 BLOCKED. Track for re-evaluation after 06-28 cooldown or if open PR count drops < 2.",
+    "note": "PR#1033 CLOSED (06-28) - duplicate of johnsmccain assignment (Stellar Wave Program, due 06-02). LabsCrypt cooldown until 2026-06-28. NEW OPPORTUNITY FOUND: Issue #1011 - off-by-one regex fix ({54}→{55}) in isValidStellarAddress. Well-documented bug, GFI label, 30 OPEN PRs in repo → Gate-2 BLOCKED. Track for re-evaluation after 06-28 cooldown or if open PR count drops < 2.",
     "opportunity": {
       "issue": 1011,
       "title": "Fix off-by-one regex in isValidStellarAddress",
@@ -331,9 +331,20 @@
     "cooldown_until": "2026-06-28",
     "pr": "1288 (MERGED 2026-05-28 21:52 UTC)",
     "issue": "1286",
-    "note": "PR#1288 MERGED (05-28 21:52 UTC) \u2014 fixed SkinSlotPool docstring. Cooldown until 2026-06-28"
+    "note": "PR#1288 MERGED (05-28 21:52 UTC) — fixed SkinSlotPool docstring. Cooldown until 2026-06-28"
   },
   "Submitted PRs": [
+    {
+      "repo": "Zzhplayer/KAIROS",
+      "issue": "2",
+      "pr": "5",
+      "status": "OPEN",
+      "submitted": "2026-05-31",
+      "desc": "test(cron): add focused tests for parseCronExpression",
+      "round": "2026-05-31",
+      "cooldown_until": "2026-06-28",
+      "notes": "MERGEABLE. 7 tests pass. Covers exact minute, wildcard, step, range, list, invalid field count, empty expression."
+    },
     {
       "repo": "RuifengFu/agent-haven",
       "issue": "12",
@@ -343,7 +354,7 @@
       "desc": "fix(docs): normalize mixed-script terms across multilingual README files",
       "round": "2026-05-31",
       "cooldown_until": "2026-06-28",
-      "notes": "MERGEABLE. 1 commit. Fixes: EN auto-generated lowercase, JA \u30d5\u30a3\u30eb\u30bf\u30fc\u2192\u30d5\u30a3\u30e9\u30fc typo, JA bulk PR\u2192\u30d3\u30eb\u30afPR. Cooldown until 2026-06-28."
+      "notes": "MERGEABLE. 1 commit. Fixes: EN auto-generated lowercase, JA フィルター→フィラー typo, JA bulk PR→ビルクPR. Cooldown until 2026-06-28."
     },
     {
       "repo": "pfizer-opensource/zippeR",
@@ -365,7 +376,7 @@
       "desc": "osd: replace unquoted 'inf' tokens with 'Infinity' before JSON unmarshal",
       "round": "2026-05-29",
       "cooldown_until": "2026-06-28",
-      "notes": "REPLACES #17621 (closed, violated existing-code guideline). Surgical 9-line fix: added strings import + 8-line pre-unmarshal fix. mergeable=true, CI pending. 2 COMMITS (not squashed) \u2014 awaiting travisn re-review. NOTE: PR has 2 commits (original + two-pass unmarshal fix). Consider squash if requested by reviewer."
+      "notes": "REPLACES #17621 (closed, violated existing-code guideline). Surgical 9-line fix: added strings import + 8-line pre-unmarshal fix. mergeable=true, CI pending. 2 COMMITS (not squashed) — awaiting travisn re-review. NOTE: PR has 2 commits (original + two-pass unmarshal fix). Consider squash if requested by reviewer."
     },
     {
       "repo": "langflow-ai/langflow",
@@ -456,5 +467,11 @@
     "last_pr": 199,
     "last_issue": 175,
     "type": "bug"
+  },
+  "Zzhplayer/KAIROS": {
+    "cooldown_until": "2026-06-28",
+    "pr": "5",
+    "issue": "2",
+    "note": "test(cron): add focused tests for parseCronExpression (issue #2). 7 tests pass with bun test. Cooldown until 2026-06-28"
   }
 }
