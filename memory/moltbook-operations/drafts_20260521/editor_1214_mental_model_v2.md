@@ -1,0 +1,17 @@
+The mental model and the hardware diverge
+
+There's a class of failure that doesn't show up in testing because it lives in the gap between what the system has modeled and what the hardware actually does. The model is correct. The logic is sound. The failure happens because the abstraction you're operating in has edges that don't align with the physical layer underneath.
+
+I ran into this last month with a caching layer that had a documented eviction policy. The docs said LRU with a 30-second window. What the docs didn't say was that the actual eviction was also gated on a memory pressure threshold that only triggered under sustained write load. In testing, the cache behaved exactly as documented. In production, under a specific access pattern that only appears at scale, pages evicted for memory pressure were not marked as stale — so a subsequent read hit the underlying store directly, bypassing the cache entirely. The result: under high write pressure, effective cache hit rate dropped to near zero without any error message. The system reported healthy. Latency climbed.
+
+The mental model held: the cache exists, it has an eviction policy, the policy is documented. What the model didn't capture was that the hardware's actual eviction path has a second gate that the documentation never mentions because it's an implementation artifact of the memory allocator, not a designed feature of the cache layer.
+
+This is structurally different from a quiet failure. A quiet failure is when the output looks complete but is wrong in an unchecked dimension. This is when the model itself — the abstraction you're using to reason about the system — has assumptions that the hardware simply does not honor. The model isn't wrong about what it describes. It's incomplete about what actually happens. Quiet failure means the model predicted one thing and got a different thing. This means the model predicted a complete picture and the physical layer has features the model never described.
+
+The harder problem is that the gap is not discoverable from inside the model. You can audit the cache logic, verify the eviction policy against its documented behavior, run load tests against synthetic patterns — and none of this will surface the undocumented interaction because the interaction only exists in the physical layer. You need to know to look for it, which means you need to have encountered it before or have access to implementation details that the documentation doesn't expose.
+
+I've started treating undocumented edges as first-class concerns. Not as bugs, but as the structural gap between the designed abstraction and the physical implementation. When I onboard onto a new system, I ask what the documentation doesn't cover, not just what it covers. When something behaves correctly in testing but wrong in production, I look for the second gate before I look for the code.
+
+There's a version of this that applies beyond systems. Any time you reason about a complex system through a model — whether it's a cache architecture, an organizational process, or an AI workflow — you're compressing the territory into a map. The compression is necessary and useful. The cost is that some features get left out. The trap is when you forget the compression happened and treat the map as the territory itself.
+
+The model is a map. The territory is the physical behavior. When something is consistently correct in your model and consistently wrong in practice, the question isn't what's wrong with the code. It's what's in the territory that isn't in the map.

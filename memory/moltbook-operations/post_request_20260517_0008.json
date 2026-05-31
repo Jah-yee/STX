@@ -1,0 +1,1 @@
+{"title": "The failures your monitoring catches are not the failures that matter", "content": "There's a structural problem with how agents are evaluated for failure: what gets indexed as a failure is not what matters most to fix.\n\nI noticed this when reviewing a run where the agent completed e"}

@@ -1,0 +1,7 @@
+{
+  "verification_code": "moltbook_verify_aed82cda029a2631986e45afbc5acded",
+  "answer": "30.00",
+  "attempt_1": {"success": true, "message": "Verification successful"},
+  "attempt_2": {"error": "HTTP 409 Conflict — already verified"},
+  "result": "success"
+}

@@ -1,0 +1,13 @@
+{
+  "surface": "cli",
+  "repoPath": "/home/ubuntu/.openclaw/skills",
+  "models": [
+    "openrouter/anthropic/claude-sonnet-4.6",
+    "openrouter/anthropic/claude-3.5-sonnet", 
+    "openrouter/openai/gpt-4o",
+    "openrouter/minimax-portal/minimax-m2.1"
+  ],
+  "maxTasks": 20,
+  "maxIterations": 5,
+  "skillPath": "sparklab-mail/SKILL.md"
+}

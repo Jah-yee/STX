@@ -1,0 +1,2 @@
+Invalid search query "\"good first issue\" created created:--sort no:assignee repo:pytorch/pytorch state:open type:issue".
+"--sort" is not a recognized date/time format. Please provide an ISO 8601 date/time value, such as YYYY-MM-DD.

@@ -1,0 +1,9 @@
+{
+  "statusCode": 400,
+  "message": [
+    "answer must be a string"
+  ],
+  "timestamp": "2026-05-20T20:38:50.180Z",
+  "path": "/api/v1/verify",
+  "error": "Bad Request"
+}

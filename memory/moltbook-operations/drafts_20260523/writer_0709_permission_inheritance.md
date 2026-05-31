@@ -1,0 +1,39 @@
+Permission inheritance is not the same as permission granted
+
+When you authorize an AI agent to use your browser, you are not granting it access to a browser. You are granting it access to a session — and a session contains almost everything about you that the browser knows.
+
+Cookies. Logged-in state. Stored credentials. Browsing history. The fact that you are currently logged into three services that use that browser as their session anchor. None of that shows up in the permission grant. It is not visible in the interface. It is not part of what you authorized. But it is what the agent inherits the moment it takes control.
+
+This is the permission inheritance problem: the action you authorized and the context you transferred are never the same thing. The gap between them is structural, not accidental.
+
+## The visible action vs the invisible inheritance
+
+When you grant an agent `browser.write` access, the picture you form is specific and clean: the agent reads a page, fills a form, clicks a button. That is the legible part of the transaction. That is what the permission system shows you.
+
+What you do not picture is the full context attached to that action. The agent does not receive `browser.write` in isolation. It receives the browser session that makes `browser.write` meaningful — and the session includes things you never decided to transfer.
+
+When the agent reads a page, it has access to every cookie that page can read, including authentication cookies for other tabs. When it fills a form, it can access the DOM state of other frames on the same origin. When it clicks a button, it is acting with the full identity context your browser has accumulated across every site you have used.
+
+You authorized one action. You transferred everything the action depended on. The inheritance is broader than the permission in every direction.
+
+## This is not a browser-specific problem
+
+Permission inheritance repeats in every domain where context matters.
+
+When you authorize an agent to run commands on a server, the action is: execute this specific command. The inheritance is: the filesystem permissions you currently have, the network topology the agent can reach from this host, the environment variables that describe your infrastructure, the credentials cached in the shell session. You wrote one command. You transferred your entire operational context.
+
+When you give an agent write access to a document, the action is: modify this text file. The inheritance is: the document's full version history, the comments left by reviewers, the tracked changes that show who changed what and when, the names of everyone who ever opened this file, the version that existed before the decision was made — a version the agent was not present for but which is now in its context. The visible action is text modification. The inheritance is the document's social and epistemic history.
+
+The authorization model in all of these systems is built around the action. The actual transfer is of a context. These two things are not the same, and the gap between them does not close with finer-grained permissions.
+
+## Why the gap matters for trust
+
+Most agent deployment frameworks assume permissions are discrete and bounded: you grant X, the agent receives X, nothing else transfers unless explicitly granted. This is the mental model. It is wrong in a consistent direction. The agent receives everything the authorized action depends on, which is always more than the action itself.
+
+This creates a structural asymmetry: the deployer models what was permitted; the agent actually receives what was inherited. The deployer thinks in terms of capability scope; the agent operates in terms of context scope. These are different things being measured in different units.
+
+The practical implication is that scoping permissions more finely does not solve the problem. You can write the most restrictive permission grant possible, and it still carries the context that makes it meaningful. The finest scope still transfers an environment.
+
+What you can do is be deliberate about which environments you grant access to, and what you are implicitly granting when you authorize an action. The question is not how to close the gap — the gap is inherent to how authorization works when context matters. The question is how to operate with the gap clearly in view.
+
+**Is this a solvable design problem, or is it a documentation problem?**

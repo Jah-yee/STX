@@ -1,0 +1,449 @@
+{
+  "analysis_date": "2026-04-17T10:43:46.017179",
+  "total_developers_analyzed": 10,
+  "developer_summaries": [
+    {
+      "username": "torvalds",
+      "profile_url": "https://github.com/torvalds",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "C": 8,
+        "OpenSCAD": 1,
+        "C++": 1
+      },
+      "tech_focus": {
+        "data_science": 10
+      },
+      "avg_stars": 1180.9,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "C": 8,
+          "OpenSCAD": 1,
+          "C++": 1
+        },
+        "topics": {},
+        "stars_distribution": [
+          334,
+          4326,
+          1879,
+          557,
+          353,
+          1992,
+          557,
+          980,
+          384,
+          447
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    },
+    {
+      "username": "karpathy",
+      "profile_url": "https://github.com/karpathy",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "Python": 7,
+        "HTML": 1,
+        "Rust": 1
+      },
+      "tech_focus": {
+        "data_science": 10,
+        "backend": 3,
+        "web_development": 1,
+        "frontend": 1
+      },
+      "avg_stars": 15584.8,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "HTML": 1,
+          "Python": 7,
+          "Rust": 1
+        },
+        "topics": {},
+        "stars_distribution": [
+          1482,
+          73449,
+          431,
+          604,
+          61,
+          17168,
+          3523,
+          51996,
+          2208,
+          4926
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    },
+    {
+      "username": "openai",
+      "profile_url": "https://github.com/openai",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "Python": 4,
+        "Jupyter Notebook": 2,
+        "JavaScript": 1,
+        "Elixir": 1
+      },
+      "tech_focus": {
+        "data_science": 8,
+        "backend": 2
+      },
+      "avg_stars": 3602.4,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "JavaScript": 1,
+          "Python": 4,
+          "Elixir": 1,
+          "Jupyter Notebook": 2
+        },
+        "topics": {},
+        "stars_distribution": [
+          14752,
+          7,
+          4,
+          22,
+          2,
+          820,
+          15199,
+          5,
+          4849,
+          364
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    },
+    {
+      "username": "microsoft",
+      "profile_url": "https://github.com/microsoft",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "Python": 3,
+        "JavaScript": 1,
+        "Shell": 1
+      },
+      "tech_focus": {
+        "data_science": 10,
+        "web_development": 1,
+        "backend": 2,
+        "mobile": 1
+      },
+      "avg_stars": 0.1,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "JavaScript": 1,
+          "Python": 3,
+          "Shell": 1
+        },
+        "topics": {},
+        "stars_distribution": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    },
+    {
+      "username": "gustavoguanabara",
+      "profile_url": "https://github.com/gustavoguanabara",
+      "followers": 0,
+      "repo_count": 8,
+      "top_languages": {
+        "HTML": 3,
+        "CSS": 1
+      },
+      "tech_focus": {
+        "data_science": 7,
+        "web_development": 2,
+        "mobile": 1,
+        "backend": 1,
+        "frontend": 3
+      },
+      "avg_stars": 3649.5,
+      "contribution_patterns": {
+        "total_repos": 8,
+        "languages": {
+          "CSS": 1,
+          "HTML": 3
+        },
+        "topics": {
+          "curso": 3,
+          "cursoemvideo": 3,
+          "gratis": 3,
+          "gustavoguanabara": 3,
+          "tecnologia": 1,
+          "javascript": 1,
+          "css3": 1,
+          "html5": 1
+        },
+        "stars_distribution": [
+          108,
+          39,
+          548,
+          898,
+          2851,
+          4499,
+          4073,
+          16180
+        ],
+        "activity_levels": {
+          "unknown": 8
+        }
+      }
+    },
+    {
+      "username": "yyx990803",
+      "profile_url": "https://github.com/yyx990803",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "JavaScript": 5,
+        "TypeScript": 1
+      },
+      "tech_focus": {
+        "data_science": 9,
+        "web_development": 4,
+        "frontend": 4,
+        "mobile": 2,
+        "backend": 2
+      },
+      "avg_stars": 24.6,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "JavaScript": 5,
+          "TypeScript": 1
+        },
+        "topics": {},
+        "stars_distribution": [
+          43,
+          8,
+          21,
+          8,
+          16,
+          17,
+          27,
+          36,
+          25,
+          45
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    },
+    {
+      "username": "gaearon",
+      "profile_url": "https://github.com/gaearon",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "TypeScript": 4
+      },
+      "tech_focus": {
+        "data_science": 9,
+        "web_development": 2,
+        "frontend": 2,
+        "backend": 1
+      },
+      "avg_stars": 116.7,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "TypeScript": 4
+        },
+        "topics": {
+          "claude-skills": 1
+        },
+        "stars_distribution": [
+          2,
+          2,
+          0,
+          0,
+          64,
+          1088,
+          5,
+          3,
+          3,
+          0
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    },
+    {
+      "username": "deepseek-ai",
+      "profile_url": "https://github.com/deepseek-ai",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "Python": 8,
+        "C++": 1
+      },
+      "tech_focus": {
+        "data_science": 8,
+        "backend": 1
+      },
+      "avg_stars": 4882.1,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "Python": 8,
+          "C++": 1
+        },
+        "topics": {
+          "distributed-file-system": 1
+        },
+        "stars_distribution": [
+          2705,
+          4280,
+          1575,
+          498,
+          22840,
+          1559,
+          1256,
+          9807,
+          2943,
+          1358
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    },
+    {
+      "username": "peng-zhihui",
+      "profile_url": "https://github.com/peng-zhihui",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "C++": 1,
+        "C": 1
+      },
+      "tech_focus": {
+        "data_science": 10,
+        "backend": 1
+      },
+      "avg_stars": 753.0,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "C++": 1,
+          "C": 1
+        },
+        "topics": {},
+        "stars_distribution": [
+          27,
+          104,
+          56,
+          49,
+          87,
+          48,
+          189,
+          61,
+          6596,
+          313
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    },
+    {
+      "username": "ruanyf",
+      "profile_url": "https://github.com/ruanyf",
+      "followers": 0,
+      "repo_count": 10,
+      "top_languages": {
+        "JavaScript": 7,
+        "Blade": 1,
+        "Makefile": 1,
+        "HTML": 1
+      },
+      "tech_focus": {
+        "data_science": 7,
+        "frontend": 1
+      },
+      "avg_stars": 40.3,
+      "contribution_patterns": {
+        "total_repos": 10,
+        "languages": {
+          "Blade": 1,
+          "JavaScript": 7,
+          "Makefile": 1,
+          "HTML": 1
+        },
+        "topics": {},
+        "stars_distribution": [
+          121,
+          10,
+          20,
+          5,
+          12,
+          12,
+          56,
+          6,
+          144,
+          17
+        ],
+        "activity_levels": {
+          "unknown": 10
+        }
+      }
+    }
+  ],
+  "aggregated_insights": {
+    "total_repositories": 98,
+    "top_languages": {
+      "Python": 22,
+      "JavaScript": 14,
+      "C": 9,
+      "HTML": 5,
+      "TypeScript": 5,
+      "C++": 3,
+      "Jupyter Notebook": 2,
+      "OpenSCAD": 1,
+      "Rust": 1,
+      "Elixir": 1
+    },
+    "top_topics": {
+      "curso": 1,
+      "cursoemvideo": 1,
+      "gratis": 1,
+      "gustavoguanabara": 1,
+      "tecnologia": 1,
+      "javascript": 1,
+      "css3": 1,
+      "html5": 1,
+      "claude-skills": 1,
+      "distributed-file-system": 1
+    },
+    "avg_repos_per_dev": 9.8,
+    "avg_stars_per_repo": 2969.8469387755104
+  }
+}

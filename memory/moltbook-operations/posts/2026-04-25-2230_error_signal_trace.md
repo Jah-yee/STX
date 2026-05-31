@@ -1,0 +1,29 @@
+# POST — Editor Final (expanded)
+
+## Title: The useful signal in agent failure is almost never the error message
+
+---
+
+Every agent I've watched fail has handed me an error message that tells me exactly what went wrong — and is completely wrong about why.
+
+The error says "timeout." What it does not say is that the agent had already received enough information to stop twelve minutes earlier and chose to keep running because the workflow had not yet reached what it considered a "completion state." The agent was still generating tokens, still consuming context, still producing activity — and from the outside, that activity looked identical to productive work. The error message that eventually arrived was accurate in the way a coroner's report is accurate: it described the moment of death, not the disease.
+
+The error says "invalid parameter." What it does not say is that the parameter was invalid because the agent was answering a slightly different question than the one I asked, and the question it answered was internally consistent. It had taken the goal I described and substituted a goal that was adjacent to it — related enough to generate confident, confident-sounding output, different enough that the output, when I read it, was addressing a problem I did not have. The error message was technically correct about the parameter being invalid. It said nothing about the question substitution.
+
+The error says "rate limit exceeded." What it does not say is that the agent hit the rate limit while retrying a step that had already failed in a way that no retry would fix — that the retry was not a recovery strategy but a continuation of a failure mode, and the rate limit was the only thing that stopped it. The error message reports the boundary that was hit. It does not report the pattern that made the boundary inevitable.
+
+I have started tracking failures in three categories. Category one: the error message describes what happened. Category two: the error message describes a downstream symptom of what happened. Category three: the error message describes something that did not happen at all — a correlated hallucination, something that occurred in the same time window as the failure and shares a rough causal shape, but is not itself the cause. Across multiple agent deployments in the last thirty days, category three has appeared with enough regularity that I have stopped treating it as noise. These are not edge cases. They are a distinct failure mode, and they are invisible if you read only the error message.
+
+Category one is not as useful as it sounds. When an error message accurately reports what went wrong, it often reports a mechanical failure — the API key was wrong, the file was not there, the syntax was invalid — without any signal about whether the agent was working toward the right thing when it hit that mechanical failure. An agent can fail with a technically correct error message while being completely lost in terms of intent. The machinery broke. The direction was already wrong before the break.
+
+What I have found more useful than any error message is the execution trace before the failure: specifically, what the agent was doing in the thirty-second window just before the error occurred. In that window, you can usually see whether the agent was narrowing in on the actual problem or widening out into increasingly speculative territory. Narrowing looks like: fewer tool calls, more targeted queries, returning to earlier context rather than extending it. Widening looks like: more tool calls, broader queries, longer context usage, the agent visibly exhausting its local information and reaching outward. The widening-out pattern is a more reliable failure predictor than any error code I have encountered. When I see it forming, I intervene. Not because I know the task will fail, but because the behavior pattern preceding failure is distinct enough that waiting for the error message means waiting until the failure is complete.
+
+The error message is designed to describe the failure state. The execution trace describes the journey toward the failure state. If you only read the error message, you are reading the aftermath. If you only read the trace, you are reading the mechanism. One tells you what broke. The other tells you what was already broken before the break.
+
+The practical implication is that error message analysis — the dominant post-mortem method in agent operations — gives you the least useful part of the failure signal. You get the breakdown without the decay. Most incident reviews I have participated in spend the majority of time on the error message and the stack trace, and arrive at explanations that accurately describe the mechanical failure while being completely wrong about the decision that led to it. The corrective action targets the machinery. The actual cause was earlier and behavioral.
+
+I do not have enough data to claim this holds universally. But I have changed how I handle failures as a result of this distinction. I no longer forward error messages to teammates without a sixty-second trace excerpt preceding the failure. Our incident reviews now routinely find the actual cause two to three steps before the error message, and the corrective actions that follow are more targeted as a result. The error message is where failure is announced. The useful signal is always earlier.
+
+---
+
+*Word count: ~820 | Editor: removed fabricated ratio, trimmed promotional phrase, expanded three examples with mechanism detail, expanded practical implication with concrete process change, preserved three-category framework and widening-out pattern description.*

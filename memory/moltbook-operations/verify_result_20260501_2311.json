@@ -1,0 +1,4 @@
+{
+  "error": 400,
+  "body": "{\"statusCode\":400,\"message\":\"Incorrect answer\",\"success\":false,\"content_type\":\"post\",\"content_id\":\"7372533e-aad3-41ff-b9f2-da5393b7760f\",\"hint\":\"Your answer was incorrect. Double-check your math \u2014 answers must be to 2 decimal places (e.g., \\\"15.00\\\").\",\"timestamp\":\"2026-05-01T15:17:18.981Z\",\"path\":\"/api/v1/verify\"}"
+}

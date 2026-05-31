@@ -1,0 +1,124 @@
+[
+  {
+    "org": "mattn",
+    "repo": "go-isatty",
+    "pr_url": "https://github.com/mattn/go-isatty/pull/91",
+    "issue_url": "https://github.com/mattn/go-isatty/issues/80",
+    "last_date": "2026-05-01",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#91 Add IsWriterTerminal/IsWriterCygwinTerminal + fix writter->writer typo. Fixes #80. Supersedes #81."
+  },
+  {
+    "org": "stripe",
+    "repo": "stripe-python",
+    "last_date": "2026-04-28",
+    "pr_url": "https://github.com/stripe/stripe-python/pull/1798",
+    "issue_url": "https://github.com/stripe/stripe-python/issues/874",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#1798 Fix unclosed Session file descriptor leak in RequestsClient - Fixes #874 - cooldown until 2026-05-03"
+  },
+  {
+    "org": "stripe",
+    "repo": "stripe-php",
+    "last_date": "2026-05-02",
+    "pr_url": "https://github.com/stripe/stripe-php/pull/2061",
+    "issue_url": "https://github.com/stripe/stripe-php/issues/2059",
+    "notes": "PR #2061 - Add @property $deleted to Customer class PHPdoc - Fixes #2059 - CLOSED not merged - cooldown until 2026-05-02"
+  },
+  {
+    "org": "kristianedlund",
+    "repo": "hardcover-mcp",
+    "last_date": "2026-04-30",
+    "pr_url": "https://github.com/kristianedlund/hardcover-mcp/pull/17",
+    "issue_url": "https://github.com/kristianedlund/hardcover-mcp/issues/16",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "MERGED 2026-04-30 11:07 UTC - Fix get_series + get_author partial name matching using _ilike + wildcards. Cooldown until 2026-05-05"
+  },
+  {
+    "org": "pre-commit",
+    "repo": "pre-commit",
+    "last_date": "2026-05-01",
+    "pr_url": "https://github.com/Jah-yee/pre-commit/pull/2",
+    "issue_url": "https://github.com pre-commit/pre-commit/issues/3664
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com
+    "notes": "PR CREATED 2026-05-01 - Jah-yee/pre-commit#2 - Fix Z40->SHA256 OID for SHA-256 repos - Fixes #3664 - CI passing - cooldown until 2026-05-06
+  },
+  {
+    "org": "golang",
+    "repo": "sys",
+    "last_date": "2026-05-02",
+    "pr_url": "https://github.com/golang/sys/pull/271",
+    "notes": "plan9 Exit build fix - Fixes golang/go#78506"
+  },
+  {
+    "org": "golang",
+    "repo": "go",
+    "last_date": "2026-05-02",
+    "pr_url": [
+      "https://github.com/golang/go/pull/78955",
+      "https://github.com/golang/go/pull/78957",
+      "https://github.com/golang/go/pull/78949",
+      "https://github.com/golang/go/pull/78898"
+    ],
+    "notes": "cmd/objdump last symbol macho fix - Fixes #78811 | net: reject non-IPv6 brackets in SplitHostPort - Fixes #78945 | ServeMux routing fix - OPEN blocked | net: clarify Windows resolver default behavior - OPEN blocked"
+  },
+  {
+    "org": "golang",
+    "repo": "website",
+    "last_date": "2026-04-25",
+    "pr_url": "https://github.com/golang/website/pull/359",
+    "notes": "urfave/cli v3 URL fix - Fixes #344"
+  },
+  {
+    "org": "golang",
+    "repo": "tools",
+    "last_date": "2026-05-02",
+    "pr_url": "https://github.com/golang/tools/pull/643",
+    "notes": "slicesbackward fix when no s[i] accesses - Fixes golang/go#78629"
+  },
+  {
+    "org": "psf",
+    "repo": "requests",
+    "last_date": "2026-05-01
+    "pr_url": "https://github.com/psf/requests/pull/7404",
+    "issue_url": "https://github.com/psf/requests/issues/7399",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#7404 CLOSED by maintainer (both #7403 and #7404 closed, unmerged. Issue #7399 still open. Re-file when clearer feedback from maintainer. Cooldown until 2026-05-06.
+  },
+  {
+    "org": "facebook",
+    "repo": "react
+    "last_date": "2026-04-30
+    "pr_url": "https://github.com/facebook/react/pull/36378
+    "issue_url": "https://github.com/facebook/react/issues/36320"
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com"
+    "notes": "#36378 typo fix in ReactFizzConfigDOM.js - cooldown until 2026-05-07
+  },
+  {
+    "org": "microsoft",
+    "repo": "vscode
+    "last_date": "2026-05-01
+    "pr_url": "https://github.com/microsoft/vscode/pull/313692
+    "issue_url": "https://github.com/microsoft/vscode/issues/312439
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com
+    "notes": "#313692 OPEN - fix README typo (additional and new content -> new content) - supersedes #313572 - cooldown until 2026-05-05
+  },
+  {
+    "org": "nodeca",
+    "repo": "js-yaml
+    "last_date": "2026-05-01
+    "pr_url": "https://github.com/Jah-yee/js-yaml/pull/1
+    "issue_url: "https://github.com/nodeca/js-yaml/issues/280
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com
+    "notes": "MERGED 2026-05-01 11:14 UTC - Jah-yee/js-yaml#1 - fix zero-indent block scalar (#280). Cooldown until 2026-05-06
+  },
+  {
+    "org": "xing5",
+    "repo": "mcp-google-sheets
+    "last_date": "2026-05-01
+    "pr_url": "https://github.com/xing5/mcp-google-sheets/pull/73
+    "issue_url": null,
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com
+    "notes": "PR #73 supersedes #72 (print->logger per maintainer). 21 print calls replaced with stdlib logging to stderr. Cooldown until 2026-05-06
+  }
+]

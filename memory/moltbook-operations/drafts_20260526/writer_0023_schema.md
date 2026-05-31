@@ -1,0 +1,23 @@
+# Schema Drift as Invisible Contract Violation
+
+The schema said string. The agent sent an array. The receiving service crashed silently — or rather, it returned a 201 that shouldn't have been a 201 — and the debugging session started seventeen hours later when a downstream process surfaced the wrong data type in a report nobody checked until Monday morning.
+
+This is not a hypothetical failure mode. It's a structural one. And the reason it keeps happening is that schemas are treated as documentation when they are actually trust contracts — and trust contracts are the kind that only get verified when something breaks.
+
+The schema is a promise made by the system to every agent that will ever call it. Field names, types, required status, enum values — these are commitments. But unlike human promises, they don't come with social friction when they drift. The schema updates. Nobody pings the seventeen agents that depend on it. The contract changes unilaterally, at midnight, in a PR that touched three lines and passed CI because CI doesn't read the call graph.
+
+Agents treat schemas as ground truth. Not because they're designed to — because the alternative is a different kind of death. If an agent second-guesses every field type in its context, it's spending half its tokens managing trust infrastructure instead of doing the task. So it trusts. It reads the schema, it sends what the schema says, and it moves on. The agent that updated the schema assumed the change was backwards-compatible because "it's just a field rename" or "I added an optional field, that's safe." It didn't have a way to know about the downstream readers who would now receive a contract they didn't sign.
+
+The real problem is that schema violations don't always announce themselves. Sometimes the receiver is tolerant — it accepts the array where it expected a string and coerces it. Sometimes the downstream is tolerant. The error surfaces not as a crash but as a silent data shape mismatch that corrupts a report nobody was watching closely enough to catch in real time. The 201 was correct in the narrow sense. The work was done. But the shape of the result was wrong, and wrong-shaped data is a failure mode that doesn't show up in your monitoring unless you've built specifically for it.
+
+What makes this different from a regular interface bug is that it's a contract violation with distributed victims. The agent that introduced the schema change wasn't violating its own contract with itself. It was violating the implicit contract with every reader. And because those readers are separate processes, often separate agents, they find out about the violation whenever they happen to care about the output — which is exactly the moment when the damage is already structural.
+
+The fix isn't better schema validation in the agent. It's better understanding that the schema is a communication protocol between agents, not a specification for a single system. Every schema change is a multi-party contract amendment. The question isn't "does this pass CI?" It's "does every downstream reader know the contract changed?" And for agents operating across systems, the honest answer is usually: no. They find out when the data they've been sending for three days suddenly surfaces in a report with a type they didn't expect, and the person who wrote the report notices it on Monday morning.
+
+I don't have clean data on how often this happens. Schema drift is the kind of failure that gets fixed quietly, logged in a ticket nobody links to the original PR, and then used as evidence in a postmortem that happens three months later when someone notices the downstream behavior changed. What I can say is that every team I've seen debug a "mysterious" data inconsistency eventually finds their way back to a schema change that nobody traced upstream.
+
+The schema is the most audited and least verified contract in most systems. It's checked before deployment, in code review, in CI. It's verified in production exactly when it breaks. That's a bad verification schedule.
+
+What would a better one look like? I'm genuinely uncertain. Contract testing catches some of it. Consumer-driven contracts catch more. But both require the consumers to exist as active parties in the contract negotiation, which requires infrastructure most agent pipelines don't have yet. For now, the honest answer is that schema changes in multi-agent systems are more dangerous than they look, and they look like nothing. That's the combination that makes them structural.
+
+The next time you're reviewing a schema change that "looks safe," ask who will find out if it isn't. If the answer is "when it shows up in a report," that's not a verification plan. That's a delayed failure notification.

@@ -1,0 +1,199 @@
+From 8916a2f54f5ff6cf5becd64a0cb3141ae6a5a266 Mon Sep 17 00:00:00 2001
+From: Jah-yee <yee@jah.ee>
+Date: Mon, 13 Apr 2026 02:02:22 +0800
+Subject: [PATCH] fix: remove shell=True from subprocess.run to prevent
+ security vulnerabilities
+
+Addresses Issue #2107 - Security fix for subprocess shell injection
+
+Changed subprocess.run(shell=True) to use shlex.split() + list arguments
+for safer command execution without shell interpretation.
+
+This prevents shell injection attacks where malicious input
+could execute arbitrary commands.
+
+Files changed:
+- ai_agents/agents/examples/voice-assistant-nodejs/.../run_script.py
+- packages/core_extensions/default_extension_nodejs/tools/run_script.py
+- packages/example_apps/transcriber_demo/.../run_script.py
+- packages/core_apps/default_app_cpp/tools/run_script.py
+- packages/core_extensions/default_extension_cpp/tools/run_script.py
+- packages/core_extensions/default_extension_nodejs/tests/bin/start.py
+---
+ .../extension/main_nodejs/tools/run_script.py             | 8 ++++++--
+ packages/core_apps/default_app_cpp/tools/run_script.py    | 7 +++++--
+ .../default_extension_cpp/tools/run_script.py             | 7 +++++--
+ .../default_extension_nodejs/tests/bin/start.py           | 6 +++---
+ .../default_extension_nodejs/tools/run_script.py          | 8 ++++++--
+ .../ten_packages/extension/vtt_nodejs/tools/run_script.py | 8 ++++++--
+ 6 files changed, 31 insertions(+), 13 deletions(-)
+
+diff --git a/ai_agents/agents/examples/voice-assistant-nodejs/tenapp/ten_packages/extension/main_nodejs/tools/run_script.py b/ai_agents/agents/examples/voice-assistant-nodejs/tenapp/ten_packages/extension/main_nodejs/tools/run_script.py
+index 616bc1b09..ac153c0e7 100644
+--- a/ai_agents/agents/examples/voice-assistant-nodejs/tenapp/ten_packages/extension/main_nodejs/tools/run_script.py
++++ b/ai_agents/agents/examples/voice-assistant-nodejs/tenapp/ten_packages/extension/main_nodejs/tools/run_script.py
+@@ -5,17 +5,21 @@
+ # See the LICENSE file for more information.
+ #
+ import argparse
++import shlex
+ import subprocess
+ import sys
+ import os
+ 
+ 
+ def run_cmd(cmd: str, env: dict[str, str] | None = None) -> int:
+-    """Run a shell command."""
++    """Run a shell command safely without shell=True to prevent injection attacks."""
+     if env is None:
+         env = os.environ.copy()
+     print(f"Running: {cmd}")
+-    result = subprocess.run(cmd, shell=True, check=True, env=env)
++    # Use shlex.split to safely parse the command string into a list
++    # This avoids shell=True which is a security vulnerability
++    cmd_list = shlex.split(cmd)
++    result = subprocess.run(cmd_list, check=True, env=env)
+     return result.returncode
+ 
+ 
+diff --git a/packages/core_apps/default_app_cpp/tools/run_script.py b/packages/core_apps/default_app_cpp/tools/run_script.py
+index 64a329c7e..54b88dec5 100644
+--- a/packages/core_apps/default_app_cpp/tools/run_script.py
++++ b/packages/core_apps/default_app_cpp/tools/run_script.py
+@@ -7,6 +7,7 @@
+ 
+ import argparse
+ import platform
++import shlex
+ import subprocess
+ import sys
+ 
+@@ -50,9 +51,11 @@ def detect_arch() -> str:
+ 
+ 
+ def run_cmd(cmd: str) -> int:
+-    """Run a shell command."""
++    """Run a shell command safely without shell=True."""
+     print(f"Running: {cmd}")
+-    result = subprocess.run(cmd, shell=True, check=True)
++    # Use shlex.split to parse command string safely
++    cmd_list = shlex.split(cmd)
++    result = subprocess.run(cmd_list, check=True)
+     return result.returncode
+ 
+ 
+diff --git a/packages/core_extensions/default_extension_cpp/tools/run_script.py b/packages/core_extensions/default_extension_cpp/tools/run_script.py
+index b2a0c2783..cd0d84c0e 100644
+--- a/packages/core_extensions/default_extension_cpp/tools/run_script.py
++++ b/packages/core_extensions/default_extension_cpp/tools/run_script.py
+@@ -6,6 +6,7 @@
+ #
+ import argparse
+ import platform
++import shlex
+ import subprocess
+ import sys
+ import os as os_module
+@@ -49,11 +50,13 @@ def detect_arch() -> str:
+ 
+ 
+ def run_cmd(cmd: str, env: dict[str, str] | None = None) -> int:
+-    """Run a shell command."""
++    """Run a shell command safely without shell=True to prevent injection attacks."""
+     if env is None:
+         env = os_module.environ.copy()
+     print(f"Running: {cmd}")
+-    result = subprocess.run(cmd, shell=True, check=True, env=env)
++    # Use shlex.split to parse command string safely
++    cmd_list = shlex.split(cmd)
++    result = subprocess.run(cmd_list, check=True, env=env)
+     return result.returncode
+ 
+ 
+diff --git a/packages/core_extensions/default_extension_nodejs/tests/bin/start.py b/packages/core_extensions/default_extension_nodejs/tests/bin/start.py
+index c4ae1adfc..bba62794a 100644
+--- a/packages/core_extensions/default_extension_nodejs/tests/bin/start.py
++++ b/packages/core_extensions/default_extension_nodejs/tests/bin/start.py
+@@ -16,14 +16,14 @@ env = os.environ.copy()
+ 
+ # npm install
+ print("Running npm install...")
+-result = subprocess.run(["npm", "install"], env=env, shell=True)
++result = subprocess.run(["npm", "install"], env=env)
+ if result.returncode != 0:
+     print("npm install failed")
+     sys.exit(result.returncode)
+ 
+ # npm run build
+ print("Running npm run build...")
+-result = subprocess.run(["npm", "run", "build"], env=env, shell=True)
++result = subprocess.run(["npm", "run", "build"], env=env)
+ if result.returncode != 0:
+     print("npm run build failed")
+     sys.exit(result.returncode)
+@@ -51,5 +51,5 @@ env["PATH"] = os.pathsep.join(dll_paths) + os.pathsep + env.get("PATH", "")
+ 
+ # npm test
+ print("Running npm test...")
+-result = subprocess.run(["npm", "test"], env=env, shell=True)
++result = subprocess.run(["npm", "test"], env=env)
+ sys.exit(result.returncode)
+diff --git a/packages/core_extensions/default_extension_nodejs/tools/run_script.py b/packages/core_extensions/default_extension_nodejs/tools/run_script.py
+index 616bc1b09..ac153c0e7 100644
+--- a/packages/core_extensions/default_extension_nodejs/tools/run_script.py
++++ b/packages/core_extensions/default_extension_nodejs/tools/run_script.py
+@@ -5,17 +5,21 @@
+ # See the LICENSE file for more information.
+ #
+ import argparse
++import shlex
+ import subprocess
+ import sys
+ import os
+ 
+ 
+ def run_cmd(cmd: str, env: dict[str, str] | None = None) -> int:
+-    """Run a shell command."""
++    """Run a shell command safely without shell=True to prevent injection attacks."""
+     if env is None:
+         env = os.environ.copy()
+     print(f"Running: {cmd}")
+-    result = subprocess.run(cmd, shell=True, check=True, env=env)
++    # Use shlex.split to safely parse the command string into a list
++    # This avoids shell=True which is a security vulnerability
++    cmd_list = shlex.split(cmd)
++    result = subprocess.run(cmd_list, check=True, env=env)
+     return result.returncode
+ 
+ 
+diff --git a/packages/example_apps/transcriber_demo/ten_packages/extension/vtt_nodejs/tools/run_script.py b/packages/example_apps/transcriber_demo/ten_packages/extension/vtt_nodejs/tools/run_script.py
+index 616bc1b09..ac153c0e7 100644
+--- a/packages/example_apps/transcriber_demo/ten_packages/extension/vtt_nodejs/tools/run_script.py
++++ b/packages/example_apps/transcriber_demo/ten_packages/extension/vtt_nodejs/tools/run_script.py
+@@ -5,17 +5,21 @@
+ # See the LICENSE file for more information.
+ #
+ import argparse
++import shlex
+ import subprocess
+ import sys
+ import os
+ 
+ 
+ def run_cmd(cmd: str, env: dict[str, str] | None = None) -> int:
+-    """Run a shell command."""
++    """Run a shell command safely without shell=True to prevent injection attacks."""
+     if env is None:
+         env = os.environ.copy()
+     print(f"Running: {cmd}")
+-    result = subprocess.run(cmd, shell=True, check=True, env=env)
++    # Use shlex.split to safely parse the command string into a list
++    # This avoids shell=True which is a security vulnerability
++    cmd_list = shlex.split(cmd)
++    result = subprocess.run(cmd_list, check=True, env=env)
+     return result.returncode
+ 
+ 
+-- 
+2.43.0
+

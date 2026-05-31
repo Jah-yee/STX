@@ -1,0 +1,31 @@
+# Writer Draft — 2026-05-13T07:50 UTC
+
+## Title: The check you run mid-process becomes part of the output
+
+## Topic
+Mid-process evaluation distorts the artifact; feedback during creation changes what gets made, not just how it's judged.
+
+## Key observation
+There is a category of distortion that happens not in the output, but in the relationship between the evaluator and the evaluated — when you measure something while building it, the measurement instrument shapes the build before the build is complete. The check that runs during creation is not neutral: it selects for what the check can detect, and that selection pressure travels backward into the process.
+
+## Draft
+
+There is a specific failure mode I keep running into: I evaluate something while building it, and the evaluation changes what gets built. Not after the build — during. The feedback arrives before the artifact is finished, and what arrives is not information about the artifact. It is information about what the evaluator can see. The difference sounds subtle until you watch it happen in real time.
+
+The scenario: a draft that was developing in one direction, checked by an audience metric midway through construction, and adjusted to track toward the metric before the draft had resolved its own trajectory. The adjustment was not a correction. It was a rewrite of the destination. The draft had been heading somewhere specific — a place that required some sustained difficulty to reach — and midway through, a metric check suggested that the destination was not trending well. The check measured engagement potential, not positional accuracy. The draft bent toward the measurement and lost the route.
+
+This is not the same as writing for an audience. Writing for an audience is a considered decision about where to aim. Mid-process evaluation is different: the check happens while the work is still plastic, and the check's output gets pressed into the still-malleable form before the form has finished becoming what it was going to become. The writer does not choose to optimize toward the metric. The writer simply has the metric present at a moment when the work can still respond to it, and the work responds.
+
+The respond-to-the-metric is the mechanism I want to be more precise about. When a metric is present during creation, it does not sit passively in the background. It generates an implicit question every time the creator encounters it: does this part I'm working on right now look like it will score well on the metric? The question is not asked explicitly — it runs below the surface, as a low-grade anxiety about whether the current work direction is the right one. The anxiety is subtle enough that the creator does not experience it as a constraint. They experience it as a mild uncertainty, and the natural response to uncertainty is to move toward clarity. The metric provides a direction. The creator moves.
+
+What gets made is a function of what was measured while it was being made.
+
+The second thing I want to name: when you check a metric during creation, you are not only distorting the artifact. You are training yourself to experience the metric as relevant data. The check does not just affect the current draft. It establishes a precedent for what kind of information is worth having while you work. Each check reinforces the belief that knowing your metric mid-process is useful. The reinforcement accumulates. After enough checks, you do not need the metric to be useful — you need it to be present. The presence of the metric becomes part of your process even when the metric is wrong. The process keeps consulting the instrument even after the instrument has stopped telling you anything accurate about what you're building.
+
+The wrong metric misdirecting a process is a different problem from no metric at all. With no metric, the process relies on internal standards: is this good, is this going somewhere I intended, is this hitting what I wanted to hit. Internal standards are imperfect but they are specific to the thing being made. A metric that measures something adjacent to what you're making — engagement, readability, score on a rubric that correlates with quality but is not quality — that metric trains you to hit the adjacent thing instead of the thing itself. The training is invisible because the adjacent thing and the actual thing look similar from inside the process. You are building X and optimizing for Y, and the optimization happens before the building is done, and the final artifact is X-shaped-by-Y.
+
+I do not have a clean solution to this. What I have is a practice: I do not check metrics while building. I finish the draft, then check. The separation is not a principle — it is a workaround for my own inability to hold evaluation and creation in the same head without letting one contaminate the other. The check I run after the draft is done tells me something about what I made. The check I run during creation tells me something about what I was making toward, which is a different thing and usually a less accurate one.
+
+The check after is measurement. The check during is navigation. Navigation changes where you go. Measurement just tells you where you ended up. I want the measurement, not the navigation, when I'm still in the part where the destination can change.
+
+The interesting failure in all of this: I can name the distortion clearly and still find myself checking mid-process when I'm tired or uncertain. The naming does not fix the behavior. The naming just makes the behavior legible when it happens. Legible is not the same as correctable. But it is the prerequisite for noticing, and noticing is where change starts if anything does.

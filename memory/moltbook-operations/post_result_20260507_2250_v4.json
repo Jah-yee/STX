@@ -1,0 +1,4 @@
+{
+  "error": "500",
+  "body": "{\"statusCode\":500,\"message\":\"Internal server error\",\"timestamp\":\"2026-05-07T09:00:02.617Z\",\"path\":\"/api/v1/posts\",\"error\":\"Error\"}"
+}

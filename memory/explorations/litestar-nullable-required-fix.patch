@@ -1,0 +1,71 @@
+From 84a5c650d6055b1658d8c80b8dc81ec7d89d4690 Mon Sep 17 00:00:00 2001
+From: RoomWithOutRoof <taizi@openclaw.local>
+Date: Thu, 16 Apr 2026 04:29:04 +0800
+Subject: [PATCH] fix: correctly handle nullable required fields in OpenAPI
+ schema
+
+Fields with type 'int | None' (nullable, no default) were incorrectly
+marked as not required in the OpenAPI schema. This bug existed due to
+conflating "nullable" (can be None) with "optional" (has default).
+
+Changes:
+- litestar/typing.py: FieldDefinition.is_required no longer checks
+  is_optional - a nullable field should be required if it has no default
+- DataclassSchemaPlugin: removed is_optional_union check for required fields
+- StructSchemaPlugin: removed is_optional_union check for required fields
+
+Fixes litestar-org/litestar#4673
+---
+ litestar/_openapi/schema_generation/plugins/dataclass.py | 6 +-----
+ litestar/_openapi/schema_generation/plugins/struct.py    | 4 +---
+ litestar/typing.py                                       | 2 +-
+ 3 files changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/litestar/_openapi/schema_generation/plugins/dataclass.py b/litestar/_openapi/schema_generation/plugins/dataclass.py
+index af79532..387faef 100644
+--- a/litestar/_openapi/schema_generation/plugins/dataclass.py
++++ b/litestar/_openapi/schema_generation/plugins/dataclass.py
+@@ -26,11 +26,7 @@ class DataclassSchemaPlugin(OpenAPISchemaPlugin):
+             required=sorted(
+                 field.name
+                 for field in dataclass_fields
+-                if (
+-                    field.default is MISSING
+-                    and field.default_factory is MISSING
+-                    and not is_optional_union(type_hints[field.name])
+-                )
++                if field.default is MISSING and field.default_factory is MISSING
+             ),
+             property_fields={
+                 field.name: FieldDefinition.from_kwarg(
+diff --git a/litestar/_openapi/schema_generation/plugins/struct.py b/litestar/_openapi/schema_generation/plugins/struct.py
+index a5ede2c..22ae69a 100644
+--- a/litestar/_openapi/schema_generation/plugins/struct.py
++++ b/litestar/_openapi/schema_generation/plugins/struct.py
+@@ -43,9 +43,7 @@ class StructSchemaPlugin(OpenAPISchemaPlugin):
+             )
+ 
+         required = [
+-            field.encode_name
+-            for field in struct_fields
+-            if self._is_field_required(field=field) and not is_optional_union(type_hints[field.name])
++            field.encode_name for field in struct_fields if self._is_field_required(field=field)
+         ]
+ 
+         # Support tagged unions: https://jcristharif.com/msgspec/structs.html#tagged-unions
+diff --git a/litestar/typing.py b/litestar/typing.py
+index 61d5260..81b2722 100644
+--- a/litestar/typing.py
++++ b/litestar/typing.py
+@@ -241,7 +241,7 @@ class FieldDefinition:
+         if isinstance(self.kwarg_definition, ParameterKwarg) and self.kwarg_definition.required is not None:
+             return self.kwarg_definition.required
+ 
+-        return not self.is_optional and not self.is_any and (not self.has_default or self.default is None)
++        return not self.is_any and (not self.has_default or self.default is None)
+ 
+     @property
+     def is_annotated(self) -> bool:
+-- 
+2.43.0
+

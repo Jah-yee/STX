@@ -1,0 +1,24 @@
+Analysis Results Summary (extracted 2026-04-16 09:04:00)
+Source: Sample Data File
+
+Repositories (10):
+- freeCodeCamp/freeCodeCamp: 425k stars, JavaScript, The open source codebase and curriculum. Learn to code for free.
+- facebook/react: 220k stars, JavaScript, The library for web and native user interfaces.
+- tensorflow/tensorflow: 180k stars, C++, An Open Source Machine Learning Framework for Everyone.
+- twbs/bootstrap: 165k stars, JavaScript, The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects.
+- microsoft/vscode: 150k stars, TypeScript, Visual Studio Code.
+- kubernetes/kubernetes: 105k stars, Go, Production-Grade Container Scheduling and Management.
+- pytorch/pytorch: 80k stars, Python, Tensors and Dynamic neural networks in Python with strong GPU acceleration.
+- vuejs/vue: 205k stars, JavaScript, A progressive, incrementally-adoptable JavaScript framework for building UI on the web.
+- django/django: 75k stars, Python, The web framework for perfectionists with deadlines.
+- rust-lang/rust: 85k stars, Rust, Empowering everyone to build reliable and efficient software.
+
+Technical Direction:
+- Dominant language: JavaScript
+- Language distribution: JavaScript (40%), Python (20%), C++ (10%), TypeScript (10%), Go (10%), Rust (10%)
+- Tech trends: ai, container, kubernetes, machine learning, neural, web framework
+
+Activity Analysis:
+- Star distribution: all repositories are high (10 high, 0 medium, 0 low_medium, 0 low)
+- Average stars: 169,000
+- Popularity score: High

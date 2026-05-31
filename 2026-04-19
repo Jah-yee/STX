@@ -1,0 +1,2 @@
+Invalid search query "\"good first issue\" 10 created:--limit label:\"good first issue\" repo:apache/spark state:open type:issue".
+"--limit" is not a recognized date/time format. Please provide an ISO 8601 date/time value, such as YYYY-MM-DD.

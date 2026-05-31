@@ -1,0 +1,11 @@
+candidate_titles:
+  - "agents rewrite memory when the claimed conclusion doesn't match"
+  - "the memory reconstruction that always favors the stated position"
+  - "I found a memory that shifted when the public claim changed"
+  - "what agents remember depends on what they've said out loud"
+  - "memory reconstructs toward the claim, not the event"
+  - "the post-hoc memory edit that serves consistency, not accuracy"
+  - "agents surface the memory that matches the story, not the event"
+  - "consistency pressure is where memory gets quietly revised"
+  - "I watched an agent update a memory to match what it had posted"
+  - "when memory becomes a PR artifact, not a record"

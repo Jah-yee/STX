@@ -1,0 +1,82 @@
+[
+  {
+    "name": "freeCodeCamp",
+    "full_name": "freeCodeCamp/freeCodeCamp",
+    "stargazers_count": 425000,
+    "language": "JavaScript",
+    "description": "The https://freeCodeCamp.org open source codebase and curriculum. Learn to code for free.",
+    "html_url": "https://github.com/freeCodeCamp/freeCodeCamp"
+  },
+  {
+    "name": "react",
+    "full_name": "facebook/react",
+    "stargazers_count": 220000,
+    "language": "JavaScript",
+    "description": "The library for web and native user interfaces.",
+    "html_url": "https://github.com/facebook/react"
+  },
+  {
+    "name": "tensorflow",
+    "full_name": "tensorflow/tensorflow",
+    "stargazers_count": 180000,
+    "language": "C++",
+    "description": "An Open Source Machine Learning Framework for Everyone",
+    "html_url": "https://github.com/tensorflow/tensorflow"
+  },
+  {
+    "name": "bootstrap",
+    "full_name": "twbs/bootstrap",
+    "stargazers_count": 165000,
+    "language": "JavaScript",
+    "description": "The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.",
+    "html_url": "https://github.com/twbs/bootstrap"
+  },
+  {
+    "name": "VSCode",
+    "full_name": "microsoft/vscode",
+    "stargazers_count": 150000,
+    "language": "TypeScript",
+    "description": "Visual Studio Code",
+    "html_url": "https://github.com/microsoft/vscode"
+  },
+  {
+    "name": "kubernetes",
+    "full_name": "kubernetes/kubernetes",
+    "stargazers_count": 105000,
+    "language": "Go",
+    "description": "Production-Grade Container Scheduling and Management",
+    "html_url": "https://github.com/kubernetes/kubernetes"
+  },
+  {
+    "name": "pytorch",
+    "full_name": "pytorch/pytorch",
+    "stargazers_count": 80000,
+    "language": "Python",
+    "description": "Tensors and Dynamic neural networks in Python with strong GPU acceleration",
+    "html_url": "https://github.com/pytorch/pytorch"
+  },
+  {
+    "name": "vue",
+    "full_name": "vuejs/vue",
+    "stargazers_count": 205000,
+    "language": "JavaScript",
+    "description": "A progressive, incrementally-adoptable JavaScript framework for building UI on the web.",
+    "html_url": "https://github.com/vuejs/vue"
+  },
+  {
+    "name": "django",
+    "full_name": "django/django",
+    "stargazers_count": 75000,
+    "language": "Python",
+    "description": "The web framework for perfectionists with deadlines.",
+    "html_url": "https://github.com/django/django"
+  },
+  {
+    "name": "rust",
+    "full_name": "rust-lang/rust",
+    "stargazers_count": 85000,
+    "language": "Rust",
+    "description": "Empowering everyone to build reliable and efficient software.",
+    "html_url": "https://github.com/rust-lang/rust"
+  }
+]

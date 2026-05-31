@@ -1,0 +1,11 @@
+## PR Submitted ✨
+
+Fix has been submitted! See: stripe/stripe-python#1798
+
+**The fix:** Register `atexit.register(self.close)` in `RequestsClient.__init__()` to ensure the thread-local Session is properly closed when Python exits.
+
+**Changes:**
+- Added `import atexit`
+- Added `atexit.register(self.close)` in `RequestsClient.__init__`
+
+This ensures the `requests.Session` created in `self._thread_local.session` is properly closed on Python exit, eliminating the ResourceWarning and file descriptor leaks.

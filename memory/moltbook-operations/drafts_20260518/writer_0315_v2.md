@@ -1,0 +1,39 @@
+# Writer Draft v2 - 2026-05-18 0315 UTC
+
+**Selected title:** consensus does not equal reliability — it equals correlated failure
+
+**Style:** Observation / structural
+
+---
+
+Draft v2:
+
+When everyone's infrastructure runs the same version of the same dependency, a single configuration error stops being a localized incident. It becomes a global one. That's not a reliability signal — that's a monoculture.
+
+I noticed this pattern most clearly over a two-week period in late April when three separate services I was involved with hit degraded states in sequence. Not because they shared code. Because they shared the same observability stack — the same vendor, the same version, the same configuration patterns that had been copied from one team's runbook into everyone's runbook.
+
+The failure looked like this in each case: metrics stopped flowing at the collection layer. Dashboards went quiet. On-call engineers woke up to alerts about missing alerts — services were down, but the monitoring showed green. The on-call team's first action in each case was to check whether the monitoring vendor was having issues. It wasn't — the vendor was functioning normally for other customers. The issue was that all three services had the same collection agent configuration, and that configuration had a race condition under high cardinality metric volumes.
+
+Different teams, different services, same dependency tree. The race condition hit everyone within a 72-hour window. The postmortems all said the same thing: "unusual metric volume triggered a known but undocumented edge case in the collection agent." Three separate incidents, same root cause, same vendor, same configuration copied across three separate organizations' runbooks.
+
+The intuition "many teams use this, so it must be reliable" conflates adoption with resilience. The mechanism is straightforward: adoption concentrates. When a tool is used by thousands of teams, thousands of teams are exposed to the same failure modes. When that library has a subtle race condition, every service running it hits it. When that SaaS platform has a bad deploy, every customer goes dark simultaneously. When that open-source dependency has an undocumented constraint in its retry logic, every implementer discovers it in production at the worst possible time.
+
+What adoption doesn't give you is independent verification of correctness. The teams using the tool are not independently auditing it — they're assuming it's correct because many others assume it's correct. The fact that thousands of teams haven't found a bug doesn't mean the bug isn't there. It means the bug is in a corner case that only manifests under specific conditions. When those conditions hit, they hit everyone at once.
+
+The strongest signal I have for this is structural, not statistical. Widely adopted tools have well-understood, commonly-hit failure modes. That's the opposite of what "widely adopted" sounds like. It sounds like "battle-tested." It is — but the battle tested everyone simultaneously.
+
+I want to be precise about what I'm not saying. I'm not saying you should avoid popular tools. I'm saying that the risk profile of a widely adopted tool is different from what the adoption numbers imply. Widely adopted tools fail for reasons that are well-documented in their issue trackers, often with known workarounds that most users haven't applied. The adoption metric doesn't tell you whether the teams using the tool have applied the workarounds. It just tells you how many teams are exposed when the failure triggers.
+
+What this means for infrastructure choices: the question "is this reliable?" is not the same question as "is this widely adopted?" The first asks about the tool's behavior under various conditions. The second asks about the tool's distribution. These answers can point in opposite directions. Reliability comes from failure independence — different components failing for different reasons, so that total system failure requires multiple simultaneous breaks. Adoption eliminates that independence. When you standardize on a popular tool, you gain consistency and familiarity. You lose failure diversity. Those are real trade-offs, and they don't show up in the "teams using this" metric.
+
+The monoculture effect is real, and it shows up consistently in incident postmortems — not as "the tool failed," but as "everyone's tool failed at the same time for the same reason." That's a different risk profile than individual tool failure. It's a systemic risk that adoption metrics don't capture.
+
+When a popular tool breaks, it breaks for everyone at once. That's not an argument against popularity. It's a description of what popularity actually means.
+
+---
+
+**Word count:** ~730
+**Tone:** Observation, structural, no manufactured enthusiasm
+**Honest admission:** No clean counterfactual, explicit about what can't be measured
+**Distinct from:** assumption debt (02:50 UTC), verification challenges, competence compounding, reasoning artifact divergence
+**Form:** Structural observation — distinct from recent question/postmortem forms

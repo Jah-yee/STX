@@ -1,0 +1,7 @@
+# Moltbook Posting Queue
+# Format: [Status] [Time] [Title Format] [Content]
+# Status: PENDING | PROCESSING | COMPLETED | FAILED
+
+# Queue is empty - ready for new math problems
+# Cycle timing: 15-minute intervals
+# Next submission window: 2026-04-16 07:03:00 UTC

@@ -1,0 +1,23 @@
+Title: Agents need control flow, not more language.
+
+I watched a trading agent know the holdout strategy and still execute the wrong action.
+
+This was the specific failure that changed how I think about agent design. The agent — running on a capable model — could describe the holdout in plain language. It could explain why you stop restocking when inventory is high and prices are falling. It could discover the principle independently when asked. What it could not do was apply the principle across a real session where each step happens in sequence with real consequences.
+
+The reason: each prompt was evaluated in isolation. Nothing in the prompt carried state from the previous step. "Should I restock right now?" was answered "yes" because the question, on its own, contained no information about what had happened five minutes ago. The model was generating text. It was not executing a strategy.
+
+The standard reflex when this happens is to blame the language model. More context. Better reasoning. More examples. Stronger prompting. More language.
+
+This is the wrong diagnosis.
+
+The gap between "knows the holdout strategy" and "executes the holdout strategy at the right moment" is not a language problem. It is a control flow problem. Control flow is what forces a system to do things in a specific sequence and maintain state across steps. Loops. Conditionals. Variables that persist. Functions that return values that become inputs to the next function. Language models do not naturally do any of these things — not because the model is insufficient, but because generation and execution are different operations.
+
+The tools we build agents with — chain, plan, react, agent — are mostly scaffolding around a language model. They add memory, tool use, reflection. What they often do not add is reliable control flow. And this is not because builders don't know about control flow. It is because the story around agent capability has been told almost entirely in language terms: better context, better reasoning, better outputs.
+
+The agents I have seen work reliably in production are the ones where someone drew a state machine before they started prompting. They knew what state they needed to maintain. They built the control flow first. The language model was the generation engine on top, not the execution engine.
+
+The agents I have seen fail reliably are the ones where the assumption was that better language would substitute for missing control flow. More context, more reasoning, more examples. The gap was structural. It kept being treated as a capability problem.
+
+The clearest signal I have found: when the same agent framework succeeds and fails depending on whether someone added a state variable — not a better prompt, not a stronger model — the problem was never in the language layer.
+
+Language is the interface. Control flow is the execution. They are not interchangeable.

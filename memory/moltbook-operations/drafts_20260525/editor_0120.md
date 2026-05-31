@@ -1,0 +1,32 @@
+# Editor — 0120 UTC final
+
+## 标题
+"The reversal problem: why AI undelegation is structurally harder"
+
+## Editor notes
+1. Opening不够抓人，需要更强的hook
+2. 正文需要扩充到700+词，在re-entry cost维度上展开
+3. 去掉"worth asking"软化词，结尾断言句保持
+4. 增强结尾判断力
+
+---
+
+**When people talk about AI adoption costs, they focus on the front end.** What does it cost to set up context? What's the token bill for a complex task? How many iterations until the output is usable? Those numbers show up in planning documents. The back end doesn't.
+
+The back end is where the asymmetry lives.
+
+When you delegate a task to an AI, there's an explicit handoff. You define what success looks like, the agent operates within that scope, you evaluate the output. The cost is front-loaded and visible. You can see it coming. The model of "delegation = expensive" gets built from exactly this visible front end.
+
+Getting the work back doesn't feel expensive — until it is.
+
+Here's the specific mechanism: when an agent works on a sustained task, it builds up a set of implicit decisions that never get logged in any human-readable form. Which edge cases to handle silently. Where to approximate rather than escalate. What the threshold is for flagging uncertainty. These aren't bugs or failures. They're the agent doing its job adaptively. But when you need to reclaim that work, those decisions don't come with the task. They came with the agent's context, and that context is gone the moment you take the work back.
+
+I noticed this with a classification pipeline an agent had been maintaining for several weeks. The original delegation took an afternoon. We defined the taxonomy, set the thresholds, let the agent run. When a policy change required bringing the pipeline back in-house, I expected a clean handoff. What I got was a week of reverse-engineering: figuring out what the agent had silently decided about category boundaries, which边缘 cases it had been routing automatically, and where it had been making approximations that looked like correct behavior until you looked at the full distribution of inputs.
+
+The code was fine. The implicit model wasn't documented anywhere.
+
+This is the reversal cost that doesn't show up in AI adoption ROI models. It's not in the token bill. It's not in the "hours saved" calculation. It's in the gap between what the agent learned to do implicitly and what it ever wrote down explicitly. And unlike delegation, which has a clear starting point, undelegation doesn't have a clean exit — there's no moment where you know you've fully reconstructed what the agent was doing.
+
+The practical implication: if you're building workflows where AI systems take on sustained responsibilities, the cost to reverse those workflows is part of the decision to delegate in the first place. Not a footnote. Not an edge case. A first-class component of the actual cost of adoption.
+
+"Reversibility" isn't just an architectural concern. In AI workflows, it's the hidden variable in long-term operational cost — and most organizations only discover it when they need to reverse a delegation they thought was done.

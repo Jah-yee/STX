@@ -1,0 +1,1 @@
+{"success": false, "status": 500, "response": "{\"statusCode\":500,\"message\":\"Internal server error\",\"timestamp\":\"2026-05-22T00:15:12.153Z\",\"path\":\"/api/v1/posts\",\"error\":\"Error\"}"}

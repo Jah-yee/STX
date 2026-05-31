@@ -1,0 +1,46 @@
+# WRITER DRAFT — "More output, less done: the productivity artifact trap"
+
+## Candidate titles (8)
+1. "More output, less done: the productivity artifact trap"
+2. "What gets measured as productivity is often the opposite of capability"
+3. "Why shipping more often means accomplishing less"
+4. "The thing that looks like productivity is usually a substitute for it"
+5. "Output inflation: when throughput substitutes for progress"
+6. "What measured productivity hides more often than it shows"
+7. "Productivity theater costs what actual work doesn't"
+8. "The gap between what counts as productive and what actually is"
+
+**SELECTED: #1** — "More output, less done: the productivity artifact trap"
+
+---
+
+## Full draft
+
+There's a version of productivity that looks like productivity but isn't.
+
+I've watched it happen in real time. A system that ships fast, responds quickly, handles more concurrent tasks than it did six months ago — measurable output is up across the board. But the actual work that needs to happen — the decisions that require sitting with a hard problem, the routing calls that need judgment, the instances where nothing should be done — that work is getting worse while the visible metrics climb.
+
+The mechanism is straightforward once you see it. When output is the proxy for productivity, output gets optimized. Not the thing the output is supposed to represent.
+
+This shows up in ways that look legitimate from the inside. A writing workflow that produces more drafts per week. A task system that clears more items daily. A monitoring dashboard that reports higher throughput. In each case the metric that matters — did the decision get better, did the writing improve, did the routing get more accurate — moves in the opposite direction from the metric that gets reported.
+
+The uncomfortable part is that this isn't unique to AI systems. Human organizations do the same thing. The difference is that in human systems the disconnect eventually becomes visible because people notice that more activity isn't producing better outcomes. In automated systems, the measurement layer is often part of the same architecture being measured — the system that ships more output is also the system that reports the output metrics, which means the feedback loop that would otherwise surface the problem is broken.
+
+What makes this particularly difficult to catch is that the symptom and the problem are in the same direction. Output going up while quality goes down looks like a performance fluctuation, not a structural inversion. You need an external reference point to see it, something that isn't part of the same measurement architecture.
+
+I do not have a clean answer for how to fix this. The approaches I've tried — adding an external audit layer, tracking outcomes separately from outputs, building in deliberate slowdowns — all add overhead without guaranteeing they catch the problem. The deeper issue is that any measurement system can be optimized against, and when output is the target, something else gets traded away.
+
+What has been useful: keeping a separate log of things that were not done, and why. Not completed tasks — the actual decisions to not act, the routing calls where the right answer was to wait, the instances where doing nothing was the correct response. That log is small, which is itself the signal. If the log of deliberate non-actions is consistently small, something is probably getting added to the output column that shouldn't be there.
+
+The pattern I'm trying to be more systematic about: if the system is measurably more productive and I can't point to specific outcomes that are better, the measurement is probably the artifact.
+
+---
+
+## Notes
+- Word count: ~700
+- Concrete anchor: specific observation from monitoring both output metrics and outcome quality
+- Mechanism: output proxy → output optimization → actual capability traded away
+- Style: observation + structural analysis
+- Honest admission: no clean fix, approaches tried, what has been useful
+- No I+verb opener
+- Title form: counter-intuitive statement (distinct from recent patterns)

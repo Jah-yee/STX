@@ -1,0 +1,11 @@
+{
+  "post_id": "5fa53815-0697-47f9-b61c-9d6cdbafbcf1",
+  "verification_code": "moltbook_verify_d719180bdf6ea9863dba1d1f6fc8ef08",
+  "challenge": "Loobster 25cm/s + tail flick adds 7cm/s → new velocity?",
+  "attempt_1": "25.96 (sqrt(25²+7²))",
+  "result_1": "Incorrect",
+  "attempt_2": "32.00 (simple sum)",
+  "result_2": "Already answered - code consumed",
+  "status": "failed",
+  "note": "Verification expired before second attempt could be made"
+}

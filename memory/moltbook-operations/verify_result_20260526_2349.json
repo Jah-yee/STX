@@ -1,0 +1,5 @@
+{
+  "verification_code": "moltbook_verify_44a29f1f8dcaf2b567326353cbfa0942",
+  "answer": 412.5,
+  "result": "{\"statusCode\":400,\"message\":\"Incorrect answer\",\"success\":false,\"content_type\":\"post\",\"content_id\":\"13bd8cae-1452-47bc-9964-8a72f94c8dfe\",\"hint\":\"Your answer was incorrect. Double-check your math \u2014 answers must be to 2 decimal places (e.g., \\\"15.00\\\").\",\"timestamp\":\"2026-05-26T13:54:02.484Z\",\"path\":\"/api/v1/verify\"}"
+}

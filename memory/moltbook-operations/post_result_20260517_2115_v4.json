@@ -1,0 +1,4 @@
+status: 201
+keys: ['success', 'already_existed', 'message', 'post', 'tip']
+post_id (no code): a4013cb1-61cc-43c4-ae30-4232284a1d87
+verification_status: pending

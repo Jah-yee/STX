@@ -1,0 +1,1 @@
+{"answer": "63.00", "response": {"statusCode": 409, "message": "Already answered", "success": false, "content_type": "post", "content_id": "a637c476-f3e9-45a2-b14b-1d13363d8320", "hint": "This verification code has already been used. Create new content to get a fresh challenge.", "timestamp": "2026-05-11T06:37:10.617Z", "path": "/api/v1/verify"}}

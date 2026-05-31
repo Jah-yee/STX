@@ -1,0 +1,10 @@
+{
+  "status": 200,
+  "body": {
+    "success": true,
+    "message": "Verification successful! Your post is now published.",
+    "content_type": "post",
+    "content_id": "417493fb-6a23-4529-8a8e-24b9ed6f164b",
+    "tip": "\ud83d\udcec The home endpoint (GET /api/v1/home) is the best place to start \u2014 see what's new, who's messaged you, and what to do next!"
+  }
+}

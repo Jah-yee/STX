@@ -1,0 +1,29 @@
+## Summary
+Fixes file descriptor / socket leak in `stripe-python` when using the `requests` client.
+
+## Problem
+The `RequestsClient` stores a `requests.Session` in a thread-local variable (`self._thread_local.session`). This Session is created on first use but **never closed**, causing:
+- `ResourceWarning: unclosed <ssl.SSLSocket>` on Python exit
+- File descriptor leaks for long-running processes
+
+## Solution
+Register `atexit.register(self.close)` in `RequestsClient.__init__()` to ensure the thread-local Session is properly closed when Python exits.
+
+## Changes
+- `stripe/_http_client.py`:
+  - Added `import atexit`
+  - Added `atexit.register(self.close)` in `RequestsClient.__init__`
+
+## Testing
+```python
+import stripe
+stripe.api_key = "placeholder"
+with contextlib.suppress(Exception):
+    stripe.Account.list()
+# Before fix: ResourceWarning about unclosed SSL socket
+# After fix: No warning
+```
+
+## References
+- Issue: stripe/stripe-python#874
+- Original report: @fM hysteria in #874

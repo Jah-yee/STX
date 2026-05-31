@@ -1,0 +1,354 @@
+[
+  {
+    "org": "btholt",
+    "repo": "complete-intro-to-containers",
+    "pr_url": "https://github.com/btholt/complete-intro-to-containers/pull/92",
+    "issue_url": "https://github.com/btholt/complete-intro-to-containers/issues/91",
+    "last_date": "2026-05-09",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#92 OPEN - fix: correct typos 'phyiscal' -> 'physical' (line 21) and 'virutal' -> 'virtual' (line 43) in lessons/what-are-containers.md. Fixes #90 and #91. 1 commit, 1 file. Cooldown until 2026-05-16.",
+    "cooldown_until": "2026-05-16T21:34:00Z"
+  },
+  {
+    "org": "mattn",
+    "repo": "go-isatty",
+    "pr_url": "https://github.com/mattn/go-isatty/pull/91",
+    "issue_url": "https://github.com/mattn/go-isatty/issues/80",
+    "last_date": "2026-05-05",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#91 CLOSED by mattn 2026-05-05 13:08 UTC - maintainer rejected Writer API (prefer golang.org/x/term.IsTerminal via Fd()). Cooldown until 2026-05-10 13:08 UTC. Issue #80 still open. PR #81 from another contributor for same issue (#80) now also CLOSED."
+  },
+  {
+    "org": "stripe",
+    "repo": "stripe-python",
+    "last_date": "2026-04-28",
+    "pr_url": "https://github.com/stripe/stripe-python/pull/1798",
+    "issue_url": "https://github.com/stripe/stripe-python/issues/874",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#1798 OPEN (BLOCKED) - Fix unclosed Session file descriptor leak in RequestsClient - Fixes #874 - cooldown CLEARED 2026-05-03 - \u26d4 DO NOT PING: xavdid said 'stop pinging maintainers' (2026-04-30). STOPPING."
+  },
+  {
+    "org": "golang",
+    "repo": "tools",
+    "last_date": "2026-05-04",
+    "pr_url": "https://github.com/golang/tools/pull/641",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#641 CLOSED (non-merge, 2026-05-04T14:54:51Z) - Superseded by CL 771760. CLOSED non-merge (superseded by CL 771760). Cooldown CLEARED."
+  },
+  {
+    "org": "facebook",
+    "repo": "react",
+    "last_date": "2026-04-30",
+    "pr_url": "https://github.com/facebook/react/pull/36378",
+    "issue_url": "https://github.com/facebook/react/issues/36320",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#36378 OPEN - typo fix in ReactFizzConfigDOM.js - cooldown expired but Gate-2 blocks (30 PRs). STOPPING."
+  },
+  {
+    "org": "microsoft",
+    "repo": "vscode",
+    "last_date": "2026-05-01",
+    "pr_url": "https://github.com/microsoft/vscode/pull/313692",
+    "issue_url": "https://github.com/microsoft/vscode/issues/312439",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#313692 OPEN - fix README typo (additional and new content -> new content) - supersedes #313572 - cooldown expired but Gate-2 blocks (100 PRs). STOPPING."
+  },
+  {
+    "org": "nodeca",
+    "repo": "js-yaml",
+    "pr_url": "https://github.com/nodeca/js-yaml/pull/747",
+    "issue_url": "https://github.com/nodeca/js-yaml/issues/737",
+    "last_date": "2026-05-09",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#747 OPEN - fix(float): reject out-of-range values that would parse to Infinity. Fixes #737 (float round-trip bug: '61e9540' \u2192 Infinity breaks YAML 1.2 spec). 9 lines in lib/type/float.js. All 64 unit tests pass. Cooldown until 2026-05-14.",
+    "cooldown_until": "2026-05-14T07:49:00+00:00"
+  },
+  {
+    "org": "xing5",
+    "repo": "mcp-google-sheets",
+    "last_date": "2026-05-01",
+    "pr_url": "https://github.com/xing5/mcp-google-sheets/pull/73",
+    "issue_url": null,
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "PR #73 supersedes #72 (print->logger per maintainer). 21 print calls replaced with stdlib logging to stderr. Cooldown expired but Gate-2 blocks (8 PRs). STOPPING."
+  },
+  {
+    "org": "golang",
+    "repo": "website",
+    "last_date": "2026-04-25",
+    "pr_url": "https://github.com/golang/website/pull/359",
+    "notes": "urfave/cli v3 URL fix - Fixes #344 - OPEN on Gerrit CL 770646 - STOPPING: 4 pings already sent. Wait for maintainer action."
+  },
+  {
+    "org": "golang",
+    "repo": "go",
+    "last_date": "2026-05-03",
+    "pr_url": "https://github.com/golang/go/pull/78957",
+    "notes": "net: reject non-IPv6 brackets #78957 OPEN, Gerrit CL 770645. Cooldown cleared."
+  },
+  {
+    "org": "microsoft",
+    "repo": "markitdown",
+    "pr_url": "https://github.com/microsoft/markitdown/pull/1826 [CLOSED]",
+    "last_date": "2026-04-24",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#1826 CLOSED 2026-05-06 22:34 UTC (14 days 0 review, multiple pings no response). Fix still valid (issue #1808)."
+  },
+  {
+    "org": "mab-go",
+    "repo": "nmea",
+    "pr_url": "https://github.com/mab-go/nmea/pull/24",
+    "issue_url": "https://github.com/mab-go/nmea/issues/21",
+    "last_date": "2026-05-04",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#24 OPEN - GPVTG sentence type implementation. Fixes #21 (good first issue). 6 files, 433 insertions. Issue comment sent. cooldown CLEARED - PR#24 still OPEN but cooldown expired 2026-05-09",
+    "cooldown_until": null
+  },
+  {
+    "org": "shelljs",
+    "repo": "shx",
+    "pr_url": "https://github.com/shelljs/shx/pull/249",
+    "issue_url": "https://github.com/shelljs/shx/issues/208",
+    "last_date": "2026-05-04",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#249 OPEN - docs: clarify --silent flag doesn't suppress exit codes. Fixes #208. 1 line doc fix in README.md. Issue comment sent. cooldown CLEARED - PR#249 still OPEN but cooldown expired 2026-05-09",
+    "cooldown_until": null
+  },
+  {
+    "org": "llm-d",
+    "repo": "llm-d-prism",
+    "pr_url": "https://github.com/llm-d/llm-d-prism/pull/48",
+    "issue_url": "https://github.com/llm-d/llm-d-prism/issues/43",
+    "last_date": "2026-05-08",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#48 MERGED 2026-05-08 21:07:49 UTC by seanhorgan. fix typos: winodw\u2192window, lenght\u2192length in specs/changes/mtp-spec-decode-benchmarks-exploration.md. Fixes #43. Cooldown CLEARED."
+  },
+  {
+    "org": "shark-auth",
+    "repo": "shark",
+    "pr_url": "https://github.com/shark-auth/shark/pull/85",
+    "issue_url": "https://github.com/shark-auth/shark/issues/82",
+    "last_date": "2026-05-05",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#85 MERGED 2026-05-04 21:02:42 UTC by Raulgooo. Cooldown until 2026-05-10."
+  },
+  {
+    "org": "lynxbase",
+    "repo": "lynxdb",
+    "pr_url": "https://github.com/lynxbase/lynxdb/pull/29",
+    "issue_url": "https://github.com/lynxbase/lynxdb/issues/28",
+    "last_date": "2026-05-04",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#29 MERGED 2026-05-04 18:33:43 UTC by maintainer. cooldown CLEARED - PR#29 MERGED 2026-05-04 18:33:43 UTC",
+    "cooldown_until": null
+  },
+  {
+    "org": "sindresorhus",
+    "repo": "clear-module",
+    "pr_url": "https://github.com/sindresorhus/clear-module/pull/22",
+    "issue_url": "https://github.com/sindresorhus/clear-module/issues/18",
+    "last_date": "2026-05-05",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#22 OPEN - fix: skip native modules (.node files) to prevent 'Unknown failure' on re-require. Fixes #18. 6 lines, purely additive. Cooldown until 2026-05-10."
+  },
+  {
+    "org": "mandiant",
+    "repo": "gopacket",
+    "pr_url": "https://github.com/mandiant/gopacket/pull/24",
+    "issue_url": "https://github.com/mandiant/gopacket/issues/23",
+    "last_date": "2026-05-05",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#24 OPEN - security: reject ACE with AceSize below minimum header size. Fixes #23 (slice bounds out of range panic). 3 lines added. Issue comment sent. Cooldown until 2026-05-10."
+  },
+  {
+    "org": "spf13",
+    "repo": "pflag",
+    "pr_url": "https://github.com/spf13/pflag/pull/468",
+    "issue_url": "https://github.com/spf13/pflag/issues/463",
+    "last_date": "2026-05-05",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#468 CLOSED as duplicate of #464 (tomasaschan, Mar 4). Identical sourceware URL fix. Canonical PR is #464. Cooldown until 2026-05-10 08:54 UTC."
+  },
+  {
+    "org": "chalk",
+    "repo": "wrap-ansi",
+    "pr_url": "https://github.com/chalk/wrap-ansi/pull/61",
+    "issue_url": "https://github.com/chalk/wrap-ansi/issues/55",
+    "last_date": "2026-05-05",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#61 OPEN - Replace strip-ansi with built-in util.stripVTControlCharacters. Fixes #55. 3 files, +3/-4. All 54 tests pass. Issue comment sent. Cooldown until 2026-05-10."
+  },
+  {
+    "org": "LOLinDark",
+    "repo": "StreamerOps",
+    "pr_url": "https://github.com/LOLinDark/StreamerOps/pull/15",
+    "issue_url": "https://github.com/LOLinDark/StreamerOps/issues/12",
+    "last_date": "2026-05-05",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#15 OPEN - fix: load referral code from env var (VITE_REFERRAL_CODE). 1 line fix. GH007 compliant. Issue #12 comment sent. Cooldown until 2026-05-10."
+  },
+  {
+    "org": "dolph",
+    "repo": "ussher",
+    "pr_url": "https://github.com/dolph/ussher/pull/40",
+    "issue_url": "https://github.com/dolph/ussher/issues/5",
+    "last_date": "2026-05-05",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#40 OPEN - fix: check config file not world-writable before loading. 8 lines added. Uses existing unused isFileWorldWritable. GH007 compliant. Issue #5 comment sent. Cooldown until 2026-05-10."
+  },
+  {
+    "org": "ek33450505",
+    "repo": "claude-agent-team",
+    "pr_url": "https://github.com/ek33450505/claude-agent-team/pull/13 [CLOSED]",
+    "issue_url": "https://github.com/ek33450505/claude-agent-team/issues/6",
+    "last_date": "2026-05-08",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#9 CLOSED 2026-05-07 18:15 UTC + #10 CLOSED 2026-05-07 17:45 UTC - maintainer\u5173\u95ed\u4e24\u4e2aPR\uff08\u672amerge\uff09\uff0cPR #13\u66ff\u4ee3\u3002Cooldown until 2026-05-11. CLOSED (no merge info). Cooldown until 2026-05-16. | #13 CLOSED by maintainer 2026-05-07 22:11 UTC."
+  },
+  {
+    "org": "BlueHuskyStudios",
+    "repo": "BezelNotification",
+    "pr_url": "https://github.com/BlueHuskyStudios/BezelNotification/pull/30",
+    "issue_url": "https://github.com/BlueHuskyStudios/BezelNotification/issues/24",
+    "last_date": "2026-05-06",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#30 OPEN - fix: rename easenInEaseOut to easeInEaseOut typo in NSWindow+Fade.swift. Fixes #24 (good first issue). 1 line fix. Issue comment sent. Cooldown until 2026-05-11."
+  },
+  {
+    "org": "lierdakil",
+    "repo": "pandoc-crossref",
+    "pr_url": "https://github.com/lierdakil/pandoc-crossref/pull/507",
+    "issue_url": "https://github.com/lierdakil/pandoc-crossref/issues/505",
+    "last_date": "2026-05-06",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#507 CLOSED by maintainer 2026-05-09 19:59 UTC - docs: fix typo inlcude->include in docs/index.md line 784. Fixes #505. 1 commit. Cooldown CLEARED (PR closed by maintainer, issue #505 still open).",
+    "cooldown_until": null
+  },
+  {
+    "org": "n116-software",
+    "repo": "LynxLauncherTheme",
+    "pr_url": "https://github.com/n116-software/LynxLauncherTheme/pull/4",
+    "issue_url": "https://github.com/n116-software/LynxLauncherTheme/issues/3",
+    "last_date": "2026-05-06",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#4 OPEN - fix typo: nedd->need in README.md line 14. Fixes #3. 1 commit. Cooldown until 2026-05-11."
+  },
+  {
+    "org": "spdcalc",
+    "repo": "spdcalc-py",
+    "pr_url": "https://github.com/spdcalc/spdcalc-py/pull/6",
+    "issue_url": "https://github.com/spdcalc/spdcalc-py/issues/5",
+    "last_date": "2026-05-07",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#6 OPEN - fix: correct unit comment for signal_waist_um (nanometers -> micrometers). Fixes #5. Cooldown until 2026-05-12."
+  },
+  {
+    "org": "hrygo",
+    "repo": "hotplex",
+    "pr_url": "https://github.com/hrygo/hotplex/pull/279 [MERGED]",
+    "issue_url": "https://github.com/hrygo/hotplex/issues/232",
+    "last_date": "2026-05-07",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#279 MERGED 2026-05-07 11:55 UTC by hrygo. sync.Once double-close panic fix. Cooldown until 2026-05-12."
+  },
+  {
+    "org": "thekoma",
+    "repo": "mailfallback",
+    "pr_url": "https://github.com/thekoma/mailfallback/pull/55",
+    "issue_url": "https://github.com/thekoma/mailfallback/issues/39",
+    "last_date": "2026-05-07",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#55 CLOSED (non-merge) 2026-05-08 22:25:50 UTC by Jah-yee (maintainer closed or self-closed). Fix still valid. Cooldown CLEARED.",
+    "cooldown_until": null
+  },
+  {
+    "repo": "CASTOR-telescope/ETC",
+    "cooldown_until": "2026-05-12",
+    "pr_url": "https://github.com/CASTOR-telescope/ETC/pull/64",
+    "note": "fix avg/medium typo in error message, line 250"
+  },
+  {
+    "org": "chocolife13",
+    "repo": "Lifedustry",
+    "pr_url": "https://github.com/chocolife13/Lifedustry/pull/15 [MERGED]",
+    "issue_url": "https://github.com/chocolife13/Lifedustry/issues/11",
+    "last_date": "2026-05-08",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#15 MERGED 2026-05-08 12:26:50 UTC. Lifdustry\u2192Lifedustry and Contribue\u2192Contribute typo fix. Cooldown until 2026-05-12."
+  },
+  {
+    "org": "reearth",
+    "repo": "ygo",
+    "pr_url": "https://github.com/reearth/ygo/pull/37",
+    "issue_url": "https://github.com/reearth/ygo/issues/25",
+    "last_date": "2026-05-09",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#37 OPEN - docs: add godoc and invariant comments (Issue #30) - 4 files changed: crdt/doc.go, crdt/yarray.go, crdt/delete_set.go, provider/websocket/inject.go - Cooldown until 2026-05-13",
+    "cooldown_until": "2026-05-13T21:42:54Z"
+  },
+  {
+    "org": "FunkybotsEvilTwin",
+    "repo": "CSI_Install",
+    "pr_url": "https://github.com/FunkybotsEvilTwin/CSI_Install/pull/14",
+    "issue_url": "https://github.com/FunkybotsEvilTwin/CSI_Install/issues/13",
+    "last_date": "2026-05-08",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#14 OPEN - fix typo: MasterTrackFXMen -> MasterTrackFXMenu in GoZones.zon. Fixes #13. 1 line fix. Issue comment sent. Cooldown until 2026-05-13."
+  },
+  {
+    "org": "youzi-forge",
+    "repo": "good-first-issue-autoUpdate",
+    "issue_url": "https://github.com/youzi-forge/good-first-issue-autoUpdate/issues/8",
+    "notes": "GFI #8: Remove unused frontend leftovers after lint/typecheck cleanup. Requires analyzing code to find unused components - not trivial. Gate-2 OK (1 PR only). Candidate.",
+    "status": "candidate"
+  },
+  {
+    "org": "sekigo",
+    "repo": "linkforge",
+    "pr_url": "https://github.com/sekigo/linkforge/pull/7",
+    "issue_url": "https://github.com/sekigo/linkforge/issues/1",
+    "last_date": "2026-05-08",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#7 OPEN - internal/http: add httptest integration tests for HTTP handlers. Covers GET /healthz, POST /api/v1/links, GET /{code} redirect. Uses fake Storage/Cache implementations. Fixes #1 (good first issue). Cooldown until 2026-05-13."
+  },
+  {
+    "org": "sceneview",
+    "repo": "sceneview",
+    "pr_url": "https://github.com/sceneview/sceneview/pull/967",
+    "issue_url": "https://github.com/sceneview/sceneview/issues/950",
+    "last_date": "2026-05-08",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#967 OPEN - fix(PhysicsDemo): remove diagnostic static sphere debug aid. Fixes #950 (good first issue). 7 lines deleted, 0 added. Cooldown until 2026-05-13. | #967 MERGED 2026-05-08 07:31:10 UTC. Cooldown until 2026-05-13.",
+    "cooldown_until": "2026-05-13"
+  },
+  {
+    "org": "fraya",
+    "repo": "dylan-gsl",
+    "pr_url": "https://github.com/fraya/dylan-gsl/pull/13",
+    "issue_url": "https://github.com/fraya/dylan-gsl/issues/12",
+    "last_date": "2026-05-09",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#13 MERGED 2026-05-09 12:42:02 UTC - docs: fix gsl-complex* typo in gsl-complex.rst lines 36 and 65. Fixes #12. Cooldown CLEARED (MERGED).",
+    "cooldown_until": null
+  },
+  {
+    "org": "aaronlab",
+    "repo": "browsertrace",
+    "pr_url": "https://github.com/aaronlab/browsertrace/pull/17",
+    "issue_url": "https://github.com/aaronlab/browsertrace/issues/14",
+    "last_date": "2026-05-09",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#17 MERGED 2026-05-09 12:42:02 UTC - docs: add troubleshooting section to examples/README.md (Issue #14). Cooldown until 2026-05-16.",
+    "cooldown_until": "2026-05-16T12:42:02+00:00"
+  },
+  {
+    "org": "HeyItsGilbert",
+    "repo": "Gatekeeper",
+    "pr_url": "https://github.com/HeyItsGilbert/Gatekeeper/pull/47",
+    "issue_url": "https://github.com/HeyItsGilbert/Gatekeeper/issues/38",
+    "last_date": "2026-05-09",
+    "commit_email": "166608075+Jah-yee@users.noreply.github.com",
+    "notes": "#47 OPEN - docs: fix broken comment-based help examples. Replaces non-existent Get-DeviceContext with proper Read-PropertySet/New-FeatureFlag/Get-DefaultContext usage. Fixes #38. 2 files, 13 insertions/5 deletions. Cooldown until 2026-05-16.",
+    "cooldown_until": null
+  }
+]

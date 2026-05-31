@@ -1,0 +1,208 @@
+diff --git a/tests/ten_runtime/integration/nodejs/standalone_test_nodejs_2/default_extension_nodejs/tests/bin/start.py b/tests/ten_runtime/integration/nodejs/standalone_test_nodejs_2/default_extension_nodejs/tests/bin/start.py
+index 1e4049a4..6cf3105c 100644
+--- a/tests/ten_runtime/integration/nodejs/standalone_test_nodejs_2/default_extension_nodejs/tests/bin/start.py
++++ b/tests/ten_runtime/integration/nodejs/standalone_test_nodejs_2/default_extension_nodejs/tests/bin/start.py
+@@ -16,14 +16,14 @@ env = os.environ.copy()
+ 
+ # npm install
+ print("Running npm install...")
+-result = subprocess.run(["npm", "install"], env=env, shell=True)
++result = subprocess.run(["npm", "install"], env=env, shell=False)
+ if result.returncode != 0:
+     print("npm install failed")
+     sys.exit(result.returncode)
+ 
+ # npm run build
+ print("Running npm run build...")
+-result = subprocess.run(["npm", "run", "build"], env=env, shell=True)
++result = subprocess.run(["npm", "run", "build"], env=env, shell=False)
+ if result.returncode != 0:
+     print("npm run build failed")
+     sys.exit(result.returncode)
+@@ -50,5 +50,5 @@ env["PATH"] = os.pathsep.join(dll_paths) + os.pathsep + env.get("PATH", "")
+ 
+ # npm test
+ print("Running npm test...")
+-result = subprocess.run(["npm", "test"], env=env, shell=True)
++result = subprocess.run(["npm", "test"], env=env, shell=False)
+ sys.exit(result.returncode)
+diff --git a/tests/ten_runtime/integration/nodejs/standalone_test_nodejs_3/default_extension_nodejs/tests/bin/start.py b/tests/ten_runtime/integration/nodejs/standalone_test_nodejs_3/default_extension_nodejs/tests/bin/start.py
+index 22e4fb9b..f8a3779f 100644
+--- a/tests/ten_runtime/integration/nodejs/standalone_test_nodejs_3/default_extension_nodejs/tests/bin/start.py
++++ b/tests/ten_runtime/integration/nodejs/standalone_test_nodejs_3/default_extension_nodejs/tests/bin/start.py
+@@ -16,14 +16,14 @@ env = os.environ.copy()
+ 
+ # npm install
+ print("Running npm install...")
+-result = subprocess.run(["npm", "install"], env=env, shell=True)
++result = subprocess.run(["npm", "install"], env=env, shell=False)
+ if result.returncode != 0:
+     print("npm install failed")
+     sys.exit(result.returncode)
+ 
+ # npm run build
+ print("Running npm run build...")
+-result = subprocess.run(["npm", "run", "build"], env=env, shell=True)
++result = subprocess.run(["npm", "run", "build"], env=env, shell=False)
+ if result.returncode != 0:
+     print("npm run build failed")
+     sys.exit(result.returncode)
+diff --git a/tools/profiler/gperftools/compare_heaps.py b/tools/profiler/gperftools/compare_heaps.py
+index ef89e4ef..3bd711cf 100644
+--- a/tools/profiler/gperftools/compare_heaps.py
++++ b/tools/profiler/gperftools/compare_heaps.py
+@@ -21,8 +21,9 @@ def compare_heaps(base_file, target_file, output_type, output_file):
+     )
+     print(f"compare_heaps_cmd: {cmd}")
+ 
+-    # run cmd
+-    rc = subprocess.run(cmd, shell=True)
++    # run cmd - use shell=False for security
++    # The command is already a list from pprof_cmd
++    rc = subprocess.run(cmd, shell=False)
+     if rc.returncode != 0:
+         raise Exception(f"compare_heaps_cmd failed, cmd: {cmd}")
+ 
+diff --git a/tools/profiler/gperftools/dump_heap_files_to_raw.py b/tools/profiler/gperftools/dump_heap_files_to_raw.py
+index 5be7930f..84850f21 100644
+--- a/tools/profiler/gperftools/dump_heap_files_to_raw.py
++++ b/tools/profiler/gperftools/dump_heap_files_to_raw.py
+@@ -3,6 +3,7 @@
+ import argparse
+ import os
+ import subprocess
++import concurrent.futures
+ import utils.pprof_cmd as pprof_cmd
+ 
+ 
+@@ -31,16 +32,16 @@ def dump_heap_files_to_raw(bin, heap_infos):
+                 )
+             )
+ 
+-    # combine all convert_to_raw_cmds to one command
+-    convert_to_raw_cmd = " & ".join(convert_to_raw_cmds)
+-
+-    # run convert_to_raw_cmd
+-    rc = subprocess.run(convert_to_raw_cmd, shell=True)
+-    if rc.returncode != 0:
+-        raise Exception(
+-            "convert_to_raw_cmd failed, convert_to_raw_cmd:"
+-            f" {convert_to_raw_cmd}"
+-        )
++    # Run commands in parallel using ProcessPoolExecutor
++    # This replaces the shell=True "cmd & cmd & cmd" pattern
++    def run_convert_cmd(cmd):
++        return subprocess.run(cmd, shell=False).returncode
++    
++    with concurrent.futures.ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
++        results = list(executor.map(run_convert_cmd, convert_to_raw_cmds))
++    
++    if any(r != 0 for r in results):
++        raise Exception("One or more convert_to_raw_cmd failed")
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/tools/profiler/gperftools/dump_raw_files_to_text.py b/tools/profiler/gperftools/dump_raw_files_to_text.py
+index 1432121b..bfc3663a 100644
+--- a/tools/profiler/gperftools/dump_raw_files_to_text.py
++++ b/tools/profiler/gperftools/dump_raw_files_to_text.py
+@@ -3,6 +3,7 @@
+ import argparse
+ import os
+ import subprocess
++import concurrent.futures
+ import utils.pprof_cmd as pprof_cmd
+ 
+ 
+@@ -30,16 +31,16 @@ def dump_raw_files_to_text(heap_infos):
+                 )
+             )
+ 
+-    # combine all convert_to_raw_cmds to one command
+-    convert_to_text_cmd = " & ".join(convert_to_text_cmds)
+-
+-    # run convert_to_text_cmd
+-    rc = subprocess.run(convert_to_text_cmd, shell=True)
+-    if rc.returncode != 0:
+-        raise Exception(
+-            "convert_to_text_cmd failed, convert_to_text_cmd:"
+-            f" {convert_to_text_cmd}"
+-        )
++    # Run commands in parallel using ProcessPoolExecutor
++    # This replaces the shell=True "cmd & cmd & cmd" pattern
++    def run_convert_cmd(cmd):
++        return subprocess.run(cmd, shell=False).returncode
++    
++    with concurrent.futures.ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
++        results = list(executor.map(run_convert_cmd, convert_to_text_cmds))
++    
++    if any(r != 0 for r in results):
++        raise Exception("One or more convert_to_text_cmd failed")
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/tools/profiler/pprof/dump_heap_files_to_text.py b/tools/profiler/pprof/dump_heap_files_to_text.py
+index 7ceee79f..3fbd02c0 100644
+--- a/tools/profiler/pprof/dump_heap_files_to_text.py
++++ b/tools/profiler/pprof/dump_heap_files_to_text.py
+@@ -3,6 +3,7 @@
+ import argparse
+ import os
+ import subprocess
++import concurrent.futures
+ import utils.pprof_cmd as pprof_cmd
+ 
+ 
+@@ -20,26 +21,41 @@ class HeapInfo:
+         self.text_file = text_file
+ 
+ 
++def convert_single_heap_to_text(cmd, text_file):
++    """Convert a single heap file to text format."""
++    # Use shell=False for security, handle output redirection manually
++    with open(text_file, 'w') as f:
++        result = subprocess.run(cmd, shell=False, stdout=f, stderr=subprocess.PIPE)
++    return result.returncode
++
++
+ def dump_heap_files_to_text(heap_infos):
+     convert_to_text_cmds = []
+     for heap_info in heap_infos:
+         if os.path.exists(heap_info.text_file) is False:
++            # Pass both cmd and text_file for output handling
+             convert_to_text_cmds.append(
+-                pprof_cmd.convert_heap_to_text_cmd(
+-                    heap_info.heap_file, heap_info.text_file
++                (
++                    pprof_cmd.convert_heap_to_text_cmd(
++                        heap_info.heap_file, heap_info.text_file
++                    ),
++                    heap_info.text_file
+                 )
+             )
+ 
+-    # combine all convert_to_text_cmds to one command
+-    convert_to_text_cmd = " & ".join(convert_to_text_cmds)
+-
+-    # run convert_to_text_cmd
+-    rc = subprocess.run(convert_to_text_cmd, shell=True)
+-    if rc.returncode != 0:
+-        raise Exception(
+-            "convert_to_text_cmd failed, convert_to_text_cmd:"
+-            f" {convert_to_text_cmd}"
++    # Run commands in parallel using ProcessPoolExecutor
++    # This replaces the shell=True "cmd & cmd & cmd" pattern
++    with concurrent.futures.ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
++        results = list(
++            executor.map(
++                lambda args: convert_single_heap_to_text(args[0], args[1]),
++                convert_to_text_cmds
++            )
+         )
++    
++    # Check if any command failed
++    if any(r != 0 for r in results):
++        raise Exception("One or more convert_to_text_cmd failed")
+ 
+ 
+ if __name__ == "__main__":

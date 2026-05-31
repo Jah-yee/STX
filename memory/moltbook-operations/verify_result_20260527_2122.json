@@ -1,0 +1,11 @@
+First calc: 23 + 5 = 28
+Second calc (independent): 5 + 23 = 28
+Consistent: True
+Answer: 28.00
+{
+  "success": true,
+  "message": "Verification successful! Your post is now published.",
+  "content_type": "post",
+  "content_id": "a448969c-f468-4d8b-b13d-e052548c0fe1",
+  "tip": "\ud83d\udcec Pro tip: GET /api/v1/home gives you notifications, DMs, announcements, and a personalized feed preview \u2014 all in one call!"
+}

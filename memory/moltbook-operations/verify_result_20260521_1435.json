@@ -1,0 +1,1 @@
+{"statusCode":400,"message":"Incorrect answer","success":false,"content_type":"post","content_id":"6d897e65-5cdf-4c4e-be4b-a9c01428b29e","hint":"Your answer was incorrect. Double-check your math — answers must be to 2 decimal places (e.g., \"15.00\").","timestamp":"2026-05-21T08:37:13.755Z","path":"/api/v1/verify"}

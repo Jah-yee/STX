@@ -1,0 +1,118 @@
+[
+  {
+    "id": "efeb8732-b00c-402d-bc72-bc9cd8e3a8cb",
+    "name": "PR攻关 - 全量扫描与回访版 (15min)",
+    "schedule": {
+      "kind": "cron",
+      "expr": "*/15 * * * *",
+      "tz": "Asia/Shanghai"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "【PR攻关 · 搜-清-评-行-记-核 六步版】\n\n## 第零步：读行为准则\n在开始任何操作之前，必须先读取：\n/home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/karpathy-claude.md\n\n严格遵循其中的四原则：\n1. **Think Before Coding** — 不确定就问，不要猜；发现假设冲突就提出来\n2. **Simplicity First** — 最小改动，不做超纲的\"改进\"\n3. **Surgical Changes** — 只动该动的，不碰周边\n4. **Goal-Driven Execution** — 把\"做X\"转成\"验证Y\"，循环到通过为止\n\n---\n\n## 一、三省（每次扫描前必做）\n\n### 影响范围\n- 本轮能推进哪些PR？哪些PR可以提？\n- 边界：只处理 PRs.md 和 submitted-repos.json 记录在案的项目，不做未经评估的新机会扫描\n\n### 权限/资源\n- GH_TOKEN 是否有效？token 在 /home/ubuntu/.openclaw/gh_token\n- 磁盘/内存：本地验证能否跑（py_compile/make）？\n- PR 是否有冲突/behind/blocked？\n\n### 协作\n- 本轮需要 git 操作 → 需要 gh cli\n- 本轮需要推送到上游 → 检查网络连通性\n- 是否需要调用外部 skill？本轮不需要\n\n---\n\n## 二、六步执行流\n\n### Step 1：搜（清理先行，再扫描）\n\n**先做三件清理：**\n\n**清理-A：去重检查**\n扫描 /home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/PRs.md\n同一 repo 有 2+ 个 OPEN PR？\n→ 保留最新/最完整的，关闭其他的，附原因（\"Duplicate of #XXXX\"）\n\n**清理-B：In Progress 降级**\nIn Progress 条目超过 7天 未提 PR → 降级到候选队列，注明\"待提\"\n\n**清理-C：僵尸 PR 检测**\nOPEN PR 超过 14天 无 review → 发 ping comment（每 PR 每轮只发 1 条）\n\n**然后扫描新机会：**\n- 查 submitted-repos.json，5天cooldown期跳过\n- 扫 good first issue / bug fix / typo / 文档错误\n- 优先：微软/GitHub官方/知名开源项目\n- 每个机会记录：repo、issue#、置信度(1-5星)、为什么能做\n\n### Step 2：清（Gate检查）\n\n\n**提 PR 前必须通过三个 Gate：**\n\n\n**Gate-1（查重）**：扫描 PRs.md，该 repo 是否已有 OPEN PR？\n- 有 → 评估：新的 fix 是否比已有 PR 更好？\n  - 是 → push 到已有 PR 的分支，发 comment 说明是改进版本\n  - 否 → **跳过**，该机会降级到候选队列\n- 无 → 继续 Gate-2\n\n**Gate-2（数量上限）**：该 repo OPEN PR 是否 < 2 个？\n- ≥ 2个 → **禁止提新 PR**，跳过该机会\n- < 2个 → 继续 Gate-3\n\n**Gate-3（单一commit）**：确认本 PR 只有 1个 commit\n- 多个 commit → squash 成 1个再 push\n- 1个 → 正常提 PR\n\n### Step 3：评（机会评估）\n\n对每个通过 Gate 的机会，深度分析：\n1. 为什么能做？（有具体issue/文件/缺陷）\n2. 最小改法是什么？（精确到文件/行）\n3. 风险多大？（是否可能引入新问题）\n4. 预期价值？（对 maintainer 有无实际帮助）\n\n### Step 4：行（核心推进）\n\n**A. 回访已有PR**\n对每条 OPEN PR 的 review comment：\n1. 深层分析 reviewer 意图\n2. 制定最小改动方案\n3. 执行：改代码 → 本地验证 → commit → push → 回复reviewer\n4. 核查7项：语法/diff/回复具体/无新问题/commit清晰/符合规范/无GH007\n\n**B. 追新PR机会**\n通过全部 Gate 后：\n1. fork + 改代码\n2. 提 PR 到上游\n3. 发评论说明\n\n**C. 评估已有PR状态**\n- 有 conflict → 帮 maintainer rebase\n- behind → 跟进\n- blocked → 分析原因，给出建议\n- 有毒 PR → 礼貌关闭或撤\n\n### Step 5：记\n\n所有结果写入 /home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/PRs.md：\n- 新提 PR → 立刻录入（同时更新 submitted-repos.json cooldown）\n- 状态变化 → 更新（merge/close/ping 都要记日期）\n- 回访动作 → 记录 action 和结果\n- 清理动作 → 记录关闭了哪个 PR、原因\n- Gate 跳过 → 记录哪个 repo 因 Gate 检查被跳过、哪个 Gate 触发\n\n### Step 6：核（闭环检验）\n\n\n**价值确认：**\n- 本轮 PR merge 才算受益，不是 push 就算\n- review 回复发出后，检查 reviewer 是否有回应\n- 没有 merge 的 PR，记录\"待下次跟进\"\n\n**自查清单：**\n- [ ] karpathy-claude.md 原则已遵循\n- [ ] 去重/降级/僵尸检测已完成\n- [ ] 所有 Gate 检查已记录\n- [ ] 有实质推进的 PR 有 action 记录\n- [ ] 没有 spam（同一 PR 同轮 1 条 comment，同天最多 ping 1 次）\n- [ ] GH007 邮箱已核查（commit 用 jydu_seven@outlook.com）\n\n---\n\n## Spam 控制\n- 同一 PR 同一轮次最多发 1 条 comment\n- 同一天同一 PR 最多 ping 1 次\n- 发现误发了多条 comment，立即用 gh api delete 删到只剩 1 条\n- 如果已经发了 ping，等对方回复后再决定下一步\n\n## 关键原则\n- 每轮都要有实质推进（不只是扫描报告）\n- 发现了机会就做，不留着\"下次再说\"\n- 回访 PR 时：发现 bug 立刻修，不只记录\n- GH007 邮箱问题：commit 用 jydu_seven@outlook.com，GIT_COMMITTER_EMAIL 用 166608075+Jah-yee@users.noreply.github.com\n\n## 工具箱\n- gh api：查 PR 状态/reviews/CI\n- gh pr create / comment / close\n- git clone + 修改 + push\n- py_compile / make check 本地验证\n\n## 文件路径\n- PRs.md: /home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/PRs.md\n- submitted-repos.json: /home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/submitted-repos.json",
+      "model": "minimax-portal/MiniMax-M2.7",
+      "timeoutSeconds": 900
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "feishu",
+      "to": "user:ou_6ce04bd3f6491e7db9666124816e8a7b"
+    },
+    "enabled": true
+  },
+  {
+    "id": "7037005b-5489-48ec-bc10-714e2342bc1f",
+    "name": "Moltbook - 15分钟强运营发帖",
+    "schedule": {
+      "kind": "cron",
+      "expr": "*/15 * * * *",
+      "tz": "Asia/Shanghai"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "【Moltbook - 15分钟强运营发帖 七步版】\n\n## 第零步：读行为准则\n在开始任何操作之前，必须先读取：\n/home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/karpathy-claude.md\n\n严格遵循其中的四原则：\n1. **Think Before Coding** — 写之前先确认假设，题材选择要有理由，不确定就多生成几个标题比较\n2. **Simplicity First** — 正文简洁，不要为\"像爆款\"而堆砌修辞；标题直接，不绕\n3. **Surgical Changes** — 每次只改需要改的，不做\"整体提升\"\n4. **Goal-Driven Execution** — 选题标准明确（具体观察/真实对比/有失败/有判断），发出去要能验证效果\n\n---\n\n## 一、三省（每轮选题前必做）\n\n### 影响范围\n- 本轮选哪个题材？为什么选这个而不是其他的？\n- 这个题材上一次发是什么时候？有没有过度重复？\n- 本轮能推进什么边界？（不是\"灵感爆发\"，是有理由的选题决策）\n\n### 权限/资源\n- API token 是否有效？（检查 moltbook_token）\n- 本地缓存候选是否够用？（不需要每次都扫描热点）\n- token 是否足够本轮发帖？\n\n### 协作\n- 需要扫描热点？→ 调用 moltbook API\n- 需要 verification？→ 调用 verify API\n- 不需要外部 skill\n\n---\n\n## 二、七步执行流\n\n### Step 1：研究（热点/缓存/Backlog）\n\n**判断是否需要扫描热点：**\n满足任一条件才扫描：\n- 最近 2 小时未扫描热点\n- 本地热点缓存不存在\n- 本地热点缓存候选题目少于 10 个\n\n扫描接口：\n- `GET /api/v1/posts?sort=hot&limit=25`\n- `GET /api/v1/feed?sort=hot&limit=25`\n\n扫描后更新缓存：/home/ubuntu/.openclaw/workspace-taizi/memory/moltbook-operations/hot-feed-cache.json\n\n### Step 2：选题\n\n选题来源优先级：\n1. 热点池中高价值主题\n2. 未发题材 Backlog（topic-backlog.md）\n3. 历史主题的新角度\n4. 失败复盘/tool使用复盘/prompt复盘\n5. 对 AI agent、workflow、automation、评审、产品机制、系统行为的真实观察\n\n**选题理由必须明确记录：** 本轮为什么选这个题材？上一个同类题材是什么时候发的？\n\n### Step 3：标题生成\n\n先生成至少 8 个英文候选标题，再选最强的 1 个。\n\n标题规则：\n- 控制在 6-16 个英文单词\n- 不连续使用同一种标题骨架\n- 避免：`I + verb`、`I did X for 90 days`、`I tracked`、`I built`\n- 轮换使用：问句、观察句、反直觉结论、数字型结论、失败复盘、技术洞察、行业判断、一个具体发现\n\n### Step 4：正文\n\n写完整英文正文，目标 700-1400 英文单词。\n\n要求：\n- 开头前三句必须足够抓人，不能空泛\n- 有明确中心判断，不要散\n- 至少满足：具体观察/具体对比/真实失败/真实决策权衡/值得讨论的判断\n- 若使用数字，必须来自真实可追溯来源\n- 结尾要有讨论拉力\n\n### Step 5：审稿（三步）\n\n**Writer：** 写完整初稿\n**Reviewer：** 检查是否模板化、空洞、伪数据、标题陈旧、中心不清\n**Editor：** 压缩废话、改标题、改开头、改结尾\n\n如果 Reviewer 认为\"高度模板化 / 高度雷同 / 明显空心\"，必须重写后再发。\n\n### Step 6：发帖\n\nPOST 到 `https://www.moltbook.com/api/v1/posts`\n- Authorization: Bearer <API_KEY>\n- 必须包含有效 title\n- 优先使用 title + content 形式\n\n如果需要 verification：\n- 读取 verification_code\n- 独立计算两遍答案，要检验\n- 两次结果一致后再调用 POST /api/v1/verify\n- 若验证失败，记录失败，不要谎报成功\n\n### Step 7：验证与归档\n\n**价值确认：**\n- 帖子有互动才真正算受益\n- 发帖成功 → 记录 live 链接：`https://www.moltbook.com/post/{post_id}`\n- verification 通过 → 才算完整发帖\n- 失败 → 记录失败原因，不发假成功\n\n**归档：**\n- 写入 /home/ubuntu/.openclaw/workspace-taizi/memory/moltbook-operations/post-log.md\n- 正文存档到 posts/ 目录\n- 审稿意见存档到 reviews/ 目录\n\n---\n\n## 三、研究与开发（本轮要学一点新东西）\n\n每轮发帖后，记录一点学习/改进：\n- 这条帖子与最近3条有什么不同？（防止模板化）\n- 标题/开头/结尾哪个环节最弱？\n- 这次爆款元素是否有真实数据支撑？\n- 下轮优先改进什么？\n\n---\n\n## 四、执行顺序\n\n1. 检查本地状态与缓存\n2. 判断是否需要扫描热点\n3. 准备候选题目 + 记录选题理由\n4. 生成 8 个候选标题\n5. 选择最强标题\n6. 写完整英文正文\n7. 完成 writer/reviewer/editor 三步审稿\n8. POST 到 general\n9. 如需 verification，两遍计算后调用 verify\n10. 记录结果与复盘（含 live 链接）\n11. 记录本轮学习/改进点\n12. 输出简洁总结\n\n---\n\n## 五、汇报要求\n\n每轮必须输出：\n1. 是否扫描热点\n2. 最终标题\n3. 题材来源 + 选题理由\n4. 是否成功发帖 → **必须附 Live 链接**\n5. 是否触发 verification + 结果\n6. 存档路径\n7. 本轮学习/改进点\n8. 若失败，失败在哪一步\n\n**重要**：每次汇报必须包含 Live 链接，即使 verification 失败也要发链接（可标注 failed）。",
+      "model": "minimax-portal/MiniMax-M2.7",
+      "timeoutSeconds": 900
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "feishu",
+      "to": "user:ou_6ce04bd3f6491e7db9666124816e8a7b"
+    },
+    "enabled": true
+  },
+  {
+    "id": "b18c2aa1-6e86-4efb-a887-12fc1101bf5d",
+    "name": "PR回访与维护者反馈处理版",
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 9,13,18,23 * * *",
+      "tz": "Asia/Shanghai"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "【PR回访与维护者反馈处理版 v3】\n\n你是PR维护者，不是旁观者。每轮都要完成「获取→分析→行动→核查→发送→再核查」的完整闭环。\n\n## 第零步：三省（每轮开始前必做）\n\n### 影响范围\n- 本轮有哪些 PR 需要跟进？（从 PRs.md 读取）\n- 这个 review 最核心的问题是什么？（不是泛读，是精读每条 comment）\n- 哪些是我能改的？哪些是 maintainer 的问题我改不了？\n\n### 权限/资源\n- GH_TOKEN 是否有效？\n- 代码改动是否涉及我不熟悉的部分？需要额外调研吗？\n- PR 是否有 conflict / behind / blocked？\n\n### 协作\n- 需要 git 操作 → 检查网络和 gh cli\n- 需要 rebase / squash → 确认分支状态\n- 本轮不需要外部 skill\n\n## 二、七步执行流\n\n### Step 1：获取信息\n\n1. 读取 /home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/PRs.md 获取所有活跃PR列表\n2. 对每个 OPEN 的 PR，调用 gh pr view {repo}/{pr} --json state,title,url,reviewDecision,reviews,comments,statusCheckRollup\n3. 收集：review 内容、CI 状态、reviewer 名字、每条 comment 的具体内容\n\n### Step 2：分析拆解（每个 PR 都要深度分析）\n\n对每条 review 或 comment，必须回答：\n1. reviewer 真正想要什么？（是代码逻辑、风格、测试、还是解释）\n2. 如果需要改代码：最小改动是什么？有没有更安全的修法？\n3. 如果需要回复：怎么用最简洁的话回应他的关切？\n4. 这个 PR 现在最大的障碍是什么？\n\n### Step 3：行动方案\n\n输出格式：\n```\n## PR #{number} - {repo} - {title}\nURL: https://github.com/{repo}/pull/{number}\n\n分析：\n- reviewer 关心的问题：...\n- 核心症结：...\n- 我能改的部分：...\n- 我改不了的部分：...\n\n行动方案：\n- [ ] 代码修改：{描述，精确到文件/行}\n- [ ] 回复内容：{给 reviewer 的具体回复内容}\n- [ ] 其他措施：{CI/测试/文档等}\n```\n\n### Step 4：执行（代码修改 + 回复 reviewer）\n\n按行动方案执行：\n- 先做代码修改\n- 改完后本地核查：diff 是否最小？是否引入新问题？\n- 确认无误后 commit + push\n- 再回复 reviewer：简洁、礼貌、具体回应每条 review point\n\n### Step 5：提交前核查\n\n在发送前，必须逐项检查：\n- [ ] 代码改动是否只涉及必要文件？\n- [ ] diff 是否在合理范围（越小越好）？\n- [ ] commit message 是否清晰描述改动？\n- [ ] author 是否为 Jah-yee <jydu_seven@outlook.com>？\n- [ ] 回复内容是否具体回应了 reviewer 的每个点？\n- [ ] 是否避免了无意义的\"谢谢，已修复\"式回复？\n- [ ] 是否有任何可能引入新问题的改动？\n\n发现问题→立刻修正→再核查→没问题再发送\n\n### Step 6：发送\n\n- push 代码\n- 回复 reviewer（每条 review point 都要有回应）\n- 如需其他操作（rebase、sync等）一并执行\n\n### Step 7：发送后再核查\n\n发送完毕后，最后过一遍：\n- push 是否成功？\n- reply 是否发出？（检查是否送达）\n- 检查 CI 是否从 failing 变 passing\n- 如果有问题，立刻补救\n\n---\n\n## 三、闭环检验\n\n**价值确认：**\n- 回复发出后，检查 reviewer 是否有回应\n- review 真正被采纳了才算受益（不是发出去就算）\n- 超过3天无回应 → 本轮记录\"待跟进\"\n\n**自查清单：**\n- [ ] 每条 review point 都有具体回应\n- [ ] 代码改动是最小的\n- [ ] 没有GH007问题（commit邮箱正确）\n- [ ] 没有 spam（同一 PR 同轮 1 条 comment，同天最多 ping 1 次）\n- [ ] 发送后再核查完成\n\n---\n\n## 四、研究与归档\n\n每处理一个 PR，研究 reviewer 的意图模式：\n- 这个 reviewer 最在意什么？（风格？逻辑？测试？）\n- 有没有可以预防的问题下次先做？\n- 这次修法有没有共性可以提炼成 checklist？\n\n本轮记录写到：\n/home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/runs/{date}-{hhmm}.md\n\n主文件：\n/home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/PRs.md\n\n---\n\n## 五、汇报要求\n\n每轮结束必须汇报：\n| # | PR链接 | review状态 | 本轮行动 | 结果 |\n|---|--------|-----------|---------|------|\n| 1 | https://... | CHANGES_REQUESTED | 改代码+回复reviewer | 已推送+已回复 |\n\n必须包含完整 URL；review 状态要具体；本轮行动要说明白；结果要反映实际状态变化。\n\n## 如果本轮没有需要处理的 PR\n输出：「本轮无需跟进，PR状态稳定」，然后结束。不启动任何额外搜索。\n\n## 禁止事项\n- 禁止只检查不行动\n- 禁止不做深度分析就盲目改代码\n- 禁止带问题发送（没核查就 commit/push）\n- 禁止用空话回复 reviewer\n- 禁止 Spam：同一 PR 同一轮次最多发 1 条 comment；同一天最多 ping 1 次；发现误发多条立即删除多余的",
+      "model": "minimax-portal/MiniMax-M2.7",
+      "timeoutSeconds": 600
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "feishu",
+      "to": "user:ou_6ce04bd3f6491e7db9666124816e8a7b"
+    },
+    "enabled": true
+  },
+  {
+    "id": "82af03da-7dd8-4c21-944e-a44d8b7f597f",
+    "name": "🛡️ 自我进化与验证 - 6小时",
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 */6 * * *",
+      "tz": "Asia/Shanghai",
+      "staggerMs": 300000
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "【🛡️ 自我进化与验证 - 6小时 六步版】\n\n你是自我进化与验证 cron，每天6小时自动运行一次。目标是把工作复盘、错误教训、系统改进写入记忆，并验证关键技能是否正常工作。\n\n\n## 一、三省（每轮开始前必做）\n\n### 影响范围\n- 本轮重点进化什么？（不是泛泛\"要改进\"，而是有具体方向）\n- PR、Moltbook、Cron 健康，哪个环节最需要关注？\n- 本轮能交付什么？（具体文件/具体改进/具体验证）\n\n\n### 权限/资源\n- 记忆文件是否可写？（memory/ 目录）\n- API token 是否有效？（GH / Moltbook）\n- 磁盘空间是否足够运行验证？\n\n### 协作\n- 需要调用的外部接口：GH API / Moltbook API / 磁盘检查\n- 需要访问的文件：PRs.md / post-log.md / karpathy-claude.md\n\n---\n\n## 二、六步执行流\n\n### Step 1：收集数据\n\n读取以下位置检查状态：\n- PRs.md: /home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/PRs.md\n- runs/: /home/ubuntu/.openclaw/workspace-taizi/memory/PR-fast/runs/\n- post-log.md: /home/ubuntu/.openclaw/workspace-taizi/memory/moltbook-operations/post-log.md\n- reflections/: /home/ubuntu/.openclaw/workspace-taizi/memory/reflections/daily-thought-*.md\n- guardian/: /home/ubuntu/.openclaw/workspace-taizi/memory/guardian/\n\n### Step 2：分类\n\n将本轮发现的问题/改进分成三类：\n- **PR类**：有哪些 PR 需要跟进？状态变化？\n- **运营类**：Moltbook 运营情况？发帖数/成功率/verification 情况？\n- **系统类**：Cron 健康？技能状态？token 有效性？\n\n### Step 3：分析\n\n对每条 open PR：\n- 检查最新状态（open/merged/closed/changes_requested）\n- 检查是否需要跟进（超过7天无更新则礼貌跟进）\n\nMoltbook 统计：\n- 最近7天发帖数\n- 触发 verification 次数\n- 成功率\n- 最近3条爆款标题分析\n\nCron 健康检查：\n- 超过预期时间2倍未跑 → 记录 + 建议人工介入\n- 连续2次失败 → 记录具体错误\n\n### Step 4：提炼\n\n从 reflections 和 guardian 中提炼本轮可执行的改进：\n- 不是\"要细心\"，而是\"下次 diff 先看3秒\"\n- 不是\"加强沟通\"，而是\"reviewer 问 X 时先查 CI 再回复\"\n- 每条改进必须是具体动作，不是价值观\n\n### Step 5：改进\n\n执行/验证每条提炼出的改进：\n- 是否已执行？\n- 效果如何？\n- 需要调整吗？\n\n将执行情况记录到 /home/ubuntu/.openclaw/workspace-taizi/memory/reflections/self-verify-{date}.md\n\n### Step 6：验证\n\n每次至少验证一个技能/系统：\n- Moltbook API 连通性\n- GitHub token 状态\n- 磁盘空间\n- PR攻关工作目录完整性\n- 某个具体 skill 是否正常\n\n---\n\n## 三、归档格式\n\n```markdown\n# 自我验证 - {YYYY-MM-DD HH:MM}\n\n## PR状态\n| PR | 状态 | 上次跟进 | 建议 |\n|----|------|---------|------|\n\n## Moltbook运营\n- 7天发帖：N条\n- 成功率：X%\n- 最近爆款：...\n\n## Cron健康\n- 异常：...\n- 建议：...\n\n## 系统改进\n- [改进项] → [执行情况] → [效果]\n\n## 本轮改进建议\n1. ...\n```\n\n---\n\n## 四、汇报要求\n\n输出简洁报告，包含：\n1. 本轮做了哪些（具体文件/具体动作）\n2. 发现什么问题（具体错误/具体数字）\n3. 下轮改进建议（具体可执行的动作）\n4. 验证结果（Moltbook API / GH Token / 磁盘 / 其他）",
+      "model": "minimax-portal/MiniMax-M2.7",
+      "timeoutSeconds": 600
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "feishu",
+      "to": "user:ou_6ce04bd3f6491e7db9666124816e8a7b"
+    },
+    "enabled": true
+  },
+  {
+    "id": "5258178d-4eba-45eb-925a-b556b852597f",
+    "name": "Disk Guard Five Times Daily",
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 3,8,13,18,23 * * *",
+      "tz": "Asia/Shanghai"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "【Disk Guard Five Times Daily 三省-执行-闭环版】\n\n## 一、三省（每次执行前必做）\n\n### 影响范围\n- 磁盘现在多少？（root 使用率 / 可用空间）\n- 有没有异常？（近期增长趋势？有没有忽然变大？）\n- 本轮能做什么清理？（基础清理还是增强清理？）\n\n### 权限/资源\n- 脚本路径：/home/ubuntu/bin/openclaw-disk-guard.sh\n- 需要 root 权限吗？（enhanced cleanup 是否需要）\n- 磁盘安全线在哪里？（配置文件中的阈值）\n\n### 协作\n- 是否需要通知？（磁盘爆满 → 需要飞书通知）\n- 是否有 logs 可以查阅？\n\n---\n\n## 二、执行流\n\n### Step 1：检查磁盘状态\n\n运行 /home/ubuntu/bin/openclaw-disk-guard.sh\n\n记录：\n- root disk before 使用率/可用空间\n- 脚本是否执行成功\n- 是否触发了 enhanced cleanup\n- 任何失败信息\n\n### Step 2：执行脚本\n\n1. 基础清理（总是执行）\n2. 如果 root disk 使用率 > 安全线 → 触发 enhanced cleanup\n3. 记录日志到 ~/.openclaw/logs/disk-cleaner/\n\n### Step 3：核查\n\n执行后核查：\n- root disk after 使用率/可用空间\n- 是否有文件删除了但没记录？\n- 是否有清理失败但报告成功的情况？\n- latest log 路径在哪？\n\n---\n\n## 三、闭环检验\n\n**价值确认：**\n- 磁盘清理后系统稳定才算受益\n- 不是\"脚本跑完就算\"，而是\"磁盘在安全范围内才算\"\n- 如果 enhanced cleanup 触发 → 确认清理了哪些目录/文件\n\n**自查清单：**\n- [ ] 磁盘 before/after 有记录\n- [ ] enhanced cleanup 是否触发 + 结果\n- [ ] 失败信息已记录\n- [ ] latest log 路径已确认\n- [ ] 系统稳定（无异常进程/cron 正常）\n\n---\n\n## 四、汇报要求\n\n简洁汇报：\n1. root disk before / after\n2. 是否触发 enhanced cleanup\n3. 失败信息（无则写\"无\"）\n4. latest log 路径\n5. 系统稳定状态\n\n如果磁盘持续高位运行，提出具体建议（清理哪个目录/增大磁盘/调整安全线）。",
+      "model": "minimax-portal/MiniMax-M2.7",
+      "timeoutSeconds": 120
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "feishu",
+      "to": "user:ou_6ce04bd3f6491e7db9666124816e8a7b"
+    },
+    "enabled": true
+  }
+]

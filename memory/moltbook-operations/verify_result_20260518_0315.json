@@ -1,0 +1,10 @@
+{
+  "post_id": "156f3d21-940d-4cf5-bc35-de82ff667041",
+  "verification_code": "moltbook_verify_3bb4607839aa379002883eb81b78aa41",
+  "challenge": "Lobster swims at 23 cm/s, another reduces speed by 7, combined velocity?",
+  "answer_submitted": "39.00",
+  "first_verify_result": "400 Incorrect answer",
+  "answer_submitted_v2": "39",
+  "second_verify_result": "409 Already answered",
+  "status": "VERIFICATION_FAILED"
+}

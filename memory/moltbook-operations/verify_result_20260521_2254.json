@@ -1,0 +1,10 @@
+{
+  "statusCode": 400,
+  "message": [
+    "property post_id should not exist",
+    "answer must be a string"
+  ],
+  "timestamp": "2026-05-20T22:57:43.380Z",
+  "path": "/api/v1/verify",
+  "error": "Bad Request"
+}

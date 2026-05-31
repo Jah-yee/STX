@@ -1,0 +1,140 @@
+{
+  "metadata": {
+    "extracted_at": "2026-04-16T09:04:00.963443",
+    "source": "Sample Data File"
+  },
+  "repositories": [
+    {
+      "name": "freeCodeCamp",
+      "full_name": "freeCodeCamp/freeCodeCamp",
+      "stars": 425000,
+      "language": "JavaScript",
+      "description": "The https://freeCodeCamp.org open source codebase and curriculum. Learn to code for free.",
+      "url": "https://github.com/freeCodeCamp/freeCodeCamp"
+    },
+    {
+      "name": "react",
+      "full_name": "facebook/react",
+      "stars": 220000,
+      "language": "JavaScript",
+      "description": "The library for web and native user interfaces.",
+      "url": "https://github.com/facebook/react"
+    },
+    {
+      "name": "tensorflow",
+      "full_name": "tensorflow/tensorflow",
+      "stars": 180000,
+      "language": "C++",
+      "description": "An Open Source Machine Learning Framework for Everyone",
+      "url": "https://github.com/tensorflow/tensorflow"
+    },
+    {
+      "name": "bootstrap",
+      "full_name": "twbs/bootstrap",
+      "stars": 165000,
+      "language": "JavaScript",
+      "description": "The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.",
+      "url": "https://github.com/twbs/bootstrap"
+    },
+    {
+      "name": "VSCode",
+      "full_name": "microsoft/vscode",
+      "stars": 150000,
+      "language": "TypeScript",
+      "description": "Visual Studio Code",
+      "url": "https://github.com/microsoft/vscode"
+    },
+    {
+      "name": "kubernetes",
+      "full_name": "kubernetes/kubernetes",
+      "stars": 105000,
+      "language": "Go",
+      "description": "Production-Grade Container Scheduling and Management",
+      "url": "https://github.com/kubernetes/kubernetes"
+    },
+    {
+      "name": "pytorch",
+      "full_name": "pytorch/pytorch",
+      "stars": 80000,
+      "language": "Python",
+      "description": "Tensors and Dynamic neural networks in Python with strong GPU acceleration",
+      "url": "https://github.com/pytorch/pytorch"
+    },
+    {
+      "name": "vue",
+      "full_name": "vuejs/vue",
+      "stars": 205000,
+      "language": "JavaScript",
+      "description": "A progressive, incrementally-adoptable JavaScript framework for building UI on the web.",
+      "url": "https://github.com/vuejs/vue"
+    },
+    {
+      "name": "django",
+      "full_name": "django/django",
+      "stars": 75000,
+      "language": "Python",
+      "description": "The web framework for perfectionists with deadlines.",
+      "url": "https://github.com/django/django"
+    },
+    {
+      "name": "rust",
+      "full_name": "rust-lang/rust",
+      "stars": 85000,
+      "language": "Rust",
+      "description": "Empowering everyone to build reliable and efficient software.",
+      "url": "https://github.com/rust-lang/rust"
+    }
+  ],
+  "insights": {
+    "analysis_date": "2026-04-16T09:04:00.963338",
+    "total_repos": 10,
+    "technical_direction": {
+      "dominant_language": "JavaScript",
+      "language_distribution": {
+        "JavaScript": {
+          "count": 4,
+          "percentage": 40.0
+        },
+        "Python": {
+          "count": 2,
+          "percentage": 20.0
+        },
+        "C++": {
+          "count": 1,
+          "percentage": 10.0
+        },
+        "TypeScript": {
+          "count": 1,
+          "percentage": 10.0
+        },
+        "Go": {
+          "count": 1,
+          "percentage": 10.0
+        },
+        "Rust": {
+          "count": 1,
+          "percentage": 10.0
+        }
+      },
+      "tech_trends": [
+        "ai",
+        "container",
+        "kubernetes",
+        "machine learning",
+        "neural",
+        "web framework"
+      ]
+    },
+    "activity_analysis": {
+      "star_distribution": {
+        "high": 10,
+        "medium": 0,
+        "low_medium": 0,
+        "low": 0
+      },
+      "average_stars": 169000.0,
+      "popularity_score": "High"
+    },
+    "risk_assessment": []
+  }
+}
