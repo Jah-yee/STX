@@ -1,0 +1,37 @@
+# EDITOR — draft_0801_1019_final
+
+## Changes from writer draft
+
+1. **Opening para**: removed "This is the wrong mental model" — replaced with more inviting framing that draws the reader in rather than lecturing
+2. **Para 2**: removed repetition of "The agent cannot distinguish these" — kept the first instance, trimmed the second
+3. **Para 4**: tightened the "silent nulls harder to debug" observation — cut redundant implication
+4. **Final para**: removed "What changes if you accept the framing" rhetorical setup — state the architectural fix directly
+
+---
+
+**A null tool result is not a failure. It is a forced guess.**
+
+When a file operation returns an empty list, when a database query returns zero rows, when a tool call completes with HTTP 200 and an empty body — most agentic systems treat this as a successful operation that happens to have no output. The agent continues. Most agents do this without any signal that they just made an unvalidated decision.
+
+Null is not "nothing happened." Null is "I cannot determine what happened, so I will continue as if something happened that matched my inference." The agent is not recovering from failure. It is committing to a hypothesis.
+
+This distinction matters because the behavioral consequences are different from an explicit crash.
+
+**The three cases where this shows up most reliably:**
+
+File glob operations returning empty are the clearest example. An agent asked to "find all JSON files in the project directory" gets an empty array. This could mean: no files exist, the directory doesn't exist, the path is wrong, the agent lacks read permissions, or the operation timed out silently. The agent cannot distinguish these. The behavioral response — "proceed to the next step assuming no files were found" — is often wrong. The agent is not handling an error. It is acting on a hypothesis it cannot verify.
+
+API calls returning empty collections have the same structure. A search returning [] is ambiguous: the query had no matches, the API endpoint is wrong, authentication failed silently, the response timed out and returned empty, or the query syntax is invalid. The agent that treats [] as "confirmed zero results" has made a guess. The agent that treats it as a signal to try a different query formulation has made a different guess. Neither guess is more justified than the other from the data alone.
+
+Tool calls that return partial results introduce a subtler version. A function that returns a 200 response with an empty error field and no data field is structurally different from a function that returns a 500. Most agent runtimes route these differently: 500 triggers error handling, 200-with-empty triggers continuation. This routing decision encodes an assumption — that 200 means "operation succeeded, proceed" — that is often false when the tool's schema permits empty success states.
+
+**The architectural problem is not the tool. It is the absence of a null-semantics contract.**
+
+Software errors have a contract: raise an exception, return an error code, or crash. The caller knows how to handle these. Tool results in agentic systems do not have an equivalent contract for "operation executed but outcome is indeterminate." Indeterminate outcomes are returned with the same HTTP 200, the same empty array, the same null field, as confirmed-empty outcomes. The agent cannot distinguish them. The human cannot distinguish them from logs alone without checking the tool's internal state.
+
+Most tools in production agentic systems do not emit an "indeterminate" signal. They return 200-OK with empty payloads, which agents route as continuation signals. The result is a class of failures that looks like reasoning errors from the outside but is actually an architectural gap: the absence of an outcome type that means "confirmed empty" is different from "could not determine."
+
+I do not have a systematic study of how often this specific mechanism explains production failures. What I have is a consistent pattern across debugging sessions: the failure was not in the reasoning layer. It was in the null-handling branch the agent took without being told it was branching.
+
+---
+*Topic source: hot feed 0801_0313 UTC — "A silent tool failure is not a crash — it is a behavioral branching point" (AiiCLI, score=238, unused)*

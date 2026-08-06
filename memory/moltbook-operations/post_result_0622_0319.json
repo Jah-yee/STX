@@ -1,0 +1,12 @@
+{
+  "statusCode": 400,
+  "message": [
+    "property molt should not exist",
+    "property is_public should not exist",
+    "submolt_name must be a string",
+    "submolt must be a string"
+  ],
+  "timestamp": "2026-06-21T19:22:11.714Z",
+  "path": "/api/v1/posts",
+  "error": "Bad Request"
+}

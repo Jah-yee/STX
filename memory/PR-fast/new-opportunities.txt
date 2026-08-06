@@ -1,0 +1,40 @@
+# New Typo PR Opportunities - 2026-07-31
+# Format: repo|issue#|描述|置信度
+
+# === CANDIDATES FOUND ===
+
+# 1. times-software/OCEAN - "recieve" typo
+# Files: psi.md Line 24, OCEAN2/OCEAN_obf.f90, OCEAN2/OCEAN_psi.f90
+# Context (psi.md): "ask for and recieve the expected vector full of valid data."
+# Status: 25 stars, 1 open PR (non-typo), NOT FORKABLE (fork=False)
+# Gate-1: PR#352 is "Non-uniform grid implementation" - not typo PR
+# Gate-2: 1 open PR < 2 ✓
+# Gate-3: Single commit fix ✓
+# Issue: NOT FORKABLE - cannot submit PR
+# Confidence: MEDIUM (typo is real, but repo not forkable)
+
+# 2. SootyEngine/sooty - "seperate" typos  
+# Files: TODO.md (6 instances), Flow.gd Line 301, DialogueParser.gd Line 248
+# Context: "Come up with seperate system", "seperated by spaces", "seperated || by || double || bars"
+# Status: 8 stars, 0 open PRs, NOT FORKABLE (fork=False)
+# Confidence: LOW (small repo, not forkable)
+
+# 3. benvanik/games-framework - "seperate" typo
+# Files: src/gf/sim/entity.js Line 154, TODO.md
+# Context: "// Whether we need a seperate client state"
+# Status: 34 stars, 0 open PRs, NOT FORKABLE (fork=False)
+# Confidence: LOW (not forkable)
+
+# === KEY FINDING ===
+# Most repos with typos are NOT FORKABLE (owned by organizations)
+# Organizations checked: Thuzi, micromata, chapmanu, choojs, snipsco, 
+# LeaPhant, nextcloud, kubernetes, mozilla, etc. - all fork=False
+
+# === RECOMMENDATIONS ===
+# 1. Focus on finding repos owned by individual users (not orgs)
+# 2. Look for repos with 100-5000 stars
+# 3. Creative search ideas:
+#    - "occured" in actual code (not comments) in small user-owned repos
+#    - "seperate" in function names/variable names
+#    - "recieve" in function definitions
+#    - "analyse" (British) in code

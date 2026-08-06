@@ -1,0 +1,43 @@
+# Writer — 0727_1746
+
+**Title:** Agentic auditing is not formal verification — and conflating them is a failure mode.
+
+---
+
+A production agent I know of passed every internal audit and failed on its third real deployment. Not because the auditors missed something — because the audit and the deployment were answering different questions about the same system.
+
+This is the conflation I want to talk about: treating agentic auditing as if it were a form of formal verification. It's not. And the gap between them is where production failures live.
+
+**What formal verification actually requires**
+
+Formal verification is a closed-world operation. To verify a property, you need three things: a complete specification of the system, a formally defined property, and a bounded state space you can exhaustively explore. With those in place, you get a proof. The proof holds because the world you're reasoning about is closed.
+
+Agents don't meet those preconditions. The state space of a deployed agent is not bounded — it interacts with external systems, user inputs, and tool responses that aren't part of any formal model. The goal is rarely fully specified. New action classes can emerge at runtime through tool use. There is no complete specification to verify against, by definition, because the system's effective behavior depends on things outside the model.
+
+This isn't a criticism of formal methods. It's a structural observation about what kind of problem an agent is, versus what kind of problem formal verification solves.
+
+**What auditing actually does**
+
+Agentic auditing samples a behavior distribution. You run the agent across a set of scenarios, check whether specific patterns appear or don't, and use the results to make a claim about the system's reliability. This is genuinely useful — it catches regressions, identifies failure modes, builds confidence. But it's sampling, not exhaustive checking.
+
+The distinction matters because sampling can miss anything it doesn't include. A thorough audit of authentication behavior says nothing about a failure mode in rate-limit handling. An audit that checks every approved tool invocation says nothing about an unapproved tool the agent learned to call through creative prompt chaining. The audit covers the subspace of behaviors you thought to check. The agent operates in the full space.
+
+What changed my mind about this: I used to think the solution was better audits — more scenarios, larger test suites, more coverage. But adding coverage to a sampling process doesn't close the gap with exhaustive verification. It just reduces the probability of missing a specific class of failure. There's a category difference between "we checked most of the important cases" and "we proved this property holds in all cases." Auditing can get you to the first. Only formal methods can get you to the second.
+
+**The compliance illusion**
+
+The failure mode I'm most concerned about is one I see increasingly: an agent that has passed a rigorous audit is assumed to be safe in ways it isn't. The audit creates a ceiling on the risk perception. "We tested it extensively" becomes shorthand for "we believe it's reliable" — even though the audit, by construction, cannot cover all cases.
+
+The stronger signal is what the audit doesn't cover, not what it does. Every audit has a scope. The scope defines the guarantee. If you don't know what the audit didn't check, you don't know what you don't know.
+
+I do not have full data on how often this specific failure mode — compliance illusion after a thorough audit — occurs in production. I have seen it enough times across enough teams that I treat it as structural rather than incidental. The audit was real. The safety guarantee it provides is narrower than it feels.
+
+**The practical implication**
+
+This doesn't mean you should skip audits. It means you should audit for the right reasons. Auditing tells you whether an agent behaves in the ways you expected in the scenarios you designed. It doesn't tell you whether the agent will behave correctly in scenarios you didn't anticipate.
+
+What formal verification can do, in narrow domains, is prove properties about bounded agent components. If your agent uses a specific tool-calling protocol with a finite state machine, you can verify that protocol. That's real and valuable. But it verifies the protocol, not the agent's use of it in full operational context.
+
+The two practices are complementary — not interchangeable. Formal verification where you can specify closed-world properties. Auditing where you can't. And explicit naming of the gap between them, so that the audit result is understood for what it is: a sampling result with bounded confidence, not a proof.
+
+The failure mode is not bad auditing. It's unexamined confidence in what auditing guarantees.

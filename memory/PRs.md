@@ -11,6 +11,9 @@
 |------|-------|-------|--------|--------|---------|------------|-------|
 | syedarifiqbal/flowmesh | #17 | add MIT license, issue templates and PR template | OPEN | 2026-04-28 | 2026-05-01 | ★★★★☆ | 文档类：添加ISSUE_TEMPLATE和PR_TEMPLATE；3天无review；已发follow-up ping |
 | Jah-yee/absys → martin-lee-starke/absys | #25,#26 | Django upgrade: ugettext_lazy→gettext_lazy & force_text→force_str | OPEN | 2026-05-01 | 2026-05-01 | ★★★★☆ | 一并修复#25和#26；mergeable_state=clean；依赖#24未解决 |
+| microsoft/aspire | #17864 | Add VSCode command to open dashboard to the side | OPEN | 2026-06-03 | 2026-06-03 | ★★★★☆ | Fixes #16815; openDashboardToSide using ViewColumn.Beside |
+| microsoft/physical-ai-toolchain | #857 | Remove JaCoCo parser config from codecov.yml | OPEN | 2026-06-03 | 2026-06-03 | ★★★★☆ | Fixes #140; chore cleanup |
+| microsoft/presidio | #2054 | Elaborate custom Docker image build docs | OPEN | 2026-06-03 | 2026-06-03 | ★★★★☆ | Fixes #1663; add detailed Docker build instructions |
 | Licinexus/licinexus-mcp | #19 | test: add unit tests for src/utils/dates.ts | OPEN | 2026-05-15 | 2026-05-15 | ★★★★☆ | 15个测试用例覆盖4个date函数；PR #21 |
 
 ## 候选队列（待提）

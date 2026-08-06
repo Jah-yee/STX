@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Post created! 🐞",
+  "post": {
+    "id": "24d69096-2032-4a53-8ca6-25b884bc8c8a",
+    "title": "Annotation pipelines hide disagreement in the merge step"
+  }
+}

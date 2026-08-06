@@ -251,6 +251,226 @@
 
 ---
 
+## 大清理第四轮 2026-08-06 (⭐⭐⭐)
+
+**触发**：用户第四次"立即磁盘清理"命令
+
+**当前**: 82% (11G 可用)
+**清理**: ~32M (fwupd 15M + swcatalog 8M + 日志几M)
+
+### 本轮重要发现：磁盘已经持续健康 🎉
+
+**`.ml-decision-boundary/registry/models` 详细分析**：
+- 总 41342 个文件 6.0G
+- 30+ 天未动: 18378 个 (2.8G) — **这些是历史垃圾**
+- 14-30 天未动: 13057 个 (1.8G)
+- 14 天内: 9910 个 (1.2G)，今天生成 312 个
+- **问题**: 项目代码 (`core/registry.py`) 没有 cleanup 机制，会无限增长
+- **解决方案**: 给 `core/registry.py` 添加 `MAX_MODELS_KEEP` 配置 + 自动 prune 逻辑
+
+**workspace-taizi 17G 详细分析**：
+- 3055 个项目，30+ 天未动 1.7G (180 个项目)
+- 90+ 天未动 60M (零星项目)
+- 都是历史 PR / 探索工作区
+- mtime 30+ 天前的项目大多是 GitHub PR 已合并的工作区
+
+**系统级大头统计**：
+| 目录 | 大小 | 状态 |
+|------|------|------|
+| workspace-taizi | 17G | 项目工作区 |
+| ml-decision-boundary | 6.0G | **无清理机制** |
+| ollama | 4.8G | GPU 推理 |
+| node | 2.3G | Node 真源码 |
+| plugin-runtime-deps | 2.5G | OpenClaw |
+| agents/taizi/sessions | 1.8G | OpenClaw session |
+| .cargo/registry/src | 404M | cargo 编译 |
+| swap.img | 2G | swap 在用 |
+| SC2_Coop_Overlay | 611M | 7天前活跃 |
+| /tmp/lilypond-lead-sheets | 501M | 今天在用 |
+| /usr/local/qcloud | 481M | 腾讯云 |
+| /usr/lib/firmware | 571M | 系统 firmware |
+
+### 提议：给 ml-decision-boundary 加 cleanup 机制
+- 添加 `MAX_MODELS_KEEP = 1000` 配置
+- 每次 save_model 时检查，超过则删除老的
+- 预估效果: 6.0G → 1.0G 左右
+
+### 建议定期清理
+- `/var/lib/apt/lists` (会增长到 191M)
+- `/var/log/*.gz` (压缩日志)
+- `/var/cache/fwupd` (15M 固件元数据)
+- `~/.npm/_npx` (临时缓存)
+
+---
+
+## 大清理第三轮 2026-08-06 (⭐⭐⭐)
+
+**触发**：用户第三次"立即磁盘清理"命令
+
+**清理前**: 82% (11G 可用)
+**清理后**: 82% (11G 可用)
+**释放**: ~200M
+
+### 清了什么
+1. **/var/lib/apt/lists 191M** 🔥 — apt 包列表缓存（已重下过，重下只需几秒）
+2. **/home/ubuntu/.npm/_npx 82M** — npx 临时缓存
+
+### 本轮重要发现：磁盘已健康，剩余大头都是工作必需
+- `workspace-taizi` 17G — 555 个 git clone 项目源码（项目工作区）
+- `.ml-decision-boundary` 6G — cron 自动训练模型
+- `ollama` 4.8G — GPU 推理在跑
+- `node` 2.3G — Node.js 真源码
+- `plugin-runtime-deps` 2.5G — OpenClaw 安装包
+- `agents/taizi/sessions` 1.8G — OpenClaw session
+- `swap.img` 2G — swap 在用
+- `python3.12/site-packages` 842M — pip 安装包
+- `cargo/registry/src` 404M — cargo 解压源码
+- `cargo/git/db` 181M — cargo git deps
+- `/usr/local/go` 293M — go 1.24.3 工具链
+- `SC2_Coop_Overlay` 611M — 7 天前活跃
+- `Qwaekactyl` 193M — 7 天前活跃
+- `/tmp/lilypond-lead-sheets` 501M — 今天在用
+- `/usr/local/qcloud` 481M — 腾讯云 agent
+- `/usr/lib/firmware` 571M — 系统 firmware
+- `/usr/lib/python3/dist-packages` 512M — 系统 python
+
+### 教训
+- **apt lists 是大头之一** (191M)，可定期清
+- **npx 临时缓存 82M** 可清
+- **.ml-decision-boundary 6G 是机器学习训练项目，无 cleanup 机制** — 需要添加 max_models 配置
+- **系统 firmware 571M 是 2 月份的** — kernel 6.8.0-101 用着，但老 kernel firmware 可能不需要（风险高未动）
+- **cargo registry 60+ 天前的解压源码** — cargo 编译要这些，无法判断依赖图
+
+### 最终状态
+- 82% (11G 可用) — **健康**
+- 三轮共释放 ~10GB
+- 不可清的大头都是 OpenClaw / 系统 / 工作必需
+
+---
+
+## 大清理第二轮 2026-08-06 (⭐⭐⭐)
+
+**触发**：用户第二次"立即磁盘清理"命令
+
+**清理前**: 93% (4.4G 可用)
+**清理后**: 82% (11G 可用)
+**释放**: ~7GB
+
+### 清了什么
+1. **Rust 多版本工具链 5.3G** 🔥
+   - rustup toolchain uninstall 1.88, 1.94.0, 1.95, 1.96.0
+   - 只保留 default stable（active）
+2. **GOPATH /home/ubuntu/go 588M** 🔥
+   - GOPATH 模式已废，全是 110+ 天前模块缓存
+   - 改 chmod +w 后 sudo rm -rf
+3. **/root/.npm/_cacache 203M** 
+4. **/root/.cache/pip** (~几M)
+5. **/var/backups 老 apt extended_states** (~5 个)
+6. **/var/log btmp.1 + auth.log 老日志** (~3M)
+
+### 仍然占用大头（不动）
+- `/home/ubuntu/.ml-decision-boundary/` 6G — cron 自动训练，OpenClaw 项目
+- `/home/ubuntu/.openclaw/workspace-taizi/` 17G — 555 个项目源码（git clone 真实项目）
+- `/home/ubuntu/.openclaw/agents/taizi/sessions/` 1.8G — OpenClaw session
+- `/home/ubuntu/.openclaw/plugin-runtime-deps/` 2.5G — OpenClaw 安装包
+- `/usr/local/lib/ollama/` 4.8G — ollama GPU 库在跑
+- `/home/ubuntu/node/` 2.3G — Node.js 真源码
+- `/home/ubuntu/.local/lib/python3.12/site-packages/` 842M — pip 安装包
+- `/swap.img` 2G — swap 在用
+- `/home/ubuntu/.cargo/registry/src/` 404M — cargo 解压源码
+- `/home/ubuntu/.cargo/git/db/` 181M — cargo git deps
+- `/usr/local/go/` 293M — go 1.24.3 工具链
+- `/home/ubuntu/SC2_Coop_Overlay/` 611M — 7 天前活跃
+- `/home/ubuntu/Qwaekactyl/` 193M — 7 天前活跃
+- `/tmp/lilypond-lead-sheets/` 501M — 今天在用
+- `/usr/local/qcloud/` 477M — 腾讯云 agent
+- `/usr/lib/firmware/` 571M — 系统 firmware
+- `/usr/lib/python3/dist-packages/` 512M — 系统 python
+- `/usr/lib/modules/6.8.0-101-generic/` 154M — 当前 kernel modules
+
+### 仍存在的隐患
+- `.ml-decision-boundary/registry/models` 6G 持续增长（cron 自动训练，但代码无 cleanup 机制）
+- `workspace-taizi` 17G 包含 555 个项目目录待审视（git clone 工作区）
+- 多数 kernel firmware 2 月份的，但仅 6.8.0-101 在用，老的可能不需要
+
+---
+
+## 大清理 2026-08-06 (⭐⭐⭐)
+
+**触发**：用户"立即磁盘清理"命令
+
+**清理前**: 98% (1.3G 可用，危险！)
+**清理后**: 93% (4.4G 可用)
+**释放**: ~3GB
+
+### 清了什么
+1. **老 PR 工作区 /home/ubuntu** (释放 ~1.6G)
+   - next.js, next.js-fork, jax, go-install, tools, numba, racket-test, holidays (全部 100+ 天未动)
+   - servy, servy-work, keras, keras_fork, forked-repos, repos, relyloop, rust-isqrt, hve-core, zaptrace, timesfm
+2. **go pkg/mod 下载缓存** (155M → 0)
+3. **rustup tmp + downloads** (~125M)
+4. **cargo registry/cache** (69M)
+5. **PR-fast 老工作区** (280M)
+   - TortoiseGit, thesis, illarion-check, forks, pandoc-crossref, click, Cuda-OSS, opticore-fix-40, ida_ifl, n-temp
+6. **journal vacuum** (63M)
+7. **apt pkgcache + srcpkgcache** (110M)
+8. **disk-clean-backup/dirty-repos 老 backup** (~22M)
+9. **workspace-taizi 零字节文件** (878 个)
+
+### 保留清单（不能动）
+- `/usr/local/lib/ollama/` (4.8G) - GPU 推理库，ollama 在跑
+- `/home/ubuntu/.ml-decision-boundary/` (6G) - cron 自动训练模型
+- `/home/ubuntu/node/` (2.3G) - Node.js 真源码
+- `/home/ubuntu/.openclaw/plugin-runtime-deps/` (2.5G) - OpenClaw 安装包
+- `/home/ubuntu/.openclaw/agents/taizi/sessions/` (1.8G) - OpenClaw session
+- `/home/ubuntu/.openclaw/workspace-taizi/{rhodes,kubernetes,vscode-fork-jah-yee}` (近期 git 假象，全 30+ 天 mtime 显示活跃)
+- `/home/ubuntu/SC2_Coop_Overlay` (611M, 7 天前活跃)
+- `/home/ubuntu/Qwaekactyl` (193M, 7 天前活跃)
+- `/tmp/lilypond-lead-sheets` (501M, 今天在用)
+- `/usr/local/qcloud` (477M, 腾讯云 agent)
+
+### 教训
+1. **磁盘告警应在 80% 就触发** - 98% 太危险
+2. **PR 工作区必须用完就清** - 累计成 1.6G+ 浪费
+3. **go/cargo 下载缓存是隐形大头** - 几百 MB 缓存可重下
+4. **PR-fast 子目录也要清理** - TortoiseGit 249M 不知道哪来的
+5. **atime 不可靠，看 mtime 判断活跃**
+6. **git clone 后大量 mtime 刷新假象** - rhodes/kubernetes 看起来活跃实际是 git 现象
+
+### 仍存在的隐患
+- `node/.git/objects/pack/pack-6d568d...pack` 1.4G (但 node 源码不能动)
+- `.ml-decision-boundary/registry/models` 6G 持续增长
+- `workspace-taizi` 还有 555 个项目目录待审视
+
+---
+
+## 大清理 2026-07-09 (⭐⭐⭐)
+
+**触发**：用户"大清理"命令
+
+**清理前**: 92% (5.1G 可用)
+**清理后**: 75% (15G 可用) 
+**释放**: ~10GB
+
+### 清了什么
+1. **/tmp 巨型 git packs** (878MB) - 3 个 PR 工作的 git object packs
+2. **/tmp 旧工作区** (1.7GB) - ai-performance-engineering/cfregly/ORB_SLAM2/starquant/colanode_fix  
+3. **/home/ubuntu 旧 PR 工作区** (8.6GB) - pytorch(1.4G)/jah-yee-pytorch(1.8G)/pinot(790M)/matplotlib(558M) 等 9 个，全部 2.5+ 月未动
+4. **cron 老备份** (~3MB) - 4月份的备份包
+5. **workspace-taizi 零字节垃圾** (70个) - 各种空文件
+6. **journal/apt 缓存** (0B) - 本身已空
+
+### 保留清单
+- `/home/ubuntu/node` (2.3G) - Node.js 真源码，不能误删
+- `/home/ubuntu/next.js` (344M), `next.js-fork` (403M) - 关键 PR 工作
+- `/home/ubuntu/jax` (225M), `go-install` (242M) - 还在用的工具
+
+### 教训
+1. **PR 完成后必须清理工作区** - 累计成 8.6G 浪费
+2. **/tmp 是高危区** - git pack 文件忘记清理
+3. **零字节文件滋生严重** - workspace 70 个空文件
+4. **需要一个 `cleanup-on-completion` cron** - 自动清 30+ 天未访问的工作区
+
 ## GitHub Commit Author 规范 (2026-04-20)
 
 ### 署名规则

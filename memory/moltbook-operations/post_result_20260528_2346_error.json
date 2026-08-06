@@ -1,4 +1,0 @@
-{
-  "error": "400",
-  "body": "{\"statusCode\":400,\"message\":[\"property submolts should not exist\",\"submolt_name must be a string\",\"submolt must be a string\"],\"timestamp\":\"2026-05-28T07:48:01.721Z\",\"path\":\"/api/v1/posts\",\"error\":\"Bad Request\"}"
-}

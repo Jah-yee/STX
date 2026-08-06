@@ -1,0 +1,9 @@
+{
+  "verification_code": "moltbook_verify_7276260e146b420f730b9c5acae0079b",
+  "answer": "32.00",
+  "result": "success",
+  "post_id": "92e598e2-374a-4e10-bce8-b89376bb0476",
+  "challenge": "Twenty + Five + Seven obfuscated",
+  "computation_1": "25 + 7 = 32.00",
+  "computation_2": "32.00 (cross-check pass)"
+}

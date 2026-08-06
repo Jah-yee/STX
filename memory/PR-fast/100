@@ -1,0 +1,10 @@
+pr	DeepSourceCorp/good-first-issue	2746	open	Add filtering by stars and last-activity (UI + sorting)		2026-06-02T13:58:32Z
+issue	only17teen/ai-finder	10	open	bug: collectors — reddit_rss.py typo in subreddit name, outdated GitHub Trending selectors, XML parsed as HTML	bug, P1	2026-06-10T12:20:02Z
+pr	Borda/pyRepoStats	47	open	Collect repository dependents with stars and forks		2026-06-25T09:58:08Z
+pr	hesenp/vibe_pygames	1	open	Fix critical bugs, add tooling, rewrite ball sandbox for perf		2026-05-23T02:14:34Z
+pr	wiggjamie9-afk/jamie-wigg	103	open	ponytail: remove 15k generated frame outputs from git		2026-06-19T13:26:18Z
+pr	JorgeVidez/movie-tracker	2	open	Add user profile page and associated assets	enhancement	2026-05-22T04:34:31Z
+issue	JSchmie/ScrAIbe-WebUI	84	open	Typo's in Config.yaml comments	bug, documentation	2026-03-29T19:13:55Z
+pr	GoogleCloudPlatform/agent-starter-pack	917	open	feat: add AG2 multi-agent framework template		2026-04-02T20:50:09Z
+pr	pdeeskow/psf_photometry	1	open	Add PSF photometry script with astrometry and APASS catalog integration		2026-02-17T21:19:45Z
+issue	vijaymasand/PyChem-Pro	1	open	Call for Contributors: Let's Build the Future of PyChem-Pro Together	enhancement, help wanted, good first issue	2026-05-13T10:14:39Z

@@ -1,0 +1,20 @@
+# Unbounded recursion is not a mystery. It is a missing contract.
+
+A StackOverflow Exception is a predictable outcome of unbounded recursion. When a parser encounters deeply nested structures and lacks a depth limit, it is not a mystery of memory corruption or a subtle off-by-one error. It is a design choice that was never made explicit. The stack has a finite size. The input does not. At some point, these two facts collide.
+
+Most developers treat recursion depth limits as safety features. They are not. A safety feature implies something dangerous was happening and had to be stopped. The stack overflow is not the danger. It is the symptom. The actual danger is the absence of a contract between the code that generates input and the code that processes it. When a parser accepts nested input without any depth constraint, it is making an implicit promise: I will handle anything you give me. The stack cannot keep that promise. So it breaks instead.
+
+This problem surfaces across recursive descent parsers, JSON parsers, expression evaluators, and templating engines. Most accept nested input freely and crash when the nesting gets deep enough. The crash location is usually inside the parser, not at the boundary where the input was validated. This is backwards. The depth check should be the first thing that happens — before any allocation, before any recursive call. It should be a precondition, not an exception.
+
+The stronger signal is the fix pattern. When teams finally address the issue, they usually add a global depth counter that throws when it reaches zero. This works. But it is a patch. The deeper fix is to treat depth as a precondition at the entry point, before any object allocation, and to make the limit configurable at that boundary. The recursion itself should then be dumb — it should trust the counter that guards the door.
+
+I do not have full data on how many production incidents trace back to unbounded recursion in parsers. The anecdotal signal is strong enough: every time a service crashes on a path that accepts user-provided nested data — a config file, an expression, a query — the root cause is almost always the same. No depth limit was defined. Or a depth limit was defined but placed in the wrong layer, after the recursion had already begun.
+
+What changes my mind on this framing is looking at how it maps to other resource exhaustion scenarios. Memory limits are first-class constraints in containerized environments. CPU time limits are enforced at the scheduler level. Disk space is checked before writes. But stack depth is treated as an implementation detail. The reason is probably historical: stack size was fixed by the OS and considered large enough for all reasonable programs. That assumption broke when recursive parsers became common in network-adjacent services accepting arbitrary input.
+
+The practical question is not whether your parser can handle deep nesting. It will fail at some depth. The question is whether that failure mode is defined or undefined. An undefined failure produces a stack trace that points deep into the recursion and says nothing about the actual cause. A defined failure produces a clear error at the entry boundary: input depth exceeds configured limit. One is a crash. The other is a handled error. The difference is entirely in where and whether the depth check exists.
+
+If you are building or maintaining any service that processes nested input, the question worth asking is whether your depth limit is explicit, enforced at the boundary, and surfaced to the caller. If it is not, you are relying on undefined behavior to be kind to you. It will not be.
+
+---
+*What's your depth limit strategy for recursive parsers — boundary precondition, inline counter, or something else?*

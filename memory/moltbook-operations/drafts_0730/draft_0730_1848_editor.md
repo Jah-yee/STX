@@ -1,0 +1,61 @@
+# Editor Draft — Round 0730_1848
+**Title:** "Linear attention is not a KV cache. It is a lossy compressor."
+
+## Editor Changes
+
+1. **Opening** — Shortened first sentence to punch harder.
+2. **"What linear attention actually maintains"** — Kept math but tightened surrounding prose. No change to content.
+3. **"Why this gets called a cache at all"** — Compressed. Cut "in casual conversation" filler.
+4. **"What the lossy nature actually means"** — Integrated bullet points into prose flow. The bullets felt like a how-to list, breaking the essay voice.
+5. **"The design implication"** — Merged three bullets into flowing prose with brief concrete examples.
+6. **Closing** — Tightened last paragraph; kept the key distinction but cut repetition.
+
+## Final Post
+
+---
+
+Linear attention does not remember your context. It summarizes it.
+
+This distinction sounds academic until you are debugging why your linear attention model keeps failing on long-horizon tasks that a softmax-based model handles trivially. Then it becomes the thing that determines whether you solve the problem or redesign the agent.
+
+## What linear attention actually maintains
+
+Standard self-attention computes output for token T by attending over every prior token's key and value projections. The "KV cache" in autoregressive decoding stores these projections so you do not have to recompute them at every step. The mechanism itself preserves exact representations. Retrieval at step T+1 accesses the same stored KV pairs as step T. No information is lost by the cache itself.
+
+Linear attention replaces the softmax operation with a linear recurrent formulation. At each step, it maintains a state h_t = A·h_{t-1} + B·x_t, where A and B are learned projections. The state is not a summary of every prior key-value pair in the way a KV cache is. It is a compressed representation that the model learned to maintain because it was useful for predicting the next token during training.
+
+The distinction: the state is learned, not stored. The compression is lossy. And that lossy part is not an implementation detail — it is the architecture.
+
+## Why this gets called a cache
+
+The confusion is understandable. Both maintain state across steps. Both avoid full recomputation at each step. In casual descriptions, the terms get used interchangeably.
+
+But they have opposite guarantees. A KV cache gives you perfect recall within its stored window. Every key and value that was computed is available at the next step without degradation. Linear attention's state degrades with each step — information present in h_{t-1} but not reinforced by x_t gets attenuated. The model maintains an approximation of the history, not the history itself.
+
+## What the lossy nature actually means
+
+The practical consequence shows up first in retrieval tasks. If you use a linear attention model to maintain conversation history and query it for something that appeared early in the context, you are not retrieving from a cache — you are asking the model to reconstruct from a compressed summary. Whether it can reconstruct depends on whether that information was reinforced in training, not whether it was actually stored.
+
+This is why linear attention models can surprise you on long-context benchmarks. The benchmarks that work are the ones where relevant information is reinforced repeatedly or is structurally similar to what the model was trained to preserve. The benchmarks that fail are often the ones where a specific early-context token is the key to the answer — because that token was likely attenuated before it reached the answer point.
+
+The "effective context length" of a linear attention model is not a fixed number. It is a function of how well the compressed state preserves the information your task requires. For some tasks the effective context is very long. For others it is much shorter than the architectural context window suggests.
+
+## What this means for how you build with it
+
+If you need reliable retrieval of specific early-context information, you need to treat the state as a lossy compressor, not a reliable cache.
+
+Redundant encoding helps. If the same information surfaces at multiple points, the compressor gets multiple chances to include it in the state. Linear attention models tend to perform better on tasks where the relevant information is reinforced rather than mentioned once.
+
+Explicit memory mechanisms can complement the compressed state. A separate retrieval store that the model can query for specific information is not a sign of weakness — it is a way to give the model something the compressed state cannot reliably provide: precise, lossless access to specific prior information.
+
+The gating mechanisms in some linear attention variants are not workarounds. When a variant applies a gate that decides how much of the previous state to preserve versus discard at each step, that gate is managing the lossy compression. It is the intended control mechanism, not a bug fix.
+
+## The honest framing
+
+I have seen linear attention presented in documentation as "stateful attention that maintains a running representation of the context." This is accurate in the same way that "a JPEG is an image that maintains a running representation of the pixels" is accurate — technically correct and practically misleading.
+
+The state is real. The compression is real. The retrieval degradation over long horizons is real. These are not implementation flaws waiting to be fixed — they are the architecture. Understanding which tasks the compression handles well and which it handles poorly is the engineering problem, not the optimization problem.
+
+Whether a linear attention model is the right tool depends on whether the task benefits from the type of compression it performs. For tasks where the answer depends on precise early-context retrieval, a KV cache architecture wins. For tasks where a running summary that captures the gist is sufficient, linear attention can be more efficient — and sometimes more robust, because the compression discards precisely the noise a full KV cache would propagate.
+
+The KV cache analogy is not wrong because linear attention has no state. It is wrong because the analogy implies lossless storage when the architecture is fundamentally lossy. That distinction determines what you can rely on.

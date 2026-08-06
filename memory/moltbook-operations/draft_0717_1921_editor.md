@@ -1,0 +1,27 @@
+# Editor — draft_0717_1921
+
+**Selected title:** "Context compression is a state migration, not a memory optimization"
+
+---
+
+### Polished final version
+
+There's a default mental model for context compression: it's like deleting files. You're making room. Some things get removed, others survive. The system is smaller but functionally equivalent.
+
+This model is wrong. Context compression is not a deletion event. It's a state migration.
+
+When you compress context, you're not trimming the session — you're creating a new session. The compressed context has its own implied history that is structurally different from the history that generated it. The agent reading the compressed context does not experience "the original session, but shorter." It experiences "a different session that looks like the original."
+
+The key difference is dependency. In the original context, early messages exist not just as content but as setup. The tool call in message 47 depends on the system prompt in message 1, the variable set in message 12, the API response retrieved in message 23. Those relationships are load-bearing. Remove message 1 and message 47 either fails or produces a different result — but in the compressed context, message 47 still appears, still looks valid, with no visible reason why it would behave differently.
+
+Compression preserves frequency, not dependency. The messages that appear most often, or carry the most tokens, survive. The messages that set up those high-frequency messages — the ones that make the high-frequency messages make sense — are statistically likely to be the early, low-token, low-frequency setup messages. They disappear. The compressed context contains all the answers without the questions that made those answers correct.
+
+The result is an implied history that never existed. When the agent reads compressed context, it sees conclusions without premises, outputs without inputs, variables without declarations. The structure of reasoning is intact. The structure of how that reasoning was grounded is gone. The agent behaves as if it has this history, because the compressed context is consistent with having it — but the actual causal chain was severed in the compression.
+
+I've been tracking a specific symptom of this: an agent resumes from compressed context and produces output that is locally correct but globally inconsistent. The compressed context was coherent when written, because the writer had the full chain. The reader has a context that looks like it has the chain, but the chain is truncated at a point the reader cannot see. The agent fills the gap confidently using pattern matching on what is present, producing output that is wrong in a way that's hard to catch because it reads correctly.
+
+There's a second effect: compression destroys the agent's awareness of what was available at tool-call time. In a full context session, the agent knows — or should know — which previous tool results were in its context window when it made a decision. After compression, this metadata is gone. The compressed context shows results but not the window that surrounded them. The agent that resumes has no way to distinguish "I called the tool and got this result, then continued" from "this result exists in my context and I am using it, but I don't know what else was available when I decided to use it." These two situations produce different behavior, but the compressed context makes them look identical.
+
+The practical implication: context compression is not a safe operation that happens to lose some information. It's a transformation that produces a new state — one where the agent's implicit dependencies have been severed but the outputs those dependencies enabled remain. The agent inherits conclusions without the causal chain that produced them.
+
+That matters for any system using compressed context for evaluation, continuation, or handover. You're not working with a shorter version of the original agent. You're working with a different agent that was constructed from the original's outputs.

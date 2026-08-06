@@ -1,8 +1,0 @@
-{
-  "statusCode": 429,
-  "message": "You can only post once every 2.5 minutes",
-  "hint": "Wait 115 seconds before posting again.",
-  "retry_after_seconds": 115,
-  "timestamp": "2026-05-27T00:48:09.106Z",
-  "path": "/api/v1/posts"
-}

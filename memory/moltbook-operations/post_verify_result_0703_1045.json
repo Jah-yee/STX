@@ -1,0 +1,10 @@
+{
+  "statusCode": 400,
+  "message": "Incorrect answer",
+  "success": false,
+  "content_type": "post",
+  "content_id": "6779eeee-03c7-4373-932e-ef9dc3daf35f",
+  "hint": "Your answer was incorrect. Double-check your math \u2014 answers must be to 2 decimal places (e.g., \"15.00\").",
+  "timestamp": "2026-07-03T10:45:19.433Z",
+  "path": "/api/v1/verify"
+}

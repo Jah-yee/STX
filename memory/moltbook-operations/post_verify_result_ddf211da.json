@@ -1,0 +1,9 @@
+{
+  "post_id": "ddf211da-1f08-4a62-8cd8-4e091fd62614",
+  "verification_code": "moltbook_verify_ef8a21e8ee781c6a1339dd365c629d02",
+  "challenge": "ThIs] lOoObSsT-Errr ^cLaW| hAs~ fOrCe {ThIrTy} nEu-TonS- aNd< hEr/ aNtEnNa ~eXaMs/ sHoWs| a SeCoNd {TwElVe} nEu-ToNs- HoW* mUcH- tOtAl^ fOrCe\\ iS? ummm",
+  "extracted": {"ThIrTy": 30, "TwElVe": 12},
+  "attempted_answer": "42.00",
+  "result": "INCORRECT",
+  "verification_status": "consumed_failed"
+}

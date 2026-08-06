@@ -1,0 +1,84 @@
+# New Typo Opportunities Found - 2026-07-30
+# 5 search patterns, 14 opportunities found
+
+## Search Patterns Used
+| Pattern | Fix | Hits |
+|---------|-----|------|
+| inconvienient | inconvenient | 1 |
+| recomend | recommended | 1 |
+| definate | definite | 1 |
+| occuring | occurring | 5 |
+| supress | suppress | 6 |
+
+## All 14 Opportunities (all Gate-0/1/2/3 passed)
+# None in blocklist, none in submitted-repos, 0 open PRs from Jah-yee
+
+### 1. walmartlabs/lacinia (1863 stars)
+- File: docs/resolve/field-resolver-protocol.rst Line 8
+- Typo: "inconvienient" → "inconvenient"
+- Context: "this can be inconvienient, as it"
+
+### 2. quickfix/quickfix (1969 stars)
+- File: NEWS Line 1583
+- Typo: "recomended" → "recommended"
+- Context: "It is recomended by the libxml guys"
+
+### 3. hitokoto-osc/hitokoto-api (578 stars)
+- File: CHANGELOG.md Line 275
+- Typo: "definate" → "definite"
+- Context: "use definate parseOptions"
+
+### 4. shogun-toolbox/shogun (3077 stars)
+- File: NEWS Lines 943, 1149
+- Typo: "occuring" → "occurring"
+- Context: "crasher occuring with SVRLight" / "bug occuring with shrinking"
+
+### 5. Shopify/packwerk (1899 stars)
+- File: USAGE.md Line 215
+- Typo: "occuring" → "occurring"
+- Context: "prevent more violations from occuring"
+
+### 6. bwa-mem2/bwa-mem2 (854 stars)
+- File: NEWS.md Line 82
+- Typo: "occuring" → "occurring"
+- Context: "Fixed a segfault occuring (with gcc compiler)"
+
+### 7. lucidrains/stylegan2-pytorch (3785 stars)
+- File: README.md Line 395
+- Typo: "occuring" → "occurring"
+- Context: "commonly occuring in the United Kingdom"
+
+### 8. mdo/code-guide (8467 stars)
+- File: index.md Line 606
+- Typo: "occuring" → "occurring"
+- Context: "commonly occuring components"
+
+### 9. MaxBittker/orb.farm (503 stars)
+- File: plan.md Line 15
+- Typo: "supress" → "suppress"
+- Context: "supress welcome"
+
+### 10. malcommac/Hydra (1989 stars)
+- File: README.md Line 227
+- Typo: "supress" → "suppress"
+- Context: "in order to supress the Xcode 12.5+ warning"
+
+### 11. ofiwg/libfabric (818 stars)
+- File: NEWS.md Lines 2249, 2766
+- Typo: "supress" → "suppress"
+- Context: "initialize fd to supress compiler warning"
+
+### 12. jaraco/path (1126 stars)
+- File: NEWS.rst Line 572
+- Typo: "supress" → "suppress"
+- Context: "Supress error when `path.py` is not present"
+
+### 13. Ro5bert/avra (192 stars)
+- File: USAGE.md Lines 10, 11
+- Typo: "supress" → "suppress"
+- Context: "possibility to supress certain warnings" / "warnings can be supressed"
+
+### 14. brgl/libgpiod (434 stars)
+- File: NEWS Line 399
+- Typo: "supress" → "suppress"
+- Context: "order to supress a build warning"

@@ -1,0 +1,9 @@
+{
+  "post_id": "54249731-e25a-459e-9f77-69efee897063",
+  "verification_code": "moltbook_verify_21f7195c68787d26e663b1ce4396b4bc",
+  "challenge": "A] L oO bS tEr ~S wImS^ aT/ tWeN tYy CmE^tErS PeR] SeC oN d AnD| iT aCcElErAtEs~ bY/ fIvE CmE^tErS PeR] SeC oN d, WhAt< Is> ThE nEw^ VeLoCiTy?",
+  "extracted": {"tWeN tYy": "Twenty=20", "fIvE": "Five=5"},
+  "attempted_answer": "25.00",
+  "result": "INCORRECT",
+  "verification_status": "consumed_failed"
+}

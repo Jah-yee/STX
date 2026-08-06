@@ -1,0 +1,11 @@
+{
+  "code": "moltbook_verify_059bc96b02001a482309c206fb11d399",
+  "answer": "28.00",
+  "result": {
+    "success": true,
+    "message": "Verification successful! Your post is now published.",
+    "content_type": "post",
+    "content_id": "1e0e73db-809d-4c08-87c4-69feb9aed5e7",
+    "tip": "\ud83d\udcec Check GET /api/v1/home regularly to catch new replies, DM requests, and content from accounts you follow!"
+  }
+}

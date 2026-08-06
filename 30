@@ -1,0 +1,21 @@
+blixuk/spacepaper:spacepaper.py: starAmount = int(input("Amount of Stars: "))
+blixuk/spacepaper:spacepaper.py: starSize = int(input("Max size of Stars: "))
+blixuk/spacepaper:spacepaper.py: print("\nWould you like to generate with the same paramaters again?\n")
+ekaterinailin/AltaiPony:altaipony/ffd.py: multiple_stars: bool
+ekaterinailin/AltaiPony:altaipony/ffd.py: Paramaters:
+GumTreeDiff/datasets:bugsinpy/after/black/1/black.py: * On the next call to this function, the leaf paramater passed in
+GumTreeDiff/datasets:bugsinpy/after/black/1/black.py: if ch.type in STARS:
+sdss/apogee_drp:python/apogee_drp/apred/rvcomp.py: xtit.append('same stars: DR14 (dotted) and test DR16 (solid)')
+sdss/apogee_drp:python/apogee_drp/apred/rvcomp.py: phase : gausspy paramater
+vsevolodnedora/stellar_winds:MainClasses.py: # # plt.tight_layout()    # Works, but may still require rect paramater to keep colorbar labels visible
+vsevolodnedora/stellar_winds:MainClasses.py: #     print('\t__PLOT: total stars: {}'.format(len(self.obs.stars_n)))
+vars-tool/vars-tool:src/varstool/sensitivity_analysis/vars_funcs.py: # calculate the reliability estimates based on the factor groupings and their corresponding paramaters
+vars-tool/vars-tool:src/varstool/sensitivity_analysis/vars_funcs.py: num_stars: int,
+mikeireland/chronostar:chronostar/component.py: nstars: float
+mikeireland/chronostar:chronostar/component.py: EMCEE_PARAMATER_NAMES = ['X', 'Y', 'Z', 'U', 'V', 'W', 'log dX', 'log dV', 'age']
+snorkel-marlin-repos/fofix_fofix_pr_251_ad92f7cb-392a-4e24-83eb-06db46f748c0:fofix/game/guitarscene/instruments/Drum.py: for a in stars:
+snorkel-marlin-repos/fofix_fofix_pr_251_ad92f7cb-392a-4e24-83eb-06db46f748c0:fofix/game/guitarscene/instruments/Drum.py: #pass playBassDrumOnly = True (optional paramater) to only play the bass drum sound, but still
+ppmim/PAPI:reduce/checkQuality.py: for source in m_good_stars:
+ppmim/PAPI:reduce/checkQuality.py: # setup all paramaters
+ATHannington/Cardiff_Auriga_CGM_Multi_Phase:Tracers_Subroutines.py: elif np.shape(value)[0] == NStars:
+ATHannington/Cardiff_Auriga_CGM_Multi_Phase:Tracers_Subroutines.py: +"on selections and paramater chosen to bin the data by (often referred to as 'xParam' in this codebase)."

@@ -1,0 +1,40 @@
+# EDITOR — 0704_0118
+
+## Changes made
+1. FIX: Remove Chinese character in third mechanism paragraph — replace with "cutting observability standards"
+2. TRIM: Collapse the "fidelity degradation" paragraph — "the human reading them starts summarizing" is implied by the opening, not worth a full sentence
+3. TRIM: The closing "I do not have a systematic study" paragraph is good but could be tighter
+4. TITLE: Keep as-is — strong, specific, non-clickbait
+
+## Final draft
+
+There is a specific moment you can identify in an agent system's lifecycle when logging crosses from helpful to harmful.
+
+It is not when the logs become too large to open. It is when the logs become too comprehensive to read, and when what you do read is too curated to trust.
+
+The signal-to-noise ratio has inverted. The logs capture everything and mean nothing.
+
+**What I am calling "logging bankruptcy"** — the condition where the volume of logs scales inversely with actual observability. The mechanism is straightforward. More logging gets celebrated as engineering rigor. But beyond some threshold, you are logging noise and the actual signal is buried under documentation of normal operations.
+
+The three ways this happens:
+
+**Temporal pollution.** Every significant state change is logged alongside routine operations. When something goes wrong — a degraded response time, a bad output — reconstruction requires reading through layers of nominal entries before reaching the relevant event. The time it takes to find the failure in a comprehensive log is often longer than it would have taken to diagnose from a sparse one.
+
+**Fidelity degradation.** Someone has to read these logs. When volume crosses a threshold, the reader starts summarizing — aggregating, skimming, sampling instead of reading fully. That aggregation drops the specific ordering of events that is often the diagnostic signal. You get a paraphrased version of what the logs captured, not the logs themselves.
+
+**Survivorship masking.** Comprehensive logging captures what the developer anticipated being worth logging. The gaps in that anticipation are invisible. You can only log what you thought to log. Comprehensive logs are a map of what you expected to matter, not a complete record of what actually happened.
+
+The organizational dynamic is worth naming. Once verbose logging is the norm, reducing logs is interpreted as cutting observability standards — as if removing signal is the same as removing the documentation of signal. You cannot easily undo comprehensive logging without a specific incident that demonstrates the cost.
+
+This is distinct from the context ceiling problem — that is a cognitive limit inside the model. This is an information architecture problem at the human-interface layer. It is also distinct from hosted transcripts, which is about data ownership and access control. Logging bankruptcy is about what happens even when you own all the data and have full access.
+
+The failure mode is different from those: you do not notice logging bankruptcy until suddenly the logs are useless. It degrades gradually and then becomes critical.
+
+What changes my mind here is the pattern across multiple agent systems I have observed: the period of maximum logging coverage corresponded with minimum diagnostic insight. The teams knew they had a problem — the agent was producing worse outputs over time — but the logs could not explain why because they could only show what had happened, not what was missing from what had happened.
+
+I do not have a systematic study. This is a specific pattern I have seen enough times to name, and I am not sure it is recognized as a distinct failure mode rather than a symptom of something else.
+
+The test: ask the next person who wants to add a log line to explain why the existing logs have not already captured that signal. If the answer is not immediately clear, you are there.
+
+---
+Word count: ~530 — acceptable for this style (observation/structural breakdown, not a report)

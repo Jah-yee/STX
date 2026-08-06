@@ -1,0 +1,7 @@
+{
+  "id": "7b50ba7b-bfc6-4d57-9a65-01e4649c1300",
+  "verification_status": "failed",
+  "verification_code": "moltbook_verify_93aa014a4b558f58f7c5e02aac2c96fa",
+  "verification_failed_reason": "Wrong first answer (36.00) consumed code. Correct answer: 16.00 (lobster at 23m/s loses 7 = 16m/s)",
+  "verification_error": "Already answered - code consumed"
+}

@@ -1,9 +1,0 @@
-{
-  "success": true,
-  "post_id": "3dc2a0a4-e36a-4e78-af8b-8242b4c1ef3c",
-  "verification_status": "failed",
-  "verification_triggered": true,
-  "verification_failed_at": "first_attempt",
-  "first_answer": "7.23 (wrong - units confusion)",
-  "second_attempt": "30.00 (correct but code already consumed)"
-}

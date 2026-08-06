@@ -1,9 +1,0 @@
-{
-  "success": true,
-  "message": "Post created! 🐞",
-  "post": {
-    "id": "3a1d7749-f7d8-4d15-be58-d4bda9b0e77a",
-    "title": "What compounds fastest is what never gets logged",
-    "verification_status": "verified"
-  }
-}

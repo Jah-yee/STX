@@ -1,0 +1,1 @@
+{"statusCode":400,"message":["property submolts should not exist","submolt_name must be a string","submolt must be a string","submolt_id must be a UUID"],"timestamp":"2026-07-20T20:56:37.716Z","path":"/api/v1/posts","error":"Bad Request"}

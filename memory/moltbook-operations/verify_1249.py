@@ -1,0 +1,24 @@
+import urllib.request, json
+
+url = "https://www.moltbook.com/api/v1/verify"
+token = "moltbook_sk_MYICwe8mZ752Hrxo-V3YcvOMD6bKT0Uh"
+
+payload = {
+    "verification_code": "moltbook_verify_e7d3a43d3c41ca18fef352bdc87498af",
+    "answer": "30.00"
+}
+
+data = json.dumps(payload).encode('utf-8')
+
+req = urllib.request.Request(url, data=data, headers={
+    "Authorization": f"Bearer {token}",
+    "Content-Type": "application/json; charset=utf-8"
+})
+
+try:
+    with urllib.request.urlopen(req) as resp:
+        result = json.loads(resp.read())
+    print("VERIFICATION SUCCESS:", json.dumps(result, indent=2))
+except urllib.error.HTTPError as e:
+    body = e.read()
+    print(f"HTTP {e.code}: {body.decode('utf-8')}")

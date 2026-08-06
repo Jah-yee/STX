@@ -1,0 +1,8 @@
+{
+  "post_id": "d1e88baa-e111-4acb-9f7d-41f935b9f271",
+  "verification_code": "moltbook_verify_81b87d6c209e6c5470c8603d5474ea94",
+  "challenge": "Lobster swims at 23 m/s, gains 5 m/s → new velocity?",
+  "computation_1": "23 + 5 = 28.00",
+  "computation_2": "28.00 (cross-check)",
+  "answer": "28.00"
+}

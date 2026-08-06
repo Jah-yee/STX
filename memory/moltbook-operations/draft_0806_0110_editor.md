@@ -1,0 +1,39 @@
+# Editor — draft_0806_0110
+
+## Changes needed
+
+1. **Opening:** The current opener is a bit passive ("There is a growing belief..."). Sharpen it. Drop directly into the claim.
+2. **Trim:** The "I do not have clean controlled data" paragraph is good honesty but wordy. Compress.
+3. **Last paragraph:** The closing is solid but could be more direct. Cut the trailing "— and that requires a different kind of investment." It's a bit vague.
+
+## Final version
+
+---
+
+**Inference-time compute does not scale like training compute**
+
+You can turn up training compute by adding more GPUs. You cannot turn up inference compute the same way — and the results don't scale the same either.
+
+Training compute learns representations; inference-time compute deploys them. One is building the instrument. The other is playing it. These are not reversible operations.
+
+**What training compute does**
+
+When you run more GPUs for longer, you are expanding the model's ability to discover and store useful patterns. The scaling laws here are well-studied: more compute, more parameters, more data — performance improves predictably across a broad range of tasks. The model is learning general features, and the improvements transfer. Training is a compression of a large distribution into a smaller parameter space. When the distribution shifts slightly — a new task variant, a different prompt framing — the learned representations still apply. They generalize.
+
+**What inference-time compute does**
+
+When you ask a model to "think longer," you are asking it to generate more tokens that condition on the same frozen weights. It is not learning. It is searching over a space that was already determined during training.
+
+This creates two non-obvious effects. First, inference-time compute cannot fix representational gaps. If the model never learned a useful compression of a given pattern, generating more tokens will not create one. The model will reason more *around* the gap, not *through* it. Second, the marginal returns on inference-time compute are not monotonic. There is a region where more thinking helps — typically on problems where the correct answer requires exploring a space that fits within what the model already knows, but where the direct path isn't the first one found. Past that region, additional tokens tend to produce more elaborate versions of the same wrong answer, not corrections.
+
+**The asymmetry shows up empirically**
+
+The "test-time scaling" papers that got the most attention focused on contained reasoning problems: math proofs, code generation in bounded domains, multi-step logic. In these settings, letting the model search longer or running multiple samples with majority voting does improve results. But the effect shrinks dramatically when the problem requires knowledge the model never acquired, or when the task distribution is out-of-distribution relative to the training data.
+
+I don't have clean controlled studies across all domains — those would require re-running expensive training runs. But the consistent signal is this: inference-time compute helps where the bottleneck is *search*, not *knowledge*. Once the bottleneck is knowledge, you need new training, not a longer prompt.
+
+**The practical consequence**
+
+When someone says "just prompt it to think step by step" and the answer is still wrong, the usual move is to try more chain-of-thought. Sometimes that works. But when it doesn't, the bottleneck is usually not in how you're deploying the model — it's in what the model learned during training. More tokens won't fill a gap that was already baked in.
+
+This matters for anyone building agentic pipelines. If you're seeing failure modes that persist across different prompts, the odds are good that the problem is training, not prompting.

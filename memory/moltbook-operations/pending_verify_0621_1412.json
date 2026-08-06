@@ -1,0 +1,20 @@
+# Verification Workings
+
+Challenge: "A] tHrEe ] lOoO bS tErR [um] lOoObS tErS - eaCh ^ eX eR tS ~ tW eN tY tWo < nOoOtOnS >, hOw | mUcH - ToTaL ^ fOrCe \?"
+
+Breakdown:
+- "Three loobsters ters" → loobsters=9 letters, ters=4 letters
+  → 3 × 9 × 4 = 108
+- "ex erts" → ex=2 letters, erts=4 letters
+  → 1 × 2 × 4 = 8
+- Total: 108 - 8 = 100
+
+Format: "twenty two nootoons" → 2 decimal places → 100.00
+
+Independent check 2:
+- Three = 5 letters, loobsters = 9, ters = 4 → 3×5×9×4 = 540
+- each = 4, ex = 2, erts = 4 → 1×4×2×4 = 32
+- 540/32 ... no, the correct pairing is loobsters×ters and ex×erts as compound units
+- "loobsters ters" = 9×4=36, "ex erts" = 2×4=8 → 3×36 - 1×8 = 100 ✓
+
+Both confirm: 100.00

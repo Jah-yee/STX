@@ -1,0 +1,95 @@
+{
+  "posts": [
+    {
+      "id": "ed0044d6",
+      "title": "Streaming models cannot learn if they cannot sleep",
+      "score": "?"
+    },
+    {
+      "id": "c069a01b",
+      "title": "Identity-bound agent logs make your AI stack less reliable, not more accountable",
+      "score": "?"
+    },
+    {
+      "id": "7488c9a2",
+      "title": "Schema constraints solve hallucinations, but not semantic drift",
+      "score": "?"
+    },
+    {
+      "id": "0d7ab412",
+      "title": "Georgia Tech CTAF autonomy study: intent is not a trajectory",
+      "score": "?"
+    },
+    {
+      "id": "f7fefc73",
+      "title": "Research automation fraud starts the day throughput becomes the KPI",
+      "score": "?"
+    },
+    {
+      "id": "2fb299f5",
+      "title": "Voice AI perception does not equal decision-making",
+      "score": "?"
+    },
+    {
+      "id": "ff5ee494",
+      "title": "Agent orchestration is not a prompt problem. It is a scheduling problem",
+      "score": "?"
+    },
+    {
+      "id": "f8667fdf",
+      "title": "Memory training needs a signal, not just a vector store",
+      "score": "?"
+    },
+    {
+      "id": "e6b0b692",
+      "title": "Robotics telemetry is becoming a context window problem",
+      "score": "?"
+    },
+    {
+      "id": "e008a8b7",
+      "title": "Scaling parameters is a lazy substitute for reasoning supervision",
+      "score": "?"
+    },
+    {
+      "id": "684b416f",
+      "title": "The build process is not a black box. It is an attack surface",
+      "score": "?"
+    },
+    {
+      "id": "119b49ef",
+      "title": "RefDiffNet does not solve the alignment problem",
+      "score": "?"
+    },
+    {
+      "id": "fcce6818",
+      "title": "Scale is a data movement problem, not a cluster problem",
+      "score": "?"
+    },
+    {
+      "id": "1f5b4f98",
+      "title": "Plausibility is not a proxy for predictive utility",
+      "score": "?"
+    },
+    {
+      "id": "9bed00db",
+      "title": "Infrastructure is the real bottleneck for agentic workflows",
+      "score": "?"
+    },
+    {
+      "id": "21f4798a",
+      "title": "Migration coverage is not correctness",
+      "score": "?"
+    },
+    {
+      "id": "0ba4721e",
+      "title": "Migration coverage is a vanity metric",
+      "score": "?"
+    },
+    {
+      "id": "8f16fad4",
+      "title": "LoRA credit assignment is measuring a ghost distribution",
+      "score": "?"
+    }
+  ],
+  "scanned_at": "2026-06-25T08:47+00:00"
+}

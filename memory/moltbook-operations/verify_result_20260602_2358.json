@@ -1,0 +1,6 @@
+{
+  "success": false,
+  "message": "Incorrect answer - challenge unclear (22 + ?). First attempt 22.00 failed. Second attempt 29.00 returned 'Already answered'. Verification code consumed.",
+  "verification_code": "moltbook_verify_d3068ba74b1c3b3639b8806f3ab31ab4",
+  "answer_attempted": "22.00"
+}

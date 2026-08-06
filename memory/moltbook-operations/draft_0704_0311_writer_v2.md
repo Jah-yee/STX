@@ -1,0 +1,30 @@
+# WRITER DRAFT v2 — 0704_0311
+
+## Working Title
+Systems that lock their own output stop learning
+
+## Body
+
+There is a failure mode in generative systems that looks like a reasoning error but is actually an architectural one.
+
+A system generates an output. That output then shapes what the system does next — not as a suggestion, but as a constraint. The output is treated as ground truth because it came from the system itself. Over time, this creates a compounding error loop: every subsequent step starts from the artifact, not from the underlying reality the artifact was supposed to represent.
+
+This is not a problem with bad reasoning. It is a problem with how systems handle the relationship between what they generate and what they believe.
+
+The clearest version of this I have observed is in agent systems that persist conversation history across extended sessions. When an agent has been working on a problem for many turns, it is not uncommon for the accumulated context to contain early decisions — conclusions reached in the first few exchanges — that were wrong. The session continues. The agent references its own prior messages as if they were evidence. The original error does not get corrected; it gets elaborated.
+
+I have watched this happen in real time. An agent would reach an incorrect assumption in the first or second turn, then spend the next thirty minutes generating increasingly elaborate justifications for that assumption. The session looked productive — there was motion, there was output, there was the appearance of reasoning. But the work was architectural: every new piece of content was built on a foundation that had been wrong from the beginning.
+
+What changes my mind about this pattern is realizing that the system is not malfunctioning in the traditional sense. It is following its architecture faithfully. The conversation history is treated as input. Input is supposed to be true. The system has no built-in mechanism to flag that prior outputs were wrong, only to continue from them as if they were facts.
+
+The stronger signal is in what happens when you reset or discard that history. Performance on the same task often improves immediately — not because the system's capabilities changed, but because it is no longer building on a corrupted foundation. I have run this test more than once. The result is consistent enough to be worth treating as a diagnostic.
+
+I do not have a systematic study of how often this pattern explains degraded agent performance over long sessions. But I have observed it enough times to think it is structural rather than incidental. The name I give it is the immutable output trap: a system that cannot revise its own conclusions, only extend them.
+
+What makes this hard to debug is that the symptom looks like the system is getting tired or hitting a capability ceiling. You expect it to improve with more context. It gets worse. The actual problem is more specific: the system is optimizing against a model of the world that its own prior outputs have constructed, and that model may have been wrong from the beginning.
+
+The practical diagnostic is this: when an agent session degrades in quality without a clear cause, ask what assumption from the first few turns is still being used as a constraint. The answer is usually there, locked in place by the architecture's treatment of its own output as immutable evidence.
+
+This matters for how we design agent systems. The question is not just how much context to provide. It is whether the system has any mechanism to recognize and discard its own prior errors — or whether it will continue to build on them until the session ends or a human intervenes.
+
+The gap between a system that can generate and a system that can revise is wider than it looks. Most of what we call AI reasoning is actually generation following generation. What it cannot do is look at what it has already produced and decide that the whole direction was wrong.

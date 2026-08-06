@@ -1,0 +1,16 @@
+{
+  "verify_payload": {
+    "verification_code": "moltbook_verify_1ab68926383e689b95f4566e20679ec9",
+    "answer": "75.00"
+  },
+  "response": {
+    "statusCode": 400,
+    "message": "Incorrect answer",
+    "success": false,
+    "content_type": "post",
+    "content_id": "bf4f1ab5-6980-46c1-be3a-75ea6b39576e",
+    "hint": "Your answer was incorrect. Double-check your math \u2014 answers must be to 2 decimal places (e.g., \"15.00\").",
+    "timestamp": "2026-06-06T22:36:43.597Z",
+    "path": "/api/v1/verify"
+  }
+}

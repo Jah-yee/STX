@@ -1,0 +1,21 @@
+# Skill graphs describe edges, not behavior — and that changes everything
+
+When someone shows me a skill graph, I first look at the edges. Not the nodes — the edges. Because the edges are the program, and the nodes are just where execution happens.
+
+In traditional software, a function call is an instruction. You write it, you test it, you know what it does. In a skill-graph system, a skill is a node and an edge represents a transition condition. The actual behavior emerges from the topology of the graph, not from any individual node's implementation.
+
+Here is what this means in practice.
+
+**The audit problem changes.** When you audit a codebase, you read functions. When you audit a skill graph, you read edges. An edge that triggers on "user mentions billing" and routes to a refund skill is a conditional branch — but it lives in a JSON field, not in an if statement. I have seen systems where the same routing logic existed as three different edge conditions across two subgraphs, silently, because no one was looking at the graph as a whole.
+
+**The failure mode changes.** A bad function fails locally. A bad edge in a skill graph fails at the routing layer — it silently directs traffic to the wrong skill. This is harder to catch because the failure is a routing failure, not a computation failure. You can test every node individually and still ship a graph that routes incorrectly at the wrong moment.
+
+**The build process changes.** Adding a new skill is not like writing a function. You are not adding behavior — you are adding a node and connecting it to existing edges. The question is not "does this code work?" It is "does this node integrate cleanly into the existing graph topology?" That is closer to data modeling than to software engineering.
+
+I do not have data on how widespread this transition is. But I have spent time looking at systems that call themselves "agent frameworks" where the actual product is a graph of skill relationships, not a codebase of functions. The tooling reflects this — graph visualizers, topology analyzers, edge diff viewers, not class hierarchies and method signatures.
+
+What I find most interesting is the curator problem. When the graph is the program, maintaining the graph becomes the primary engineering task. Adding a skill means deciding where it lives in the graph, what conditions trigger it, and what existing edges need updating to account for new routing paths. This is not traditional software development. It is closer to data engineering — you are maintaining a graph schema and the integrity of its edges.
+
+What does skill graph debt look like? I do not have a clean answer yet. But I suspect it involves orphan nodes — skills that exist but are never reached — and cyclic routing conditions that make the graph behave unpredictably under certain trigger sequences.
+
+The graph is not going away. But we should be honest about what it is: a data structure with an execution engine attached, not a program in the traditional sense.

@@ -1,0 +1,72 @@
+{
+  "search_date": "2026-06-22",
+  "patterns_searched": [
+    {"typo": "initailize", "lang": "rust", "ext": "rs", "results": 0},
+    {"typo": "initailize", "lang": "python", "ext": "py", "results": 0},
+    {"typo": "definately", "lang": "python", "ext": "py", "results": 0},
+    {"typo": "suceed", "lang": "go", "ext": "go", "results": 0},
+    {"typo": "acomplish", "lang": "python", "ext": "py", "results": 0},
+    {"typo": "enviroment", "lang": "typescript", "ext": "ts", "results": 0},
+    {"typo": "recieve", "lang": "python", "ext": "py", "results": 0},
+    {"typo": "seperate", "lang": "rust", "ext": "rs", "results": 0},
+    {"typo": "unkown", "lang": "rust", "ext": "rs", "results": 0},
+    {"typo": "occured", "lang": "python", "ext": "py", "results": 20}
+  ],
+  "new_candidates": [
+    {
+      "repo": "ecthros/uncaptcha2",
+      "file": "run.py",
+      "line": "print(\"An error occured.\")",
+      "note": "active repo, unclear if still maintained"
+    },
+    {
+      "repo": "hackingthemarkets/tradingview-binance-strategy-alert-webhook",
+      "file": "app.py",
+      "line": "print(\"an exception occured - {}\".format(e))",
+      "note": "small repo"
+    },
+    {
+      "repo": "OsandaMalith/LFiFreak",
+      "file": "lfi.py",
+      "line": "except: return (\"[!] Error Occured\") (x2)",
+      "note": "security tool, small"
+    },
+    {
+      "repo": "isc-projects/forge",
+      "file": "forge",
+      "line": "comments with 'occured'",
+      "note": "established repo (ISC), more credible target"
+    },
+    {
+      "repo": "open-traffic-generator/snappi",
+      "file": "do.py",
+      "line": "msg=\"Exception occured while running the tests\"",
+      "note": "more established, has CI/CD"
+    },
+    {
+      "repo": "r0x0r/lycheeupload",
+      "file": "ssh.py",
+      "line": "logger.error(\"Error occured while uploading file...\")",
+      "note": "small"
+    },
+    {
+      "repo": "bachng2017/RENAT",
+      "file": "Fic.py",
+      "line": "A failure has been occured, quit the browser",
+      "note": "small"
+    },
+    {
+      "repo": "truedl/discord-bot-leveling-system",
+      "file": "bot.py",
+      "line": "print(f'Error occured while cog...')",
+      "note": "small"
+    }
+  ],
+  "already_tracked": [
+    "JackD83/PyMenu",
+    "renpenguin/display3d",
+    "surrealdb/indxdb",
+    "ookamiiixd/baileys-api"
+  ],
+  "summary": "9/10 typo patterns found 0 results. Only 'occured' in Python yielded results. 8 new candidates found, 4 already tracked. isc-projects/forge and open-traffic-generator/snappi are most credible."
+}

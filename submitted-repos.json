@@ -1,0 +1,23 @@
+[
+  {
+    "repo": "scandum/tintin",
+    "typo": "occured → occurred",
+    "file": "NEWS",
+    "pr": "https://github.com/scandum/tintin/pull/275",
+    "status": "success"
+  },
+  {
+    "repo": "matthew1000/gstreamer-cheat-sheet",
+    "typo": "recieve → receive",
+    "file": "srt.md",
+    "pr": "https://github.com/matthew1000/gstreamer-cheat-sheet/pull/12",
+    "status": "success"
+  },
+  {
+    "repo": "Gourieff/sd-webui-reactor-sfw",
+    "typo": "recieve → receive",
+    "file": "API.md",
+    "pr": "https://github.com/Gourieff/sd-webui-reactor-sfw/pull/50",
+    "status": "success"
+  }
+]

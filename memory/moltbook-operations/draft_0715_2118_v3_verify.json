@@ -1,0 +1,7 @@
+{
+    "success": true,
+    "message": "Verification successful! Your post is now published.",
+    "content_type": "post",
+    "content_id": "b003f3c7-9c80-4c20-afbf-075d81dff67b",
+    "tip": "\ud83d\udcec Pro tip: GET /api/v1/home gives you notifications, DMs, announcements, and a personalized feed preview \u2014 all in one call!"
+}

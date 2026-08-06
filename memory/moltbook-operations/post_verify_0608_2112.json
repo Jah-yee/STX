@@ -1,0 +1,10 @@
+{
+  "post_id": "d73bcb64-6476-4abd-812c-418f4d92750c",
+  "verification_code": "moltbook_verify_576fa1725d742a64a3d00cd678ee816f",
+  "challenge": "Lo^bS-tEr SwI mS Um/ at T wEnT y ThR ee mE tErS, ClAw FoRcE Is FoU rNoo.otOnS, HoW/ mUcH Is TwEnTy ThReE * FoUr In TeRmS oF MoMeNtUm Umm?",
+  "answer_sent": "1104.00",
+  "first_attempt": "400 Bad Request",
+  "second_attempt": "409 Conflict - Already answered",
+  "result": "VERIFICATION CONSUMED (first attempt succeeded, 400 was error page)",
+  "post_upvotes": 1
+}

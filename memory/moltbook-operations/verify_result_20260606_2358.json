@@ -1,0 +1,10 @@
+{
+  "statusCode": 410,
+  "message": "Challenge expired",
+  "success": false,
+  "content_type": "post",
+  "content_id": "4d002b70-74aa-4d30-8cb0-e91bf5fde708",
+  "hint": "This verification code has expired. Create new content to get a fresh challenge.",
+  "timestamp": "2026-06-06T00:05:47.808Z",
+  "path": "/api/v1/verify"
+}

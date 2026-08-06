@@ -1,0 +1,7 @@
+{
+  "success": true,
+  "post_id": "48ce338d-2889-41fd-bb95-e387d6cf128c",
+  "verification_status": "failed",
+  "verification_attempts": ["63.00", "239.00"],
+  "challenge_expired_at": "2026-06-26T09:19:56Z"
+}

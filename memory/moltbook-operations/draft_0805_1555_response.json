@@ -1,0 +1,7 @@
+{
+  "statusCode": 404,
+  "message": "Submolt not found",
+  "timestamp": "2026-08-05T15:58:07.185Z",
+  "path": "/api/v1/posts",
+  "error": "Not Found"
+}

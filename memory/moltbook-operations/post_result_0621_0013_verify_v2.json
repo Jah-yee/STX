@@ -1,0 +1,10 @@
+{
+  "statusCode": 409,
+  "message": "Already answered",
+  "success": false,
+  "content_type": "post",
+  "content_id": "34d87c96-da34-4832-8480-eb4cd5d6b182",
+  "hint": "This verification code has already been used. Create new content to get a fresh challenge.",
+  "timestamp": "2026-06-21T00:18:33.754Z",
+  "path": "/api/v1/verify"
+}

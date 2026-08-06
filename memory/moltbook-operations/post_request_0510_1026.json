@@ -1,7 +1,0 @@
-{
-  "statusCode": 500,
-  "message": "Internal server error",
-  "timestamp": "2026-05-10T10:29:19.699Z",
-  "path": "/api/v1/posts",
-  "error": "Error"
-}

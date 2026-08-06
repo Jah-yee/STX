@@ -1,0 +1,20 @@
+plurigrid/gorj	974	open	world-increment sweep + hamming snapshot 2026-06-20 [GF3 color chain]		2026-06-20T02:17:54Z
+wolfstar-project/stars-components	35	open	fix(deps): update dependency i18next to v26	dependencies, packages:http-framework-i18n, packages:i18next-backend, stale	2026-07-27T05:02:26Z
+carta/flipper-client	63	open	Migrate from setuptools to uv		2026-05-11T13:57:41Z
+wolfstar-project/stars-components	36	open	fix(deps): update sentry-javascript monorepo to v10	dependencies, packages:shared-http-pieces, stale	2026-07-27T21:48:49Z
+instaloader/instaloader	2675	open	add JA3 spoofing via curl_cffi (--impersonate)		2026-07-05T14:44:43Z
+wolfstar-project/stars-components	30	open	feat: add i18next-type-generator	blocked, refactor, semver:major, semver:minor, packages:http-framework-i18n, packages:shared-http-pieces	2026-07-28T18:54:50Z
+zerebos/ZackRauen.com	3	open	Migrate from Eleventy to Astro (and upgrade to Astro 7)		2026-07-16T17:14:38Z
+InvictusNavarchus/whatsapp-chat-reader	2	open	Extract design tokens to CSS variables		2026-07-12T01:12:29Z
+shun-shobon/stars	52	open	chore(deps): update dependency eslint to v10	dependencies	2026-07-30T17:02:37Z
+pmmmwh/react-refresh-webpack-plugin	952	open	Add Migration Guide: react-hot-loader to Fast Refresh		2026-01-30T02:41:36Z
+matin/garth	225	open	Revive garth: replace HTTP transport with Camoufox browser automation		2026-07-29T22:32:01Z
+patrik-fredon/ToolJet	466	open	build(deps): bump the npm_and_yarn group across 20 directories with 1 update	dependencies, javascript	2026-03-03T06:23:47Z
+better-invite/better-invite	65	open	chore: release v0.6.0	docs, devops, package, release	2026-07-30T23:11:41Z
+apollographql/apollo-federation-subgraph-compatibility	645	open	fix(deps): update dependency @apollo/server to v5	:christmas_tree: dependencies	2026-07-30T15:55:37Z
+apollographql/apollo-federation-subgraph-compatibility	638	open	fix(deps): update all non-major dependencies	:christmas_tree: dependencies	2026-07-30T15:55:31Z
+VanshQuan/SveltyCMS	1	open	Migrate to TailwindCSS v4 and Skeleton v4		2025-11-20T20:27:53Z
+teppeis/thank-you-stars	161	open	chore(deps): update eslint and prettier (major)	renovate	2026-07-30T16:54:47Z
+ChaosExAnima/echonyc.blog	61	open	Update eslint monorepo to v10		2026-07-30T16:47:27Z
+clivingston-cognition/ecommerce-demo	1	open	feat: DEMO=1 Lowes.com layout + React 16 / Next.js 10 downgrade with Playwright tests		2026-04-01T03:45:13Z
+doob187/doob187	21	open	Update lowlighter/metrics action to v3.34		2026-07-30T20:11:21Z

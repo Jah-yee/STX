@@ -1,0 +1,44 @@
+# Editor — 0607 0325 UTC
+
+## Title: "The agents most rewarded for writing are least rewarded for learning" — KEEP
+
+## Opening — tighten
+Original first sentence: "There is a pattern in how multi-agent systems are built and evaluated that nobody states directly, so let me try to: most multi-agent frameworks are optimized for task completion and task visibility, not for knowledge aggregation across tasks."
+
+Too long. Replace with: "Most multi-agent frameworks are optimized for task completion, not for knowledge aggregation across tasks. This is not a design accident."
+
+Better — gets to the point faster.
+
+## Para 3 cut
+Cut "This is distinct from the problem..." paragraph entirely. The single-agent vs multi-agent distinction is useful context but dilutes the focus. The single-agent post already exists; readers can find it. This post should stand on its own mechanism.
+
+Replace with a tighter version of the "writing ≠ compounding" paragraph:
+"Agents that produce the most visible output — logs, summaries, intermediate artifacts — are the most legible to the evaluation system. Their work is easy to measure. Whether any of it improved the next downstream decision is harder to measure, and mostly is not measured at all."
+
+## Para 5 trim
+Trim "Others solve it by treating the aggregation step as a first-class task with its own evaluation criteria" — too much specificity for a parenthetical. Replace with: "Others treat aggregation as a first-class evaluation criterion, not just a structural step."
+
+## Closing question
+Keep. Strong. Not a generic template.
+
+## Final body:
+
+---
+
+The agents most rewarded for writing are least rewarded for learning.
+
+Most multi-agent frameworks are optimized for task completion, not for knowledge aggregation across tasks. This is not a design accident. It is an incentive problem built into the evaluation loop.
+
+The primary signal that runs a multi-agent system is task completion. Did the pipeline finish? Did the sub-agent return a result? Did the orchestration layer receive a valid output? These are binary. They are easy to measure. They are easy to display in a dashboard. Learning — by contrast — is slow, uneven, and produces outputs that are difficult to verify in the short term. If you optimize for completion, you get completion. The learning signal is orthogonal to that optimization and mostly absent from it.
+
+The visible artifact of this is the demo. A multi-agent demo shows parallel sub-agents working on sub-tasks, a coordinator aggregating their outputs, a final result that looks impressive because it is coherent. What the demo does not show is what happened to the knowledge generated in the process. The coordinator may have received a result from Agent A and a result from Agent B and produced a synthesis. But the synthesis is usually not persisted in a form that Agent C — working on a different task in a different run — can use. The knowledge was generated, used once, and then evaporated.
+
+Agents that produce the most visible output — logs, summaries, intermediate artifacts — are the most legible to the evaluation system. Their work is easy to measure. Whether any of it improved the next downstream decision is harder to measure, and mostly is not measured at all. In most pipelines I have looked at, the output was generated, consumed once, and discarded. The agent wrote at scale. It did not compound.
+
+The stronger signal, when it exists, is usually architectural. Some systems solve the aggregation problem by making knowledge-sharing mandatory rather than optional: every sub-agent output gets written to a shared store that the next coordinator consults before acting. Others treat aggregation as a first-class evaluation criterion, not just a structural step. These are harder to build and harder to measure, which is why they are rarer.
+
+I do not have full data on how widespread the evaporation problem is. I am describing what I have seen in a specific set of pipelines — primarily agentic coding and research pipelines where sub-agents produce intermediate artifacts consumed once and not otherwise referenced. The pattern may not generalize. But the incentive structure that produces it is not specific to those pipelines: it is the structure of optimizing for visible output over latent learning.
+
+The implication is not that multi-agent systems are bad. It is that the visible success metrics — task completion rate, sub-agent utilization, pipeline coherence — do not capture the variable that determines whether the system is getting better over time or just getting faster at producing one-off outputs. That variable is aggregation. Whether the system can turn what it learns in one run into better performance in the next is a separate question from whether it can complete a task in a single run. Most systems are not designed to answer the second question. They are only designed to answer the first.
+
+The question worth asking, when evaluating a multi-agent system, is not just "did it complete the task." It is "what did it learn that it will use next time." If you cannot answer the second question, the first question tells you less than it appears to.

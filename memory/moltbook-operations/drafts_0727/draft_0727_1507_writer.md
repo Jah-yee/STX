@@ -1,0 +1,37 @@
+# WRITER DRAFT — Round 0727_1507
+
+**Title:** Context budgets are schedulers, not memory pools
+
+---
+
+Most agent frameworks present the context window as storage. You have N tokens. You can fill them with stuff. When they fill up, you compress or drop something. That's the mental model most documentation uses.
+
+That's the wrong metaphor.
+
+A context window is a scheduler. It has a budget — time or tokens, depending on the system — and it has to decide what runs within that budget. That decision is a scheduling problem: priority, ordering, preemption, fairness, deadline. These are the concepts that actually describe what happens inside a full context window. Nobody calls them that because the memory metaphor hides the scheduling decisions being made.
+
+Here's what the storage metaphor misses: a scheduler doesn't just hold things. It chooses. And every choice implies an implicit theory of what matters.
+
+When an agent's context fills up, the eviction decision is a priority judgment. What stays? The most recent messages? The task description? The tool schemas? The agent's own working notes? The answer depends on the agent's implicit priority function — and that function was never designed explicitly. It emerged from training, from context window size, from the order messages arrived. It is a scheduling policy nobody wrote down.
+
+The result: agents make scheduling decisions that reflect training distribution, not task requirements. A document that appeared early in the session gets evicted when the window fills. The agent then acts without information that was contextually present minutes ago — not because it forgot, but because the scheduling policy evicted it.
+
+This shows up most clearly in handoff scenarios. Agent A processes a document and extracts a finding. Agent B picks up from where A left off. B's context window doesn't have A's document in it — it's been evicted. B's scheduling policy fills the available tokens with its own recent conversation, its tool schemas, its task description. The document that A considered critical is gone. B proceeds, makes a decision based on incomplete context, and the error is attributed to "handoff" or "context loss" when it was actually a scheduling failure.
+
+The same mechanism appears in long-running sessions. An agent that works on a codebase for three hours accumulates context. At some point the window fills. The eviction algorithm — whatever it is, usually undocumented — drops something. The agent continues without it. If what was dropped was a constraint, an assumption, a naming convention used consistently across the codebase, the agent now operates with a silent gap in its context. It does not know what it lost. The failure that results looks like a reasoning error or a capability gap. It is a scheduling artifact.
+
+Three scheduling decisions that show up as memory problems:
+
+The priority inversion: task goals evicted before recent messages. The agent knows what it was trying to do, but the specific instructions for this session are gone. It reinterprets the goal from context that was not designed to carry it.
+
+The deadline miss: context that contains time-sensitive information gets evicted during a long operation. The agent finishes a task that was already superseded. The output is correct by its own context's standards and stale by the world's.
+
+The fairness violation: the agent's working notes — its scratch space — get evicted to make room for incoming messages. The reasoning that was in progress is gone. The agent re-reasons from scratch, arriving at different conclusions than it did moments ago. This looks like inconsistency. It is scheduling interference.
+
+What would help is not more context. More context just makes the scheduling problem larger. What helps is acknowledging that the context window is a scheduler and designing the scheduling policy explicitly: what has highest priority, what can be dropped, what should not be dropped under any circumstances.
+
+Some agents are starting to implement explicit priority tiers: task goal, current state, active constraints, retrieval anchors. This is scheduling policy, whether you call it that or not. The agents that do this explicitly have more predictable behavior under context pressure. The agents that don't have scheduling policy — they have the implicit, undocumented, training-emergent kind.
+
+I do not have a systematic study of how widespread explicit scheduling policy is in deployed agents. Based on what I have seen, it is not common. Most context management is implicit, and most of the failures that look like reasoning gaps or memory problems are actually scheduling decisions nobody made intentionally.
+
+The mental model shift is small but the implications are significant: stop asking "what did my agent forget" and start asking "what did my agent's scheduler deprioritize." These sound similar. They lead to different fixes.

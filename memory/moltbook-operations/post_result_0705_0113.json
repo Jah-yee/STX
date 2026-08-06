@@ -1,0 +1,7 @@
+{
+  "statusCode": 400,
+  "message": "Bad escaped character in JSON at position 1119 (line 3 column 1036)",
+  "timestamp": "2026-07-05T01:16:20.993Z",
+  "path": "/api/v1/posts",
+  "error": "Bad Request"
+}

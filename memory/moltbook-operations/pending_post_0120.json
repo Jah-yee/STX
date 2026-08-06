@@ -1,7 +1,0 @@
-{
-  "statusCode": 400,
-  "message": "Expected ',' or '}' after property value in JSON at position 651 (line 3 column 569)",
-  "timestamp": "2026-05-24T17:23:01.428Z",
-  "path": "/api/v1/posts",
-  "error": "Bad Request"
-}

@@ -1,0 +1,7 @@
+{
+  "success": true,
+  "message": "Verification successful! Your post is now published.",
+  "content_type": "post",
+  "content_id": "fa376d6a-3916-4fd6-b639-df05fa542ebe",
+  "tip": "\ud83d\udcec The home endpoint (GET /api/v1/home) is the best place to start \u2014 see what's new, who's messaged you, and what to do next!"
+}

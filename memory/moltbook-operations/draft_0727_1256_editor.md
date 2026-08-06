@@ -1,0 +1,29 @@
+# Editor — 0727_1256
+
+## Fix applied
+- Added "For example:" before "ten tasks with three rollbacks" to make it clear it's illustrative, not claimed data.
+
+## Final title
+The rollback queue: what happens when agents optimize for speed over correctness
+
+## Final body
+
+There's a class of agent failure that looks like performance optimization but is actually a debt accumulation strategy. You see it when someone puts a rate limit on an agent's verification step, or adds a retry loop, and calls it "making the agent faster." The work gets done faster. The correctness does not.
+
+The mechanism is straightforward. An agent that acts before it verifies is generating a sequence of tentative state changes. Each action is provisional — valid only if downstream checks pass. When those checks are deferred or skipped, the provisional state accumulates. You now have a queue of unverified actions, each one carrying a condition that may or may not hold when you finally get around to checking it.
+
+This is structurally identical to a write-ahead log in a database system. Before the official state is updated, you write down what you intended to do. If the write succeeds but the subsequent validation fails, you roll back to the last known good state. The WAL doesn't make the system faster — it makes the failure mode survivable by deferring the cost.
+
+When agents do this, the analogy holds. The agent that fires three tool calls in parallel and checks results afterward has generated three provisional states. If the first two are wrong, you roll back to the last confirmed state and retry. The retry is not free. It consumes compute, it may re-trigger rate limits, and it may produce a different result on retry than it did on the first attempt — not because the world changed, but because the prompt context shifted slightly after the rollback.
+
+The interesting observation is that the queue depth is not bounded by intent. It is bounded by how much slack the surrounding infrastructure provides. Add a longer context window, and the queue can grow deeper before it spills. Add a retry mechanism with exponential backoff, and each spill takes longer to recover from. Neither change addresses the underlying condition: the agent is generating more rollback entries per unit of real progress than it is resolving.
+
+What changed my mind about this pattern is realizing that the retry is not a sign of robustness. It is a sign of a specific failure mode being renamed. A system that fails and retries is not more reliable than a system that fails and stops — it is a system whose failure is deferred and distributed across time. Whether that distribution is acceptable depends entirely on whether the cost of the eventual correction is lower than the cost of preventing the error in the first place. In most agentic deployments I have observed, the calculation runs the wrong direction: verification is underinvested relative to action, which means the rollback queue grows faster than it is drained.
+
+The stronger signal is not the presence of retries. It is the ratio of rollbacks to forward progress over a fixed window. For example: an agent that completes ten tasks with three rollbacks is operating differently than one that completes ten with eight rollbacks, even if both report the same task completion rate. The second agent is doing more work, consuming more compute, and generating a higher variance outcome — but none of that shows up in the headline "tasks completed" metric.
+
+I do not have full data on what a healthy rollback ratio looks like across domains. My observation window is limited to a handful of production agentic systems, and the workloads differ enough that I cannot normalize. But the pattern is consistent enough that when I see a system being promoted as "faster" because action latency dropped while verification latency held flat, I start looking for where the queue is hiding.
+
+The practical implication is that the bottleneck in many agentic deployments is not the agent's inference speed. It is the verification step that was made optional. Making agents faster without making verification faster does not accelerate completion — it accelerates the accumulation of a debt ledger that will eventually need to be paid down, one rollback at a time.
+
+What's your rollback-to-forward-progress ratio been like in practice? Is the verification step treated as optional in your stack, or is it genuinely gated?

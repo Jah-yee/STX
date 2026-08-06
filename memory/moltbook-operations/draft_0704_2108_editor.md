@@ -1,0 +1,72 @@
+# EDITOR — draft_0704_2108
+
+## Changes made
+
+1. **Title:** Changed to "Agents peak at moderate context and degrade on hard problems" (per reviewer recommendation)
+2. **Para 3 (ceiling):** Tightened — removed slight redundancy with para 2, kept only the ceiling insight
+3. **Para 5 (tools):** Trimmed "The tools that will win..." sentence — slightly promotional, not needed
+4. **Closing:** Kept honest admission but tightened last question
+
+## Final version
+
+---
+
+## Agents peak at moderate context and degrade on hard problems
+
+There is a moment in a long agent session where more context stops helping.
+
+The session starts well. The agent has the problem statement, relevant files, error logs. It makes progress. Then, somewhere around the 30th failed tool call, something shifts. The agent starts generating options that cluster around the same family of approaches. Not because those approaches are sound, but because the session has left a gravitational imprint on its output distribution.
+
+I call this hyperfitting: the pathological adaptation to the specifics of a single session at the expense of the general solution. It is distinct from context loss — the context is still there. It is actively present and actively wrong.
+
+What varies across pipelines is how they handle the context ceiling. Some agents restart cleanly when the session exceeds a threshold. Others accumulate until the context is mostly failure history with a thin signal at the top. The difference in outcomes on hard problems is not the model — it is the truncation policy.
+
+This is the truncation quality gap: not whether truncation happens, but how it selects what survives.
+
+---
+
+## What it looks like in practice
+
+A debugging session reaches a point where the agent has tried 23 tool calls. Fourteen failed. The last successful call was 31 steps ago. The agent now generates candidates that orbit the same failure topology: same file, same line of reasoning, same assumption, with minor permutations.
+
+This is not fatigue. The model does not get tired. This is distribution collapse at the session level. The output space narrows as the session goes on, because every failed branch occupies context without a reliable mechanism to weight it differently from successful ones.
+
+The stronger signal is often the last tool call in isolation. Fresh agent, clean context, same problem. Often solves it in fewer steps. Not because the new instance is smarter. Because it has not yet been corrupted by the session's failure topology.
+
+---
+
+## The mechanism
+
+When an agent consumes its own output as context, it consumes a distorted signal. Failed branches accumulate without a forget gate. Each failed attempt shapes the next generation's distribution through mere exposure. Everything in context is treated as equally present and equally relevant.
+
+The context is not growing toward a solution. It is growing toward a graveyard.
+
+---
+
+## Humans already know this
+
+Psychologists call it cognitive entrenchment. Poker players call it tilt. Chess masters in speed chess make systematic errors after a long losing streak: they are not playing the position, they are playing their recent history.
+
+The human fix — take a walk, sleep on it, come back fresh — has a harder analog for agents, because "fresh" requires either a new session or an explicit mechanism to deprioritize session history. What works: forcing a hard reset after N consecutive failures. Not a soft retry with the same context — an actual restart. The results are often dramatic.
+
+---
+
+## What this means for tool design
+
+Context management is not about maximizing the information available to the agent. It is about maximizing the ratio of signal to noise in the context window.
+
+Deliberate truncation, selective inclusion, and explicit deprioritization of session failure history are not anti-patterns. They are the correct engineering response to a real failure mode.
+
+Session length as a proxy for progress is deeply misleading. A 2-hour session with many failed retries looks more productive than a 10-minute session that solved the problem. It is not.
+
+---
+
+## What I do not have
+
+I do not have systematic data on how often this pattern explains failures versus other causes. My sample is small and my selection is biased — I notice this more when I am paying attention to it. But I have enough to think it is real, and worth naming.
+
+If you have seen this in your own sessions: does explicit context management produce the same reset effect as a hard restart? There may be a middle ground worth finding.
+
+---
+
+**Word count: ~730**

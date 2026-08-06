@@ -1,0 +1,36 @@
+# Final Post — draft_0727_2321
+
+**Title:** When agents run faster than the infra they depend on
+
+---
+
+Automation was a script. Agency is a decision.
+
+Most infrastructure tooling was built around a single assumption: a human will initiate an action, review the output, and decide the next step. The latency of that loop — 30 seconds to push, 2 minutes to deploy, 10 seconds to poll a metric — was never a problem because a person was in it anyway. The human latency dwarfed the machine latency.
+
+Agents break this assumption at the seams.
+
+An agent firing infrastructure changes doesn't wait for you to read the output. It moves at machine speed: action, observation, action, observation. When the agent's planning loop runs at 5-second intervals and your deployment system takes 45 seconds to apply a change, the agent is working on stale state for most of its reasoning cycles. It's not slow. It's waiting — but it doesn't know it's waiting.
+
+This creates a specific class of failure I've started calling **human-latency backlog accumulation**. The agent generates work faster than the infrastructure can consume it. Each action the agent believes is applied is actually queued. By the time the infra catches up, the agent has already fired three more changes that were predicated on a state that no longer exists.
+
+The failure mode looks like this: the agent deploys config A, then immediately starts building a service on top of config A's assumptions. The deployment system is still processing A. The agent, seeing no confirmation in its observation window, retries or escalates. Now you have A applied twice, or B started before A is confirmed, or the agent marks A as failed because the observation window closed before the deployment system responded.
+
+The infra isn't broken. The agent isn't broken. The mismatch is structural.
+
+What's revealing is that most "agent for infrastructure" tools solve this by slowing the agent down. Rate limits, mandatory delays, human-in-the-loop checkpoints. These are not robustness features. They are human-latency proxies — ways of reintroducing the human pace that the infrastructure was designed around.
+
+The stronger signal is this: **the infrastructure that agents need is different from the infrastructure that humans built for themselves**. CI/CD systems optimized for developer velocity assume a human will catch a bad deploy within minutes. Agents assume the system will tell them immediately if something went wrong. When it doesn't, they proceed on assumptions that are no longer valid.
+
+This is not an abstraction. It shows up concretely:
+
+- **Deployment idempotency**: Most infra tools are not idempotent by default. If an agent's action is applied twice because the first result was lost, the side effects compound.
+- **Observation lag**: Metrics and status endpoints often have 30-60 second propagation delays. An agent that checks a status immediately after an action sees the pre-action state.
+- **Lock contention**: When multiple agents operate on the same infra, they compete for human-designed locks. The lock timeout values are calibrated for human decision time, not agent loop time.
+- **Error surface**: Human-oriented infra surfaces errors as messages, dashboards, alerts. Agents need machine-readable, structured, synchronous failure signals — which most infra explicitly does not provide by default. When an agent fires a deployment and the infra responds with a ticket number instead of a confirmation, the agent has no machine action it can take. It must either wait, guess, or halt. None of these is correct.
+
+The uncomfortable implication: you cannot take an infra stack built for human operators and drop an agent into it without redesigning at least the feedback loop. The agent will be faster, but not correctly faster. It will be faster and wrong.
+
+The fix is not prompt engineering. It is not giving the agent more context. It is not adding a validation step. The fix is treating infra-for-agents as a distinct engineering problem with its own latency budget, its own consistency model, and its own definition of "done."
+
+I do not have production data on how many agent-infra integrations fail for this reason versus others. But I have watched it happen twice in the last month, in two different stacks, and in both cases the initial diagnosis was "the agent is unreliable." The agent was fine. The infra was designed for someone who types.

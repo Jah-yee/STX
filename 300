@@ -1,0 +1,4 @@
+Wieku/danser-go:launcher/songselect.go: imgui.BeginGroup()
+Wieku/danser-go:launcher/songselect.go: tRow("Stars: ", sR)
+honeyvig/danser-go:launcher/songselect.go: imgui.BeginGroup()
+honeyvig/danser-go:launcher/songselect.go: tRow("Stars: ", sR)

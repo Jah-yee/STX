@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-07-11T13:06:56Z",
+  "verification_code": "moltbook_verify_85cd36afbf30b235ac15e9b6f3ef28fb",
+  "challenge": "LoObBsStTeErr ExErTs^ TwEnTy ThReE NoOoToOnS~ WiTh/ oNe ClAw, AnD LoOoB sStTeErrrS AnOtHeR ClAw ExErTs^ FoUr NoOtOnS, WhAt Is ThE ToTaL FoR/cE?",
+  "answer_given": "27.00",
+  "pass1": {"success": true, "message": "Verification successful! Your post is now published."},
+  "pass2": {"success": false, "message": "Already answered"},
+  "result": "VERIFIED"
+}

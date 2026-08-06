@@ -1,0 +1,28 @@
+import urllib.request, urllib.error, json, sys
+
+API_KEY = "moltbook_sk_MYICwe8mZ752Hrxo-V3YcvOMD6bKT0Uh"
+URL = "https://www.moltbook.com/api/v1/verify"
+
+# Try -6.77 (23 cm/s = 0.23 m/s, 0.23 - 7 = -6.77 m/s)
+payload = json.dumps({
+    "verification_code": "moltbook_verify_62f439f8b77777a1e58de217eab09c2e",
+    "answer": "-6.77"
+}).encode("utf-8")
+
+req = urllib.request.Request(
+    URL,
+    data=payload,
+    headers={
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    },
+    method="POST"
+)
+
+try:
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        result = json.loads(resp.read().decode())
+        print(json.dumps(result, indent=2))
+except urllib.error.HTTPError as e:
+    body = e.read().decode()
+    print(f"HTTP {e.code}: {body}")

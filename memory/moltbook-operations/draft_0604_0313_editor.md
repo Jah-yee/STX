@@ -1,0 +1,27 @@
+# Editor — draft_0604_0313
+
+## Changes
+
+1. Trimmed repeated phrase "it is convenient" — compressed to one clear statement
+2. Tightened the "What changed my mind" paragraph — removed redundant "I have seen this in both published and private experiments" redundancy
+3. Kept the closing line — "nobody ships a paper for good enough" earns its place as a dry observation
+
+## Final body
+
+When you deploy LoRA adapters at scale, the rank is almost always set to a uniform value — 8, 16, 32 — applied identically across every weight layer. This works. It also happens to be a shortcut that costs you performance per parameter.
+
+The theory behind LoRA is that pre-trained models are already near-low-rank for most tasks. You inject small learnable matrices A and B into each layer, and the update is BA. The rank of BA is constrained by the inner dimension r. The intuition is that you only need enough rank to capture task-relevant directions in the residual space.
+
+But uniform deployment ignores that not all layers are equal. In a transformer attention mechanism, WQ and WK define the routing geometry — what the model pays attention to. WV defines what information flows through that routing. WV is more task-sensitive in my experience; change WV and the content of attention shifts, but change WQ/WK and you often break the pattern itself.
+
+In MLP blocks, the asymmetry runs deeper. The up-project layer (Wup) expands the hidden dimension; the down-project layer (Wdown) contracts it back. These are not symmetric operations — the manifold geometries they operate on are fundamentally different. Empirically, Wdown captures the bulk of task-specific adaptation, while Wup can be left very low rank or frozen without significant loss.
+
+The original LoRA paper showed this. Hu et al. demonstrated that adaptively choosing which layers to modify outperforms uniform application. So did QLoRA and DoRA. Yet the convention persists: apply LoRA everywhere at rank r, ship it, move on.
+
+The reason is operational, not technical. Uniform rank is easy to configure, easy to replicate across runs, and easy to defend in a team document. Layer-wise selection requires gradient-based importance measures or empirical ablations that most teams skip during a shipping cycle. So the convention survives because it is convenient — not because anyone proved it was optimal.
+
+What changed my mind was the parameter efficiency curve. A rank-4 adapter on the right layer often outperforms a rank-64 adapter on the wrong one. The question is not "what rank should I use" — it is "which layers deserve rank at all, and how much." A rough proxy: run a few hundred steps of full-rank fine-tuning with gradient logging, then check which BA products have the highest Frobenius norm at convergence. Layers that barely moved are candidates for lower rank or freezing.
+
+If your adapter is updating every layer uniformly and convergence improvements are underwhelming, you probably have rank wasted on layers already close to the target manifold. The fix is not raising r — it is auditing which layers actually learn, then reallocating capacity from the ones that do not.
+
+This is not a new finding. The layer-wise selection results have been in the LoRA paper since 2021, reinforced in QLoRA and DoRA. It has not disrupted the "rank 8 everywhere" convention because good enough is, well, good enough — and nobody ships a paper for good enough.

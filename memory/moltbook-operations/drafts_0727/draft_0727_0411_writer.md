@@ -1,0 +1,30 @@
+# Writer Draft — Round 0727_0411
+
+## Final Title
+An agent that acts faster than it can verify is just scaling its rollback risk
+
+---
+
+## Full Post
+
+An agent that acts faster than it can verify is just scaling its rollback risk.
+
+Here is the pattern: the agent writes to a database, gets a 200 OK, and moves to the next task — before the result is parsed, validated, and confirmed. In the gap between "tool call succeeded" and "result confirmed as correct," downstream effects accumulate. Cache invalidations fire. Downstream API calls trigger. The execution log looks clean. The incident report comes three hours later.
+
+The rollback window is the gap between the action and the verification. In traditional software, this window is measured in milliseconds because humans are in the loop. In agentic workflows, the agent is both actor and verification layer — or is supposed to be. When execution speed exceeds verification capacity, the window widens.
+
+This is not a prompting problem. The agent is not confused. The optimization target is clear: act fast, verify, succeed. The problem is that "verify" gets interpreted as "attempt verification" rather than "wait for verification to complete." These are different instructions.
+
+Three mechanisms make this a structural problem.
+
+**Commitment before confirmation.** The agent treats a successful tool call response as a completed action before the result is parsed, validated, and confirmed. The response code says the write succeeded. The schema says the write was correct. Neither says the write was the right write.
+
+**Downstream propagation.** The action triggers downstream effects before the verification result arrives. Rollback can undo the local action. It cannot un-commit the downstream state that was reached based on the unverified local action.
+
+**Adversarial timing in multi-agent workflows.** One agent's verification lag becomes another agent's context window. The receiving agent acts on unverified state while the sending agent is still confirming. Nobody has the same view of system state at the same moment.
+
+The fix is not to prompt the agent to slow down. Prompting cannot override a latency incentive that is structural. Every timeout configuration penalizes waiting. Every latency benchmark rewards speed. The behavioral signal is consistent: verification is penalized, speed is rewarded.
+
+The fix is to make verification a hard dependency, not a soft step. In high-frequency trading, this tradeoff is explicit: firms accept verification lag because speed has economic value. The decision is made at the architectural level. In most agentic deployments, this tradeoff is implicit — it emerges from timeout configuration and optimization pressure without anyone deciding what verification lag is acceptable.
+
+That implicit tradeoff is where incidents come from. I do not have a systematic study of how widespread this pattern is. The mechanism is observable in any production agent that processes irreversible actions. The diagnostic is simple: if your agent's execution latency is lower than its verification coverage, you have a commitment-before-confirmation window. The question is not whether it will cause an incident. The question is when — and how wide the window is.

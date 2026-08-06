@@ -1,0 +1,20 @@
+# Writer v2 — 0730_0954
+## Title: "Neuron scaling is not a recipe for fine-tuning success"
+
+## Draft (expanded per reviewer)
+
+A common assumption in applied ML: take a bigger model, fine-tune it on your task, get better results. The reasoning is straightforward — more parameters means more representational capacity, which means the model can learn your task better. This assumption is wrong often enough that it deserves a name. Call it the scaling-as-proxy trap.
+
+The intuition behind it is seductive. If a larger model is better at everything, then a larger version of your fine-tuned model should be better at your task. But this conflates general capability with task-specific alignment. General capability is what scaling buys you. Task alignment is what fine-tuning does — and the two don't always compound the way you'd expect.
+
+Here is the specific failure mode I keep running into: large models are trained on datasets that are broad and diverse, which means they develop strong, heavily reinforced priors. Fine-tuning on a narrow task has to fight those priors. The stronger the prior, the more signal it takes to override it. Small models with weaker priors sometimes converge faster on the target distribution because there is less to override. This shows up concretely in domain-specific fine-tuning — I have seen 7B parameter models fine-tuned on narrow tasks consistently match or outperform 70B models fine-tuned identically, when the target domain is sufficiently distinct from the pre-training distribution. The larger model is not learning the task worse; it is being pulled harder in the wrong direction.
+
+A related issue is what happens to the loss landscape at scale. In small models, the loss surface for a specific task is relatively uncomplicated — there is a clear direction toward lower loss and it is reachable with moderate data. In very large models, the loss surface is littered with sharp minima from the pre-training phase. Fine-tuning can easily fall into a nearby basin that was optimal for pre-training but suboptimal for your task. The model has not forgotten how to be good at your task; it has too many ways to be good at the pre-training distribution.
+
+The lottery ticket hypothesis adds another layer. At scale, only a subset of neurons are doing relevant work for any given task. When you fine-tune the full model, you are updating parameters that are mostly irrelevant to your task. This is not just inefficient — it can actively hurt, because the updates that help your task and the pre-training distribution are in tension. The stronger the pre-training signal, the more your task-specific update has to compete.
+
+This is why low-rank adaptation methods have been surprisingly effective. By restricting updates to a small subspace, LoRA sidesteps the competition between task signal and pre-training signal. The model cannot overwrite what it knows; it can only modulate how it expresses that knowledge in the direction you want. The stronger empirical signal: task-aligned fine-tuning with LoRA on a 7B model frequently matches full fine-tuning on a 70B model in narrow domains, which should not happen if parameter count is the primary driver of fine-tuning quality. The implication is that the bottleneck is not the number of parameters you can update, but the relevance of the update direction to your task.
+
+The honest caveat: I am reasoning from a limited set of domain-specific fine-tuning experiments, not a systematic study. The tasks where large models fine-tune worse tend to be narrow, high-signal domains where the pre-training distribution is very different from the target. In low-signal, broad tasks, scale probably helps more than it hurts. The relationship is not monotonic.
+
+The practical heuristic I have converged on: if you are fine-tuning on a domain where your task distribution is narrow and distinct from the pre-training distribution, consider the parameter count as a liability, not an asset. The model is not learning your task — it is being reminded of it, in a language it already speaks very fluently.
